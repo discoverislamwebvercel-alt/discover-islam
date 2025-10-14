@@ -8,6 +8,7 @@ import Textarea from '@/components/common/Textarea';
 import Select from '@/components/common/Select';
 import * as Yup from 'yup';
 import Button from '@/components/common/Button';
+import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
 
 // Validation schema for partnership form
 const partnershipFormSchema = Yup.object({
@@ -102,105 +103,108 @@ const PartnerWithUsPage: React.FC = () => {
   };
 
   return (
-    <FundraisePageComponent
-      title='Partner with Us'
-      titleClassName='text-[#111111]'
-      description="Strong partnerships build strong communities. Discover Islam welcomes collaboration with individuals, organizations, and institutions that share our vision of education, understanding, and unity. Let's work together on meaningful projects and new initiatives."
-    >
-      <FormikForm
-        initialValues={initialValues}
-        validationSchema={partnershipFormSchema}
-        onSubmit={handleSubmit}
+    <>
+      <FundraisePageComponent
+        title='Partner with Us'
+        titleClassName='text-[#111111]'
+        description="Strong partnerships build strong communities. Discover Islam welcomes collaboration with individuals, organizations, and institutions that share our vision of education, understanding, and unity. Let's work together on meaningful projects and new initiatives."
       >
-        {/* Organization Information */}
-        <Input
-          name='organizationName'
-          label='Organization/Company Name (or indicate if an individual)'
-          placeholder='Enter Organization/Company Name (or indicate if an individual)'
-          required
-        />
+        <FormikForm
+          initialValues={initialValues}
+          validationSchema={partnershipFormSchema}
+          onSubmit={handleSubmit}
+        >
+          {/* Organization Information */}
+          <Input
+            name='organizationName'
+            label='Organization/Company Name (or indicate if an individual)'
+            placeholder='Enter Organization/Company Name (or indicate if an individual)'
+            required
+          />
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <Select
-            name='organizationType'
-            label='Type of Organization'
-            placeholder='Choose Type of Organization'
-            options={organizationTypeOptions}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <Select
+              name='organizationType'
+              label='Type of Organization'
+              placeholder='Choose Type of Organization'
+              options={organizationTypeOptions}
+              required
+            />
+
+            <Input
+              name='contactPersonName'
+              label="Contact Person's Full Name"
+              placeholder="Enter Contact Person's Full Name"
+              required
+            />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <Input
+              name='position'
+              label='Position/Role'
+              placeholder='Enter Position/Role'
+              required
+            />
+
+            <Input
+              name='email'
+              type='email'
+              label='Email Address'
+              placeholder='Enter Email Address'
+              required
+            />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <Input
+              name='phone'
+              type='tel'
+              label='Phone Number'
+              placeholder='Enter Phone Number'
+              required
+            />
+
+            <Select
+              name='partnershipType'
+              label='Type of Partnership'
+              placeholder='Choose Type'
+              options={partnershipTypeOptions}
+              required
+            />
+          </div>
+
+          <Input
+            name='goals'
+            label='Goals for Partnership'
+            placeholder='Enter Goals for Partnership'
             required
           />
 
           <Input
-            name='contactPersonName'
-            label="Contact Person's Full Name"
-            placeholder="Enter Contact Person's Full Name"
-            required
-          />
-        </div>
-
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <Input
-            name='position'
-            label='Position/Role'
-            placeholder='Enter Position/Role'
+            name='workingTogether'
+            label='How do you see us working together?'
+            placeholder='Enter How do you see us working together?'
             required
           />
 
-          <Input
-            name='email'
-            type='email'
-            label='Email Address'
-            placeholder='Enter Email Address'
-            required
-          />
-        </div>
-
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <Input
-            name='phone'
-            type='tel'
-            label='Phone Number'
-            placeholder='Enter Phone Number'
+          <Textarea
+            name='motivation'
+            label='Why do you want to partner with Discover Islam?'
+            placeholder=''
+            rows={4}
             required
           />
 
-          <Select
-            name='partnershipType'
-            label='Type of Partnership'
-            placeholder='Choose Type'
-            options={partnershipTypeOptions}
-            required
-          />
-        </div>
-
-        <Input
-          name='goals'
-          label='Goals for Partnership'
-          placeholder='Enter Goals for Partnership'
-          required
-        />
-
-        <Input
-          name='workingTogether'
-          label='How do you see us working together?'
-          placeholder='Enter How do you see us working together?'
-          required
-        />
-
-        <Textarea
-          name='motivation'
-          label='Why do you want to partner with Discover Islam?'
-          placeholder=''
-          rows={4}
-          required
-        />
-
-        <div className='flex justify-center mt-8'>
-          <Button type='submit' className='px-12 py-3'>
-            Submit
-          </Button>
-        </div>
-      </FormikForm>
-    </FundraisePageComponent>
+          <div className='flex justify-center mt-8'>
+            <Button type='submit' className='px-12 py-3'>
+              Submit
+            </Button>
+          </div>
+        </FormikForm>
+      </FundraisePageComponent>
+      <AnimatedJourneySection />
+    </>
   );
 };
 

@@ -29,7 +29,7 @@ const FormButton: React.FC<FormButtonProps> = ({
   const isDisabled = disabled || (type === 'submit' && isSubmitting);
 
   const baseClasses =
-    'font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    'font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer';
 
   const variantClasses = {
     primary: 'bg-[#408360] hover:bg-[#357050] text-white focus:ring-[#408360]',

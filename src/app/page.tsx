@@ -3,6 +3,7 @@ import ServicesSection from '@/components/ServicesSection';
 import WhatIsDiscoverIslamSection from '@/components/WhatIsDiscoverIslamSection';
 import GetInvolvedSection from '@/components/GetInvolvedSection';
 import ExploreIslamSection from '@/components/ExploreIslamSection';
+import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <WhatIsDiscoverIslamSection />
       <GetInvolvedSection />
       <ExploreIslamSection />
+      <AnimatedJourneySection />
     </div>
   );
 }

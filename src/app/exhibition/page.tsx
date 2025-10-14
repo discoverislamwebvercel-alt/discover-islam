@@ -2,8 +2,70 @@
 
 import HeroSection from '@/components/common/HeroSection';
 import AnimatedImageSection from '../../components/common/AnimatedImageSection';
+import ResponsiveFallingCards from '../../components/ResponsiveFallingCards';
+import HostExhibition from '@/components/HostExhibition';
+import MoonSection from '@/components/MoonSection';
+import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
+import ExhibitionBookingForm from '@/components/common/ExhibitionBookingForm';
 
 export default function Exhibition() {
+  const cards = [
+    {
+      text: '10+ Years of Experience',
+      styles: 'bg-[#408360] text-white rounded-[20px]',
+      rotate: '0.26deg',
+      y: 150,
+      x: 100,
+      width: '250px',
+      icon: false,
+    },
+    {
+      text: 'Fully Mobile & Self-Contained',
+      styles: 'bg-[#408360] text-white rounded-[20px]',
+      rotate: '-6.5deg',
+      y: 10,
+      x: 770,
+      width: '300px',
+      icon: false,
+    },
+    {
+      text: 'Tailored for Non-Muslim Audiences',
+      styles: 'bg-[#111111] text-white rounded-[20px]',
+      rotate: '15.51deg',
+      y: 70,
+      x: 50,
+      width: '600px',
+      icon: false,
+    },
+    {
+      text: 'Backed by Positive feedback',
+      styles: 'bg-[#111111] text-white rounded-[20px]',
+      rotate: '5.53deg',
+      y: -70,
+      x: 250,
+      width: '380px',
+      icon: false,
+    },
+    {
+      text: 'Content Reviewed by Qualified Scholars',
+      styles: 'bg-[#CB892A] text-white rounded-[20px]',
+      rotate: '0.36deg',
+      y: 35,
+      x: 0,
+      width: '520px',
+      icon: false,
+    },
+    {
+      text: 'Interactive, Modern Displays That Engage and inspire',
+      styles: 'bg-[#CB892A] text-white rounded-[20px]',
+      rotate: '-9deg',
+      y: -180,
+      x: -550,
+      width: '330px',
+      icon: false,
+    },
+  ];
+
   return (
     <>
       <HeroSection
@@ -16,7 +78,20 @@ export default function Exhibition() {
                 authentic artifacts — that engage visitors and offer deeper
                 insight into Islamic culture and values.'
       />
+
       <AnimatedImageSection />
+
+      <ResponsiveFallingCards
+        cards={cards}
+        heading1={'Why Choose Our'}
+        heading2={'Islamic Exhibition?'}
+      />
+
+      <HostExhibition />
+
+      <MoonSection />
+      <TestimonialsSupportSection showSupport={false} />
+      <ExhibitionBookingForm />
     </>
   );
 }

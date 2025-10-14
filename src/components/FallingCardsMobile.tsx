@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { Star, Building, MessageCircleQuestion } from 'lucide-react';
 import { useRef } from 'react';
 
-export default function FallingCards({
+export default function FallingCardsMobile({
   cards,
   heading1,
   heading2,
@@ -15,6 +15,7 @@ export default function FallingCards({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+
   const renderIcon = (iconType: string | boolean) => {
     if (iconType === 'stars') {
       return (
@@ -45,20 +46,19 @@ export default function FallingCards({
   return (
     <div
       ref={ref}
-      className='relative w-full flex flex-col items-center justify-end min-h-[600px] overflow-hidden'
+      className='relative w-full flex flex-col items-center justify-center px-4 py-8 overflow-hidden'
     >
       {/* Section Heading */}
-      <div className='text-center mb-[180px]'>
+      <div className='text-center mb-8'>
         <motion.h2
-          initial={{ y: 400, opacity: 0, rotate: 0, x: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={
             isInView
               ? {
                   y: 0,
-                  x: 0,
                   opacity: 1,
                 }
-              : { y: 400, opacity: 0, rotate: 0, x: 0 }
+              : { y: 50, opacity: 0 }
           }
           transition={{
             type: 'spring',
@@ -66,23 +66,24 @@ export default function FallingCards({
             damping: 15,
             delay: 0.15,
           }}
-          className='text-black mb-4 font-extrabold text-[80px] leading-[107%] tracking-[0%] text-center'
+          className='text-black mb-4 font-extrabold text-4xl sm:text-5xl leading-[107%] tracking-[0%] text-center'
         >
           <div>
             {heading1}
             {/* Underline decoration */}
-            <div className='flex justify-center mt-2 -mb-[80px]'>
+            <div className='flex justify-center mt-2 -mb-8'>
               <svg
-                width='400'
-                height='20'
-                viewBox='0 0 400 20'
+                width='200'
+                height='15'
+                viewBox='0 0 200 15'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'
+                className='w-full max-w-[200px]'
               >
                 <path
-                  d='M10 10 Q200 2 390 10'
+                  d='M5 7.5 Q100 2 195 7.5'
                   stroke='#408360'
-                  strokeWidth='4'
+                  strokeWidth='3'
                   fill='none'
                   strokeLinecap='round'
                 />
@@ -94,45 +95,44 @@ export default function FallingCards({
         </motion.h2>
       </div>
 
-      {/* Base green bar */}
+      {/* Stacked Cards Layout for Mobile */}
+      <div className='relative flex flex-col items-center gap-4 w-full max-w-md mx-auto'>
+        {cards.map((card, i) => {
+          if (card.isTransparent) {
+            return null;
+          }
 
-      {/* Optional subtle background circle */}
-      <div className='absolute bottom-[75px] left-[55%] w-16 h-16 bg-[#BFD6C7] rounded-full opacity-60'></div>
-
-      {/* Card row */}
-      <div className='relative flex items-end justify-center gap-3 flex-wrap max-w-7xl mx-auto pb-8 z-10'>
-        {cards.map((card, i) => (
-          <motion.div
-            key={i}
-            initial={{ y: -400, opacity: 0, rotate: 0, x: card.x }}
-            animate={
-              isInView
-                ? {
-                    y: card.y,
-                    x: card.x,
-                    opacity: 1,
-                    rotate: card.rotate,
-                  }
-                : { y: -400, opacity: 0, rotate: 0, x: card.x }
-            }
-            transition={{
-              type: 'spring',
-              stiffness: 60,
-              damping: 15,
-              delay: i * 0.15,
-            }}
-            style={{
-              width: card.width,
-              padding: card.padding,
-              gap: card.gap,
-            }}
-            className={`relative gap-[10px] py-[25px] px-[27px]  shadow-lg text-center font-extrabold text-5xl md:text-lg break-words ${card.styles}`}
-          >
-            {card.icon && renderIcon(card.icon)}
-            {card.text}
-          </motion.div>
-        ))}
+          return (
+            <motion.div
+              key={i}
+              initial={{ y: 100, opacity: 0, scale: 0.8 }}
+              animate={
+                isInView
+                  ? {
+                      y: 0,
+                      opacity: 1,
+                      scale: 1,
+                    }
+                  : { y: 100, opacity: 0, scale: 0.8 }
+              }
+              transition={{
+                type: 'spring',
+                stiffness: 60,
+                damping: 15,
+                delay: i * 0.1,
+              }}
+              className={`relative w-full py-4 px-6 shadow-lg text-center font-bold text-sm break-words ${card.styles}`}
+            >
+              {card.icon && renderIcon(card.icon)}
+              {card.text}
+            </motion.div>
+          );
+        })}
       </div>
+
+      {/* Optional decorative elements */}
+      <div className='absolute top-1/2 right-4 w-8 h-8 bg-[#BFD6C7] rounded-full opacity-40'></div>
+      <div className='absolute bottom-1/4 left-4 w-6 h-6 bg-[#BFD6C7] rounded-full opacity-30'></div>
     </div>
   );
 }

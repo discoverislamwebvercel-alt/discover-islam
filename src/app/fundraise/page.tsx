@@ -8,6 +8,7 @@ import Textarea from '@/components/common/Textarea';
 import Select from '@/components/common/Select';
 import * as Yup from 'yup';
 import Button from '@/components/common/Button';
+import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
 
 // Validation schema for fundraising form
 const fundraiseFormSchema = Yup.object({
@@ -79,96 +80,99 @@ const FundraisePage: React.FC = () => {
   };
 
   return (
-    <FundraisePageComponent>
-      <FormikForm
-        initialValues={initialValues}
-        validationSchema={fundraiseFormSchema}
-        onSubmit={handleSubmit}
-      >
-        <div className='space-y-6'>
-          {/* Personal Information */}
-          <Input
-            label='Full Name'
-            name='fullName'
-            placeholder='Enter Full Name'
-            required
-          />
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+    <>
+      <FundraisePageComponent>
+        <FormikForm
+          initialValues={initialValues}
+          validationSchema={fundraiseFormSchema}
+          onSubmit={handleSubmit}
+        >
+          <div className='space-y-6'>
+            {/* Personal Information */}
             <Input
-              label='Email'
-              name='email'
-              type='email'
-              placeholder='Enter Email'
+              label='Full Name'
+              name='fullName'
+              placeholder='Enter Full Name'
               required
             />
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <Input
+                label='Email'
+                name='email'
+                type='email'
+                placeholder='Enter Email'
+                required
+              />
+              <Input
+                label='Phone Number'
+                name='phone'
+                type='tel'
+                placeholder='Enter Phone Number'
+                required
+              />
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <Input
+                label='Organization/Business (if any)'
+                name='organization'
+                placeholder='Enter Organisation / Centre Name'
+              />
+              <Select
+                label='Type of Fundraising'
+                name='fundraisingType'
+                options={fundraisingTypeOptions}
+                placeholder='Choose Type of Fundraising'
+                required
+              />
+            </div>
+
+            {/* Fundraising Details */}
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <Input
+                label='Location / City'
+                name='location'
+                placeholder='Enter Location'
+                required
+              />
+              <Input
+                label='Preferred Date(s)'
+                name='preferredDate'
+                type='date'
+                placeholder='Enter Preferred Date(s)'
+                required
+              />
+            </div>
+
+            {/* Support Details */}
             <Input
-              label='Phone Number'
-              name='phone'
-              type='tel'
-              placeholder='Enter Phone Number'
+              label='How would you like Discover Islam to support you?'
+              name='support'
+              placeholder='Resources, Promotion, Speakers, etc.'
               required
             />
+
+            <Textarea
+              label='Any additional notes or requests'
+              name='notes'
+              placeholder='Enter any additional information...'
+              rows={4}
+            />
+
+            {/* Submit Button */}
+            <div className='flex pt-4'>
+              <Button
+                className='w-[200px] text-[26px] font-extrabold'
+                type='submit'
+              >
+                Submit
+              </Button>
+            </div>
           </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Input
-              label='Organization/Business (if any)'
-              name='organization'
-              placeholder='Enter Organisation / Centre Name'
-            />
-            <Select
-              label='Type of Fundraising'
-              name='fundraisingType'
-              options={fundraisingTypeOptions}
-              placeholder='Choose Type of Fundraising'
-              required
-            />
-          </div>
-
-          {/* Fundraising Details */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Input
-              label='Location / City'
-              name='location'
-              placeholder='Enter Location'
-              required
-            />
-            <Input
-              label='Preferred Date(s)'
-              name='preferredDate'
-              type='date'
-              placeholder='Enter Preferred Date(s)'
-              required
-            />
-          </div>
-
-          {/* Support Details */}
-          <Input
-            label='How would you like Discover Islam to support you?'
-            name='support'
-            placeholder='Resources, Promotion, Speakers, etc.'
-            required
-          />
-
-          <Textarea
-            label='Any additional notes or requests'
-            name='notes'
-            placeholder='Enter any additional information...'
-            rows={4}
-          />
-
-          {/* Submit Button */}
-          <div className='flex pt-4'>
-            <Button
-              className='w-[200px] text-[26px] font-extrabold'
-              type='submit'
-            >
-              Submit
-            </Button>
-          </div>
-        </div>
-      </FormikForm>
-    </FundraisePageComponent>
+        </FormikForm>
+      </FundraisePageComponent>
+      <AnimatedJourneySection />
+    </>
   );
 };
 

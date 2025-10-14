@@ -7,6 +7,7 @@ import Input from '@/components/common/Input';
 import Textarea from '@/components/common/Textarea';
 import * as Yup from 'yup';
 import Button from '@/components/common/Button';
+import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
 
 // Validation schema for volunteer form
 const volunteerFormSchema = Yup.object({
@@ -84,127 +85,130 @@ const VolunteerPage: React.FC = () => {
   };
 
   return (
-    <FundraisePageComponent
-      title='Volunteer with Us'
-      titleClassName='text-[#408360]'
-      description="Volunteers are the heart of Discover Islam's mission. By giving your time, skills, and passion, you help us reach more people and create meaningful connections. Whatever your expertise, there is a place for you in our team!"
-    >
-      <FormikForm
-        initialValues={initialValues}
-        validationSchema={volunteerFormSchema}
-        onSubmit={handleSubmit}
+    <>
+      <FundraisePageComponent
+        title='Volunteer with Us'
+        titleClassName='text-[#408360]'
+        description="Volunteers are the heart of Discover Islam's mission. By giving your time, skills, and passion, you help us reach more people and create meaningful connections. Whatever your expertise, there is a place for you in our team!"
       >
-        <div className='space-y-6'>
-          {/* Personal Information */}
-          <Input
-            name='fullName'
-            label='Full Name'
-            placeholder='Enter Full Name'
-            required
-          />
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+        <FormikForm
+          initialValues={initialValues}
+          validationSchema={volunteerFormSchema}
+          onSubmit={handleSubmit}
+        >
+          <div className='space-y-6'>
+            {/* Personal Information */}
             <Input
-              name='email'
-              type='email'
-              label='Email'
-              placeholder='Enter Email'
+              name='fullName'
+              label='Full Name'
+              placeholder='Enter Full Name'
+              required
+            />
+
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <Input
+                name='email'
+                type='email'
+                label='Email'
+                placeholder='Enter Email'
+                required
+              />
+
+              <Input
+                name='phone'
+                type='tel'
+                label='Phone Number'
+                placeholder='Enter Phone Number'
+                required
+              />
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <Input
+                name='age'
+                type='number'
+                label='Age'
+                placeholder='Enter Age'
+                required
+              />
+
+              <Input
+                name='location'
+                label='Location / City'
+                placeholder='Enter Location'
+                required
+              />
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <Input
+                name='occupation'
+                label='Current Occupation/Profession'
+                placeholder='Teacher, Engineer, Student etc.'
+                required
+              />
+
+              <Input
+                name='skills'
+                label='Skills & Interests'
+                placeholder='Teaching, Event Mgmt, Design, Admin etc.'
+                required
+              />
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <Input
+                name='hobbies'
+                label='Hobbies'
+                placeholder='Enter Hobbies'
+                required
+              />
+
+              <Input
+                name='availability'
+                label='Availability'
+                placeholder='Weekdays, Weekends, Evenings, Flexible'
+                required
+              />
+            </div>
+
+            <Textarea
+              name='experience'
+              label='Previous Volunteer Experience (optional)'
+              placeholder='Enter Previous Volunteer Experience (optional)'
+              rows={3}
+            />
+
+            <Textarea
+              name='motivation'
+              label='Why do you want to volunteer with Discover Islam?'
+              placeholder=''
+              rows={4}
               required
             />
 
             <Input
-              name='phone'
+              name='emergencyContact'
               type='tel'
-              label='Phone Number'
+              label='Emergency Contact'
               placeholder='Enter Phone Number'
               required
             />
+
+            {/* Submit Button */}
+            <div className='flex pt-4'>
+              <Button
+                className='w-[200px] text-[26px] font-extrabold'
+                type='submit'
+              >
+                Submit
+              </Button>
+            </div>
           </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Input
-              name='age'
-              type='number'
-              label='Age'
-              placeholder='Enter Age'
-              required
-            />
-
-            <Input
-              name='location'
-              label='Location / City'
-              placeholder='Enter Location'
-              required
-            />
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Input
-              name='occupation'
-              label='Current Occupation/Profession'
-              placeholder='Teacher, Engineer, Student etc.'
-              required
-            />
-
-            <Input
-              name='skills'
-              label='Skills & Interests'
-              placeholder='Teaching, Event Mgmt, Design, Admin etc.'
-              required
-            />
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Input
-              name='hobbies'
-              label='Hobbies'
-              placeholder='Enter Hobbies'
-              required
-            />
-
-            <Input
-              name='availability'
-              label='Availability'
-              placeholder='Weekdays, Weekends, Evenings, Flexible'
-              required
-            />
-          </div>
-
-          <Textarea
-            name='experience'
-            label='Previous Volunteer Experience (optional)'
-            placeholder='Enter Previous Volunteer Experience (optional)'
-            rows={3}
-          />
-
-          <Textarea
-            name='motivation'
-            label='Why do you want to volunteer with Discover Islam?'
-            placeholder=''
-            rows={4}
-            required
-          />
-
-          <Input
-            name='emergencyContact'
-            type='tel'
-            label='Emergency Contact'
-            placeholder='Enter Phone Number'
-            required
-          />
-
-          {/* Submit Button */}
-          <div className='flex pt-4'>
-            <Button
-              className='w-[200px] text-[26px] font-extrabold'
-              type='submit'
-            >
-              Submit
-            </Button>
-          </div>
-        </div>
-      </FormikForm>
-    </FundraisePageComponent>
+        </FormikForm>
+      </FundraisePageComponent>
+      <AnimatedJourneySection />
+    </>
   );
 };
 

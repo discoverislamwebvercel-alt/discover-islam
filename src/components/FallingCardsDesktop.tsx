@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { Star, Building, MessageCircleQuestion } from 'lucide-react';
 import { useRef } from 'react';
 
-export default function FallingCards({
+export default function FallingCardsDesktop({
   cards,
   heading1,
   heading2,
@@ -15,6 +15,7 @@ export default function FallingCards({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+
   const renderIcon = (iconType: string | boolean) => {
     if (iconType === 'stars') {
       return (
@@ -94,44 +95,44 @@ export default function FallingCards({
         </motion.h2>
       </div>
 
-      {/* Base green bar */}
-
       {/* Optional subtle background circle */}
       <div className='absolute bottom-[75px] left-[55%] w-16 h-16 bg-[#BFD6C7] rounded-full opacity-60'></div>
 
-      {/* Card row */}
+      {/* Card row with original scattered layout */}
       <div className='relative flex items-end justify-center gap-3 flex-wrap max-w-7xl mx-auto pb-8 z-10'>
-        {cards.map((card, i) => (
-          <motion.div
-            key={i}
-            initial={{ y: -400, opacity: 0, rotate: 0, x: card.x }}
-            animate={
-              isInView
-                ? {
-                    y: card.y,
-                    x: card.x,
-                    opacity: 1,
-                    rotate: card.rotate,
-                  }
-                : { y: -400, opacity: 0, rotate: 0, x: card.x }
-            }
-            transition={{
-              type: 'spring',
-              stiffness: 60,
-              damping: 15,
-              delay: i * 0.15,
-            }}
-            style={{
-              width: card.width,
-              padding: card.padding,
-              gap: card.gap,
-            }}
-            className={`relative gap-[10px] py-[25px] px-[27px]  shadow-lg text-center font-extrabold text-5xl md:text-lg break-words ${card.styles}`}
-          >
-            {card.icon && renderIcon(card.icon)}
-            {card.text}
-          </motion.div>
-        ))}
+        {cards.map((card, i) => {
+          return (
+            <motion.div
+              key={i}
+              initial={{ y: -400, opacity: 0, rotate: 0, x: card.x }}
+              animate={
+                isInView
+                  ? {
+                      y: card.y,
+                      x: card.x,
+                      opacity: 1,
+                      rotate: card.rotate,
+                    }
+                  : { y: -400, opacity: 0, rotate: 0, x: card.x }
+              }
+              transition={{
+                type: 'spring',
+                stiffness: 60,
+                damping: 15,
+                delay: i * 0.15,
+              }}
+              style={{
+                width: card.width,
+                padding: card.padding,
+                gap: card.gap,
+              }}
+              className={`relative gap-[10px] py-[25px] px-[27px] shadow-lg text-center font-extrabold text-lg break-words ${card.styles}`}
+            >
+              {card.icon && renderIcon(card.icon)}
+              {card.text}
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );

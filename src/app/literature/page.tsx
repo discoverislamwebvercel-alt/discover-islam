@@ -14,6 +14,65 @@ import {
   materialOptions,
 } from '@/components/common/validationSchemas';
 import { FormikHelpers } from 'formik';
+import ResponsiveFallingCards from '@/components/ResponsiveFallingCards';
+
+const cards = [
+  {
+    text: 'Approved by Qualified Scholars',
+    styles: 'bg-[#408360] text-white rounded-[20px]',
+    rotate: '0.26deg',
+    y: 150,
+    x: 100,
+    width: '250px',
+    icon: false,
+  },
+  {
+    text: '',
+    styles: 'bg-transparent text-white rounded-[20px]',
+    rotate: '-6.5deg',
+    y: 10,
+    x: 770,
+    width: '300px',
+    icon: false,
+    isTransparent: true,
+  },
+  {
+    text: 'Perfect for Events, Schools & Public Outreach',
+    styles: 'bg-[#111111] text-white rounded-[20px]',
+    rotate: '15.51deg',
+    y: 70,
+    x: 50,
+    width: '600px',
+    icon: false,
+  },
+  {
+    text: 'Clear, Concise, and Engaging',
+    styles: 'bg-[#111111] text-white rounded-[20px]',
+    rotate: '5.53deg',
+    y: -70,
+    x: 250,
+    width: '380px',
+    icon: false,
+  },
+  {
+    text: 'Covers Essential Topics',
+    styles: 'bg-[#CB892A] text-white rounded-[20px]',
+    rotate: '0.36deg',
+    y: 35,
+    x: 0,
+    width: '520px',
+    icon: false,
+  },
+  {
+    text: 'Available in Multiple Languages',
+    styles: 'bg-[#CB892A] text-white rounded-[20px]',
+    rotate: '-9deg',
+    y: -180,
+    x: -550,
+    width: '330px',
+    icon: false,
+  },
+];
 
 export default function Literature() {
   const handleSubmit = async (
@@ -64,6 +123,12 @@ export default function Literature() {
       <AnimatedImageSection
         text1='TRUE TEACHINGS, VALUES AND PRINCIPLES OF ISLAM'
         text2='SHARING THE MESSAGE'
+      />
+
+      <ResponsiveFallingCards
+        cards={cards}
+        heading1={'What Makes Our'}
+        heading2={'Literature Effective?'}
       />
       <CollectionSection
         title='Shop from our collection'
