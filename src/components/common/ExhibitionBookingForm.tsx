@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import HookForm from './HookForm';
 import HookFormInput from './HookFormInput';
 import HookFormTextarea from './HookFormTextarea';
@@ -14,6 +14,11 @@ import {
   hearAboutUsOptions,
   ExhibitionFormData,
 } from '../../lib/validation/exhibitionForm';
+import {
+  sendExhibitionBookingFormEmail,
+  sendUserConfirmationEmail,
+} from '@/lib/email';
+import toast from 'react-hot-toast';
 
 // Conditional instructor count component
 function ConditionalInstructorCount({
@@ -32,11 +37,56 @@ function ConditionalInstructorCount({
 }
 
 const ExhibitionBookingForm: React.FC = () => {
-  const handleSubmit = async (_data: ExhibitionFormData) => {
-    // TODO: integrate with backend/API
-    alert(
-      'Exhibition booking request submitted successfully! We will contact you soon to confirm the details.'
-    );
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (
+    data: ExhibitionFormData,
+    { reset }: { reset: () => void }
+  ) => {
+    setIsLoading(true);
+    const toastId = toast.loading('Submitting your booking request...');
+
+    try {
+      // Send email using server action
+      const result = await sendExhibitionBookingFormEmail(data);
+
+      if (result.success) {
+        // Send confirmation email to user
+        const userEmail = data.email as string;
+        if (userEmail) {
+          try {
+            await sendUserConfirmationEmail(
+              userEmail,
+              'Exhibition Booking',
+              data
+            );
+          } catch (confirmationError) {
+            console.error(
+              'Error sending confirmation email:',
+              confirmationError
+            );
+            // Don't fail the main submission if confirmation email fails
+          }
+        }
+
+        toast.success(
+          'Exhibition booking request submitted successfully! We will contact you soon to confirm the details.',
+          { id: toastId }
+        );
+        // Reset form after successful submission
+        reset();
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error submitting exhibition booking request:', error);
+      toast.error(
+        'There was an error submitting your booking request. Please try again or contact us directly.',
+        { id: toastId }
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -166,9 +216,10 @@ const ExhibitionBookingForm: React.FC = () => {
             type='submit'
             variant='primary'
             size='lg'
+            loading={isLoading}
             className='w-full max-w-[400px] font-extrabold'
           >
-            Submit Booking Request
+            {isLoading ? 'Submitting...' : 'Submit Booking Request'}
           </FormButton>
         </div>
       </div>

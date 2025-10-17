@@ -9,10 +9,17 @@ import { twMerge } from 'tailwind-merge';
 interface HookFormProps<T extends z.ZodType<any, any, any>> {
   children:
     | React.ReactNode
-    | ((props: { isSubmitting: boolean; isValid: boolean }) => React.ReactNode);
+    | ((props: {
+        isSubmitting: boolean;
+        isValid: boolean;
+        reset: () => void;
+      }) => React.ReactNode);
   schema: T;
   defaultValues?: z.infer<T>;
-  onSubmit: (data: z.infer<T>) => void | Promise<void>;
+  onSubmit: (
+    data: z.infer<T>,
+    helpers: { reset: () => void }
+  ) => void | Promise<void>;
   className?: string;
   title?: string;
   titleClassName?: string;
@@ -42,7 +49,7 @@ const HookForm = <T extends z.ZodType<any, any, any>>({
     reValidateMode,
   });
 
-  const { formState, handleSubmit } = methods;
+  const { formState, handleSubmit, reset } = methods;
   const { isSubmitting, isValid } = formState;
 
   return (
@@ -68,12 +75,12 @@ const HookForm = <T extends z.ZodType<any, any, any>>({
 
         <FormProvider {...methods}>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(data => onSubmit(data, { reset }))}
             className='space-y-6'
             noValidate
           >
             {typeof children === 'function'
-              ? children({ isSubmitting, isValid })
+              ? children({ isSubmitting, isValid, reset })
               : children}
           </form>
         </FormProvider>

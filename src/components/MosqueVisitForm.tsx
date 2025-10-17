@@ -8,6 +8,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
+import {
+  sendMosqueVisitFormEmail,
+  sendUserConfirmationEmail,
+} from '@/lib/email';
+import toast from 'react-hot-toast';
+import Spinner from './common/Spinner';
 
 const schema = z.object({
   fullName: z
@@ -135,6 +141,7 @@ const MosqueVisitForm = () => {
   const formControls = useAnimationControls();
   const [buttonHidden, setButtonHidden] = useState(false);
   const [isHidden, setIsHidden] = useState('hidden');
+  const [isLoading, setIsLoading] = useState(false);
   const {
     control,
     handleSubmit,
@@ -161,26 +168,50 @@ const MosqueVisitForm = () => {
     },
   });
 
-  const onSubmit = async (_values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
+    setIsLoading(true);
+    const toastId = toast.loading('Submitting your booking request...');
+
     try {
-      // Simulate API call
-      await new Promise(r => setTimeout(r, 600));
+      // Send email using server action
+      const result = await sendMosqueVisitFormEmail(values);
 
-      // Show success message
-      alert(
-        'Mosque visit booking request submitted successfully! We will contact you soon to confirm the details.'
-      );
+      if (result.success) {
+        // Send confirmation email to user
+        const userEmail = values.email as string;
+        if (userEmail) {
+          try {
+            await sendUserConfirmationEmail(
+              userEmail,
+              'Mosque Visit Booking',
+              values
+            );
+          } catch (confirmationError) {
+            console.error(
+              'Error sending confirmation email:',
+              confirmationError
+            );
+            // Don't fail the main submission if confirmation email fails
+          }
+        }
 
-      // In production, integrate with API endpoint
-      // await submitMosqueVisitRequest(values);
-
-      // Reset form after successful submission
-      reset();
+        toast.success(
+          'Mosque visit booking request submitted successfully! We will contact you soon to confirm the details.',
+          { id: toastId }
+        );
+        // Reset form after successful submission
+        reset();
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
     } catch (error) {
       console.error('Error submitting mosque visit request:', error);
-      alert(
-        'There was an error submitting your booking request. Please try again or contact us directly.'
+      toast.error(
+        'There was an error submitting your booking request. Please try again or contact us directly.',
+        { id: toastId }
       );
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -610,10 +641,17 @@ const MosqueVisitForm = () => {
           <div className='pt-6'>
             <button
               type='submit'
-              disabled={isSubmitting}
-              className='w-[280px] h-[50px] rounded-[40px] bg-[#181818] px-[25px] py-[12px] text-[18px] leading-[22px] sm:w-[320px] sm:h-[55px] sm:px-[30px] sm:py-[14px] sm:text-[20px] sm:leading-[24px] md:w-[360px] md:h-[60px] md:px-[35px] md:py-[16px] md:text-[22px] md:leading-[26px] lg:w-[404px] lg:h-[67px] lg:rounded-[52px] lg:px-[37px] lg:py-[18px] lg:text-[26px] lg:leading-[31px] font-extrabold text-white hover:bg-[#181818]/90 disabled:opacity-70'
+              disabled={isSubmitting || isLoading}
+              className='w-[280px] h-[50px] rounded-[40px] bg-[#181818] px-[25px] py-[12px] text-[18px] leading-[22px] sm:w-[320px] sm:h-[55px] sm:px-[30px] sm:py-[14px] sm:text-[20px] sm:leading-[24px] md:w-[360px] md:h-[60px] md:px-[35px] md:py-[16px] md:text-[22px] md:leading-[26px] lg:w-[404px] lg:h-[67px] lg:rounded-[52px] lg:px-[37px] lg:py-[18px] lg:text-[26px] lg:leading-[31px] font-extrabold text-white hover:bg-[#181818]/90 disabled:opacity-70 flex items-center justify-center gap-3'
             >
-              Submit Booking Request
+              {isLoading ? (
+                <>
+                  <Spinner size='sm' className='text-white' />
+                  Submitting...
+                </>
+              ) : (
+                'Submit Booking Request'
+              )}
             </button>
           </div>
         </form>

@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     // Log custom amount donations for tracking
     if (amount && amount > 0) {
-      console.log(`Creating ${payment_type || 'one-off'} donation flow:`, {
+      console.warn(`Creating ${payment_type || 'one-off'} donation flow:`, {
         amount: `£${amount.toFixed(2)}`,
         category: category || 'general',
         description,

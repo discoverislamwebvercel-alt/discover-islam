@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import FundraisePageComponent from '@/components/common/FundraisePage';
 import FormikForm from '@/components/common/FormikForm';
 import Input from '@/components/common/Input';
@@ -8,6 +8,9 @@ import Textarea from '@/components/common/Textarea';
 import * as Yup from 'yup';
 import Button from '@/components/common/Button';
 import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
+import { sendVolunteerFormEmail, sendUserConfirmationEmail } from '@/lib/email';
+import toast from 'react-hot-toast';
+import Spinner from '@/components/common/Spinner';
 
 // Validation schema for volunteer form
 const volunteerFormSchema = Yup.object({
@@ -79,9 +82,56 @@ const initialValues = {
 };
 
 const VolunteerPage: React.FC = () => {
-  const handleSubmit = async (values: typeof initialValues) => {
-    console.log('Form submitted:', values);
-    // Handle form submission logic here
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (
+    values: typeof initialValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
+    setIsLoading(true);
+    const toastId = toast.loading('Submitting your volunteer application...');
+
+    try {
+      // Send email using server action
+      const result = await sendVolunteerFormEmail(values);
+
+      if (result.success) {
+        // Send confirmation email to user
+        const userEmail = values.email as string;
+        if (userEmail) {
+          try {
+            await sendUserConfirmationEmail(
+              userEmail,
+              'Volunteer Application',
+              values
+            );
+          } catch (confirmationError) {
+            console.error(
+              'Error sending confirmation email:',
+              confirmationError
+            );
+            // Don't fail the main submission if confirmation email fails
+          }
+        }
+
+        toast.success(
+          'Volunteer application submitted successfully! We will contact you soon.',
+          { id: toastId }
+        );
+        // Reset form after successful submission
+        resetForm();
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error submitting volunteer application:', error);
+      toast.error(
+        'There was an error submitting your application. Please try again.',
+        { id: toastId }
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -198,10 +248,18 @@ const VolunteerPage: React.FC = () => {
             {/* Submit Button */}
             <div className='flex pt-4'>
               <Button
-                className='w-[200px] text-[26px] font-extrabold'
+                className='w-[200px] text-[26px] font-extrabold flex items-center justify-center gap-3'
                 type='submit'
+                disabled={isLoading}
               >
-                Submit
+                {isLoading ? (
+                  <>
+                    <Spinner size='sm' className='text-white' />
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit'
+                )}
               </Button>
             </div>
           </div>

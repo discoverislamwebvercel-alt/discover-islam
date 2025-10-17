@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import FundraisePageComponent from '@/components/common/FundraisePage';
 import FormikForm from '@/components/common/FormikForm';
 import Input from '@/components/common/Input';
@@ -9,6 +9,12 @@ import Select from '@/components/common/Select';
 import * as Yup from 'yup';
 import Button from '@/components/common/Button';
 import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
+import {
+  sendPartnershipFormEmail,
+  sendUserConfirmationEmail,
+} from '@/lib/email';
+import toast from 'react-hot-toast';
+import Spinner from '@/components/common/Spinner';
 
 // Validation schema for partnership form
 const partnershipFormSchema = Yup.object({
@@ -97,9 +103,56 @@ const partnershipTypeOptions = [
 ];
 
 const PartnerWithUsPage: React.FC = () => {
-  const handleSubmit = async (values: typeof initialValues) => {
-    console.log('Partnership form submitted:', values);
-    // Handle form submission here
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (
+    values: typeof initialValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
+    setIsLoading(true);
+    const toastId = toast.loading('Submitting your partnership request...');
+
+    try {
+      // Send email using server action
+      const result = await sendPartnershipFormEmail(values);
+
+      if (result.success) {
+        // Send confirmation email to user
+        const userEmail = values.email as string;
+        if (userEmail) {
+          try {
+            await sendUserConfirmationEmail(
+              userEmail,
+              'Partnership Request',
+              values
+            );
+          } catch (confirmationError) {
+            console.error(
+              'Error sending confirmation email:',
+              confirmationError
+            );
+            // Don't fail the main submission if confirmation email fails
+          }
+        }
+
+        toast.success(
+          'Partnership request submitted successfully! We will contact you soon.',
+          { id: toastId }
+        );
+        // Reset form after successful submission
+        resetForm();
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error submitting partnership request:', error);
+      toast.error(
+        'There was an error submitting your request. Please try again.',
+        { id: toastId }
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -197,8 +250,19 @@ const PartnerWithUsPage: React.FC = () => {
           />
 
           <div className='flex justify-center mt-8'>
-            <Button type='submit' className='px-12 py-3'>
-              Submit
+            <Button
+              type='submit'
+              className='px-12 py-3 flex items-center justify-center gap-3'
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Spinner size='sm' className='text-white' />
+                  Submitting...
+                </>
+              ) : (
+                'Submit'
+              )}
             </Button>
           </div>
         </FormikForm>

@@ -15,6 +15,12 @@ import {
   type LiteratureFormData,
 } from '@/lib/validation/literatureForm';
 import ResponsiveFallingCards from '@/components/ResponsiveFallingCards';
+import {
+  sendLiteratureRequestFormEmail,
+  sendUserConfirmationEmail,
+} from '@/lib/email';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const cards = [
   {
@@ -75,19 +81,54 @@ const cards = [
 ];
 
 export default function Literature() {
-  const handleSubmit = async (_data: LiteratureFormData) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (
+    data: LiteratureFormData,
+    { reset }: { reset: () => void }
+  ) => {
+    setIsLoading(true);
+    const toastId = toast.loading('Submitting your literature request...');
+
     try {
-      // Simulate API call
-      // console.log('Form submitted:', data);
+      // Send email using server action
+      const result = await sendLiteratureRequestFormEmail(data);
 
-      // Here you would typically send the data to your backend
-      // await submitLiteratureRequest(data);
+      if (result.success) {
+        // Send confirmation email to user
+        const userEmail = data.email as string;
+        if (userEmail) {
+          try {
+            await sendUserConfirmationEmail(
+              userEmail,
+              'Literature Request',
+              data
+            );
+          } catch (confirmationError) {
+            console.error(
+              'Error sending confirmation email:',
+              confirmationError
+            );
+            // Don't fail the main submission if confirmation email fails
+          }
+        }
 
-      // Show success message
-      alert('Literature request submitted successfully!');
+        toast.success('Literature request submitted successfully!', {
+          id: toastId,
+        });
+        // Reset form after successful submission
+        reset();
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting your request. Please try again.');
+      toast.error(
+        'There was an error submitting your request. Please try again.',
+        { id: toastId }
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -234,9 +275,10 @@ export default function Literature() {
             type='submit'
             variant='primary'
             size='lg'
+            loading={isLoading}
             className='w-full max-w-[400px]'
           >
-            Request Literature
+            {isLoading ? 'Submitting...' : 'Request Literature'}
           </FormButton>
         </div>
       </HookForm>

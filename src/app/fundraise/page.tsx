@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import FundraisePageComponent from '@/components/common/FundraisePage';
 import FormikForm from '@/components/common/FormikForm';
 import Input from '@/components/common/Input';
@@ -9,6 +9,9 @@ import Select from '@/components/common/Select';
 import * as Yup from 'yup';
 import Button from '@/components/common/Button';
 import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
+import { sendFundraiseFormEmail, sendUserConfirmationEmail } from '@/lib/email';
+import toast from 'react-hot-toast';
+import Spinner from '@/components/common/Spinner';
 
 // Validation schema for fundraising form
 const fundraiseFormSchema = Yup.object({
@@ -71,12 +74,56 @@ const fundraisingTypeOptions = [
 ];
 
 const FundraisePage: React.FC = () => {
-  const handleSubmit = async (values: typeof initialValues) => {
-    console.log('Form submitted:', values);
-    // Handle form submission logic here
-    alert(
-      'Thank you for your interest in fundraising with us! We will contact you soon.'
-    );
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (
+    values: typeof initialValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
+    setIsLoading(true);
+    const toastId = toast.loading('Submitting your fundraising request...');
+
+    try {
+      // Send email using server action
+      const result = await sendFundraiseFormEmail(values);
+
+      if (result.success) {
+        // Send confirmation email to user
+        const userEmail = values.email as string;
+        if (userEmail) {
+          try {
+            await sendUserConfirmationEmail(
+              userEmail,
+              'Fundraising Request',
+              values
+            );
+          } catch (confirmationError) {
+            console.error(
+              'Error sending confirmation email:',
+              confirmationError
+            );
+            // Don't fail the main submission if confirmation email fails
+          }
+        }
+
+        toast.success(
+          'Thank you for your interest in fundraising with us! We will contact you soon.',
+          { id: toastId }
+        );
+        // Reset form after successful submission
+        resetForm();
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error submitting fundraising request:', error);
+      toast.error(
+        'There was an error submitting your request. Please try again.',
+        { id: toastId }
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -162,10 +209,18 @@ const FundraisePage: React.FC = () => {
             {/* Submit Button */}
             <div className='flex pt-4'>
               <Button
-                className='w-[200px] text-[26px] font-extrabold'
+                className='w-[200px] text-[26px] font-extrabold flex items-center justify-center gap-3'
                 type='submit'
+                disabled={isLoading}
               >
-                Submit
+                {isLoading ? (
+                  <>
+                    <Spinner size='sm' className='text-white' />
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit'
+                )}
               </Button>
             </div>
           </div>

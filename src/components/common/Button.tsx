@@ -10,6 +10,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary';
   size?: 'default' | 'navbar';
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -19,9 +20,11 @@ export default function Button({
   variant = 'primary',
   size = 'default',
   type = 'button',
+  disabled = false,
 }: ButtonProps) {
-  const baseClasses =
-    'font-medium transition-colors duration-300 rounded-full cursor-pointer';
+  const baseClasses = `font-medium transition-colors duration-300 rounded-full ${
+    disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+  }`;
 
   const variantClasses = {
     primary: 'bg-[#408360] hover:bg-[#356b52] text-white',
@@ -38,10 +41,11 @@ export default function Button({
   return (
     <motion.button
       className={combinedClasses}
-      onClick={onClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      onClick={disabled ? undefined : onClick}
+      whileHover={disabled ? {} : { scale: 1.05 }}
+      whileTap={disabled ? {} : { scale: 0.95 }}
       type={type}
+      disabled={disabled}
     >
       {children}
     </motion.button>
