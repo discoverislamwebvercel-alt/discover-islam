@@ -11,9 +11,9 @@ module.exports = {
         'islam-gold': '#cb892a',
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
     },
   },
   plugins: [],
-}
+};

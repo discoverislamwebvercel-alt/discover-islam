@@ -5,93 +5,126 @@ import { motion, type Variants } from 'framer-motion';
 export default function ServicesSection() {
   const cardVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
   };
 
   const titleVariants: Variants = {
     hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
   };
 
   return (
-    <section id="services" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section
+      id='services'
+      className='py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white'
+    >
       <motion.div
-        className="text-center mb-12 sm:mb-16"
-        initial="hidden"
-        whileInView="visible"
+        className='text-center mb-10 sm:mb-14 lg:mb-16'
+        initial='hidden'
+        whileInView='visible'
         viewport={{ once: true, amount: 0.5 }}
         variants={titleVariants}
       >
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+        <h2 className='font-extrabold text-[#111111] leading-[107%] text-[40px] sm:text-[56px] md:text-[64px] lg:text-[80px]'>
           Explore our
-        </h2>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight relative inline-block">
+          <br />
           Services
-          <img 
-            src="/Ellipse 11.png" 
-            alt="Services underline" 
-            className="absolute left-0 right-0 bottom-[-8px] w-2/3 mx-auto h-auto"
-          />
         </h2>
+        <div className='mx-auto mt-2 flex justify-center'>
+          <img
+            src='/Ellipse 11.png'
+            alt='underline'
+            className='w-[240px] sm:w-[300px] md:w-[340px] lg:w-[386.81px] h-[21.41px] -rotate-[2deg]'
+          />
+        </div>
       </motion.div>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8 max-w-6xl mx-auto">
+      <div className='mx-auto max-w-[1273px] grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7 place-items-center'>
         {/* Exhibition Card */}
         <motion.div
-          className="relative bg-green-100 rounded-2xl p-4 sm:p-6 pt-12 sm:pt-14 shadow-lg w-full sm:w-80 md:w-64 flex flex-col items-start"
+          className='relative w-full max-w-[413px] h-[413px] bg-[#408360]/15 rounded-[30px] px-6 pt-24 shadow-sm'
           variants={cardVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial='hidden'
+          whileInView='visible'
           viewport={{ once: true, amount: 0.3 }}
         >
-          <div className="absolute -top-4 sm:-top-6 left-0 right-0 bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold text-lg sm:text-xl md:text-2xl shadow-lg transform -rotate-2 mx-4 sm:mx-6">
-            Exhibition
+          <div className='absolute -top-6 left-1/2 -translate-x-1/2 w-[348px] h-[94.75px] bg-[#408360] rounded-[17.7px] -rotate-2 flex items-center justify-center px-8'>
+            <div className='text-white font-extrabold text-[40px] md:text-[52px] lg:text-[60px] leading-[107%]'>
+              Exhibition
+            </div>
           </div>
-          <div className="w-12 h-12 sm:w-16 sm:h-16 mb-4 flex items-center justify-center">
-            <img src="/Exibition.png" alt="Exhibition Icon" className="w-full h-full object-contain" />
+          <div className='w-[93px] h-[93px] mb-6 mt-6'>
+            <img
+              src='/Exibition.png'
+              alt='Exhibition Icon'
+              className='w-full h-full object-contain'
+            />
           </div>
-          <p className="text-gray-800 text-lg sm:text-xl font-bold text-left leading-tight">
-            Host an<br />
+          <p className='text-[#111111] font-bold text-[28px] md:text-[32px] lg:text-[36px] leading-[93%]'>
+            Host an
+            <br />
             Exhibition
           </p>
         </motion.div>
 
         {/* Schools Card */}
         <motion.div
-          className="relative bg-gray-200 rounded-2xl p-4 sm:p-6 pt-12 sm:pt-14 shadow-lg w-full sm:w-80 md:w-64 flex flex-col items-start"
+          className='relative w-full max-w-[413px] h-[413px] bg-[#111111]/15 rounded-[30px] px-6 pt-24 shadow-sm'
           variants={cardVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial='hidden'
+          whileInView='visible'
           viewport={{ once: true, amount: 0.3 }}
         >
-          <div className="absolute -top-4 sm:-top-6 left-0 right-0 bg-black text-white px-3 sm:px-4 py-2 rounded-lg font-semibold text-lg sm:text-xl md:text-2xl shadow-lg transform -rotate-2 mx-4 sm:mx-7">
-            Schools
+          <div className='absolute -top-6 left-1/2 -translate-x-1/2 w-[288px] h-[94.75px] bg-[#111111] rounded-[17.7px] -rotate-2 flex items-center justify-center px-7'>
+            <div className='text-white font-extrabold text-[40px] md:text-[52px] lg:text-[60px] leading-[107%]'>
+              Schools
+            </div>
           </div>
-          <div className="w-12 h-12 sm:w-16 sm:h-16 mb-4 flex items-center justify-center">
-            <img src="/mosque.png" alt="Mosque Icon" className="w-full h-full object-contain" />
+          <div className='w-[99px] h-[99px] mb-6 mt-6'>
+            <img
+              src='/mosque.png'
+              alt='Mosque Icon'
+              className='w-full h-full object-contain'
+            />
           </div>
-          <p className="text-gray-800 text-lg sm:text-xl font-bold text-left leading-tight">
-            Book a School or<br />
+          <p className='text-[#111111] font-bold text-[28px] md:text-[32px] lg:text-[36px] leading-[93%]'>
+            Book a School or
+            <br />
             Mosque Visit
           </p>
         </motion.div>
 
         {/* Literature Card */}
         <motion.div
-          className="relative bg-orange-50 rounded-2xl p-4 sm:p-6 pt-12 sm:pt-14 shadow-lg w-full sm:w-80 md:w-64 flex flex-col items-start"
+          className='relative w-full max-w-[412px] h-[413px] bg-[#CB892A]/15 rounded-[30px] px-6 pt-24 shadow-sm'
           variants={cardVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial='hidden'
+          whileInView='visible'
           viewport={{ once: true, amount: 0.3 }}
         >
-          <div className="absolute -top-4 sm:-top-6 left-0 right-0 bg-[#cb892a] text-white px-3 sm:px-4 py-2 rounded-lg font-semibold text-lg sm:text-xl md:text-2xl shadow-lg transform -rotate-2 mx-4 sm:mx-6">
-            Literature
+          <div className='absolute -top-6 left-1/2 -translate-x-1/2 w-[338px] h-[94.75px] bg-[#CB892A] rounded-[17.7px] -rotate-2 flex items-center justify-center px-7'>
+            <div className='text-white font-extrabold text-[40px] md:text-[52px] lg:text-[60px] leading-[107%]'>
+              Literature
+            </div>
           </div>
-          <div className="w-12 h-12 sm:w-16 sm:h-16 mb-4 flex items-center justify-center">
-            <img src="/Litrature.png" alt="Literature Icon" className="w-full h-full object-contain" />
+          <div className='w-[84px] h-[84px] mb-6 mt-6'>
+            <img
+              src='/Litrature.png'
+              alt='Literature Icon'
+              className='w-full h-full object-contain'
+            />
           </div>
-          <p className="text-gray-800 text-lg sm:text-xl font-bold text-left leading-tight">
-            Request<br />
+          <p className='text-[#111111] font-bold text-[28px] md:text-[32px] lg:text-[36px] leading-[93%]'>
+            Request
+            <br />
             Free Literature
           </p>
         </motion.div>

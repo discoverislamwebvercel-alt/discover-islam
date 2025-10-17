@@ -3,17 +3,17 @@
 import HeroSection from '@/components/common/HeroSection';
 import AnimatedImageSection from '../../components/common/AnimatedImageSection';
 import CollectionSection from '@/components/CollectionSection';
-import FormikForm from '@/components/common/FormikForm';
-import Input from '@/components/common/Input';
-import Textarea from '@/components/common/Textarea';
-import RadioGroup from '@/components/common/RadioGroup';
+import HookForm from '@/components/common/HookForm';
+import HookFormInput from '@/components/common/HookFormInput';
+import HookFormTextarea from '@/components/common/HookFormTextarea';
+import HookFormRadioGroup from '@/components/common/HookFormRadioGroup';
 import FormButton from '@/components/common/FormButton';
 import {
   literatureFormSchema,
-  literatureFormInitialValues,
+  literatureFormDefaultValues,
   materialOptions,
-} from '@/components/common/validationSchemas';
-import { FormikHelpers } from 'formik';
+  type LiteratureFormData,
+} from '@/lib/validation/literatureForm';
 import ResponsiveFallingCards from '@/components/ResponsiveFallingCards';
 
 const cards = [
@@ -75,30 +75,19 @@ const cards = [
 ];
 
 export default function Literature() {
-  const handleSubmit = async (
-    values: typeof literatureFormInitialValues,
-    {
-      setSubmitting,
-      resetForm,
-    }: FormikHelpers<typeof literatureFormInitialValues>
-  ) => {
+  const handleSubmit = async (_data: LiteratureFormData) => {
     try {
       // Simulate API call
-      console.log('Form submitted:', values);
+      // console.log('Form submitted:', data);
 
       // Here you would typically send the data to your backend
-      // await submitLiteratureRequest(values);
+      // await submitLiteratureRequest(data);
 
       // Show success message
       alert('Literature request submitted successfully!');
-
-      // Reset form
-      resetForm();
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('There was an error submitting your request. Please try again.');
-    } finally {
-      setSubmitting(false);
     }
   };
 
@@ -133,7 +122,9 @@ export default function Literature() {
       <CollectionSection
         title='Shop from our collection'
         buttonText='View More'
-        onButtonClick={() => console.log('Browse all books clicked')}
+        onButtonClick={() => {
+          // Handle browse all books click
+        }}
         items={[
           {
             id: 1,
@@ -156,17 +147,18 @@ export default function Literature() {
         ]}
       />
 
-      <FormikForm
+      <HookForm
         title='Request Free Literature Form'
         subtitle='Request Free Islamic Literature'
-        initialValues={literatureFormInitialValues}
-        validationSchema={literatureFormSchema}
+        schema={literatureFormSchema}
+        defaultValues={literatureFormDefaultValues}
         onSubmit={handleSubmit}
         className='mb-16'
         maxWidth='920px'
+        mode='onChange'
       >
         <div className='space-y-6'>
-          <Input
+          <HookFormInput
             label='Full Name'
             name='fullName'
             type='text'
@@ -174,7 +166,7 @@ export default function Literature() {
             required
           />
 
-          <Input
+          <HookFormInput
             label='Organisation / Centre Name'
             name='organization'
             type='text'
@@ -183,14 +175,14 @@ export default function Literature() {
           />
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <Input
+            <HookFormInput
               label='Email'
               name='email'
               type='email'
               placeholder='Enter your email address'
               required
             />
-            <Input
+            <HookFormInput
               label='Phone Number'
               name='phone'
               type='tel'
@@ -199,14 +191,14 @@ export default function Literature() {
             />
           </div>
 
-          <Input
+          <HookFormInput
             label='Delivery Address'
             name='address'
             placeholder='Enter delivery address'
             required
           />
 
-          <RadioGroup
+          <HookFormRadioGroup
             label="Select the materials you'd like to receive:"
             name='materials'
             options={materialOptions}
@@ -214,25 +206,28 @@ export default function Literature() {
             required
           />
 
-          <Input
+          <HookFormInput
             label='Quantity Needed'
             name='quantity'
             type='number'
             placeholder='Enter quantity needed'
             required
+            min={1}
+            max={1000}
           />
 
-          <Input
+          <HookFormInput
             label='Purpose'
             name='purpose'
             placeholder='e.g., for an event, personal use, school, dawah'
             required
           />
 
-          <Textarea
+          <HookFormTextarea
             label='Any additional notes or requests'
             name='notes'
             rows={4}
+            maxLength={2000}
           />
 
           <FormButton
@@ -244,7 +239,7 @@ export default function Literature() {
             Request Literature
           </FormButton>
         </div>
-      </FormikForm>
+      </HookForm>
     </>
   );
 }

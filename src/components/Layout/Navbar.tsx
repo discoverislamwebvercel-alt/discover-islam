@@ -18,7 +18,7 @@ export default function Navbar() {
     },
     {
       label: 'About us',
-      href: '/#about',
+      href: '/about-us',
     },
     {
       label: 'Services',
@@ -82,9 +82,11 @@ export default function Navbar() {
         <div className='flex items-center'>
           {/* Desktop Donate Button */}
           <div className='hidden md:block'>
-            <Button variant='primary' size='navbar'>
-              Donate
-            </Button>
+            <Link href='/donations'>
+              <Button variant='primary' size='navbar'>
+                Donate
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -190,13 +192,11 @@ export default function Navbar() {
 
                   {/* Mobile Donate Button */}
                   <div className='pt-6 border-t border-gray-200'>
-                    <Button
-                      variant='primary'
-                      size='navbar'
-                      onClick={handleMobileMenuClose}
-                    >
-                      Donate
-                    </Button>
+                    <Link href='/donations' onClick={handleMobileMenuClose}>
+                      <Button variant='primary' size='navbar'>
+                        Donate
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>

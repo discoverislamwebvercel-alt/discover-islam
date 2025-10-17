@@ -1,193 +1,103 @@
 'use client';
 
 import React from 'react';
-import * as Yup from 'yup';
-import FormikForm from './FormikForm';
-import Input from './Input';
-import Select from './Select';
-import Textarea from './Textarea';
-import RadioGroup from './RadioGroup';
+import HookForm from './HookForm';
+import HookFormInput from './HookFormInput';
+import HookFormTextarea from './HookFormTextarea';
+import HookFormRadioGroup from './HookFormRadioGroup';
 import FormButton from './FormButton';
-import { useFormikContext } from 'formik';
+import {
+  exhibitionFormSchema,
+  exhibitionFormDefaultValues,
+  exhibitionModelOptions,
+  hearAboutUsOptions,
+  ExhibitionFormData,
+} from '../../lib/validation/exhibitionForm';
 
-// Validation schema for Exhibition Booking form
-const bookingFormSchema = Yup.object({
-  fullName: Yup.string()
-    .min(2, 'Full name must be at least 2 characters')
-    .max(100, 'Full name must be less than 100 characters')
-    .required('Full name is required'),
-
-  organization: Yup.string()
-    .min(2, 'Organisation/Centre name must be at least 2 characters')
-    .max(150, 'Organisation/Centre name must be less than 150 characters')
-    .required('Organisation/Centre name is required'),
-
-  email: Yup.string()
-    .email('Please enter a valid email address')
-    .required('Email is required'),
-
-  phone: Yup.string()
-    .min(7, 'Please enter a valid phone number')
-    .required('Phone number is required'),
-
-  address: Yup.string().required('Location / Address of Venue is required'),
-
-  preferredDates: Yup.string().required('Preferred date(s) are required'),
-
-  audienceType: Yup.string().required('Type of Audience is required'),
-
-  attendees: Yup.string().optional(),
-
-  venueSize: Yup.string().required('Size of the venue is required'),
-
-  exhibitionModel: Yup.string().required(
-    'Type of exhibition model is required'
-  ),
-
-  instructorsRequired: Yup.string().required(
-    'Please indicate if instructors are required'
-  ),
-
-  instructorCount: Yup.string().when('instructorsRequired', {
-    is: (val: string) => val === 'yes',
-    then: schema => schema.required('Please specify how many'),
-    otherwise: schema => schema.optional(),
-  }),
-
-  requirements: Yup.string().optional(),
-
-  hearAboutUs: Yup.string().optional(),
-});
-
-// Initial values
-const initialValues = {
-  fullName: '',
-  organization: '',
-  email: '',
-  phone: '',
-  address: '',
-  preferredDates: '',
-  audienceType: '',
-  attendees: '',
-  venueSize: '',
-  exhibitionModel: '',
-  instructorsRequired: 'yes',
-  instructorCount: '',
-  requirements: '',
-  hearAboutUs: '',
-};
-
-// Options
-const exhibitionModelOptions = [
-  { value: 'full', label: 'Full Exhibition' },
-  { value: 'mini', label: 'Mini Exhibition' },
-  { value: 'tech-only', label: 'Tech Models Only' },
-  { value: 'custom', label: 'Custom / Mixed' },
-];
-
-const hearAboutUsOptions = [
-  { value: 'instagram', label: 'Instagram' },
-  { value: 'facebook', label: 'Facebook' },
-  { value: 'youtube', label: 'YouTube' },
-  { value: 'word-of-mouth', label: 'Word of mouth' },
-  { value: 'school', label: 'School / College' },
-  { value: 'mosque', label: 'Mosque' },
-  { value: 'search', label: 'Search engine' },
-  { value: 'other', label: 'Other' },
-];
-
+// Conditional instructor count component
 function ConditionalInstructorCount() {
-  const { values } = useFormikContext<typeof initialValues>();
-  if (values?.instructorsRequired === 'yes') {
-    return (
-      <Input
-        label='How many?'
-        name='instructorCount'
-        placeholder='Enter number of instructors'
-        required
-      />
-    );
-  }
-  return null;
+  return (
+    <HookFormInput
+      label='How many?'
+      name='instructorCount'
+      placeholder='Enter number of instructors'
+    />
+  );
 }
 
 const ExhibitionBookingForm: React.FC = () => {
-  const handleSubmit = async (values: typeof initialValues) => {
-    console.log('Exhibition booking submitted:', values);
+  const handleSubmit = async (_data: ExhibitionFormData) => {
     // TODO: integrate with backend/API
+    alert(
+      'Exhibition booking request submitted successfully! We will contact you soon to confirm the details.'
+    );
   };
 
   return (
-    <FormikForm
+    <HookForm
       title='Islamic Exhibitions'
       subtitle='Book an Islamic Exhibition at Your Venue'
-      initialValues={initialValues}
-      validationSchema={bookingFormSchema}
+      schema={exhibitionFormSchema}
+      defaultValues={exhibitionFormDefaultValues}
       onSubmit={handleSubmit}
       className='mb-24'
       maxWidth='910px'
+      mode='onBlur'
     >
       <div className='space-y-6'>
         {/* Full Name */}
-        <Input
+        <HookFormInput
           label='Full Name'
           name='fullName'
           placeholder='Enter Full Name'
-          required
         />
 
         {/* Organisation / Centre Name */}
-        <Input
+        <HookFormInput
           label='Organisation / Centre Name'
           name='organization'
           placeholder='Enter Organisation / Centre Name'
-          required
         />
 
         {/* Email / Phone */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <Input
+          <HookFormInput
             label='Email'
             name='email'
             type='email'
             placeholder='Enter Email'
-            required
           />
-          <Input
+          <HookFormInput
             label='Phone Number'
             name='phone'
             type='tel'
             placeholder='Enter Phone Number'
-            required
           />
         </div>
 
         {/* Address */}
-        <Input
+        <HookFormInput
           label='Location / Address of Venue'
           name='address'
           placeholder='Enter Location / Address of Venue'
-          required
         />
 
         {/* Preferred Date(s) */}
-        <Input
+        <HookFormInput
           label='Preferred Date(s)'
           name='preferredDates'
           type='date'
           placeholder='Enter Preferred Date(s)'
-          required
         />
 
         {/* Audience & Attendees */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <Input
+          <HookFormInput
             label='Type of Audience'
             name='audienceType'
             placeholder='e.g., Public, Interfaith, School, College'
-            required
           />
-          <Input
+          <HookFormInput
             label='Approximate Number of Attendees'
             name='attendees'
             placeholder='Enter Approximate Number of Attendees'
@@ -196,24 +106,22 @@ const ExhibitionBookingForm: React.FC = () => {
 
         {/* Venue size & Exhibition model */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <Input
+          <HookFormInput
             label='Size of the venue'
             name='venueSize'
             placeholder='Enter Size of the venue'
-            required
           />
-          <Select
+          <HookFormRadioGroup
             label='Types of exhibition model'
             name='exhibitionModel'
-            placeholder='Enter Types of exhibition model'
             options={exhibitionModelOptions}
-            required
+            columns={2}
           />
         </div>
 
         {/* Instructors required? */}
         <div>
-          <RadioGroup
+          <HookFormRadioGroup
             label='Do you require instructors from our team to attend and deliver?'
             name='instructorsRequired'
             options={[
@@ -221,13 +129,12 @@ const ExhibitionBookingForm: React.FC = () => {
               { value: 'no', label: 'No' },
             ]}
             columns={2}
-            required
           />
           <ConditionalInstructorCount />
         </div>
 
         {/* Notes */}
-        <Textarea
+        <HookFormTextarea
           label='Any Specific Requirements or Notes'
           name='requirements'
           placeholder='Enter any additional information...'
@@ -235,11 +142,11 @@ const ExhibitionBookingForm: React.FC = () => {
         />
 
         {/* Hear about us */}
-        <Select
+        <HookFormRadioGroup
           label='How did you hear about us?'
           name='hearAboutUs'
-          placeholder='Select platform'
           options={hearAboutUsOptions}
+          columns={3}
         />
 
         {/* Submit */}
@@ -254,7 +161,7 @@ const ExhibitionBookingForm: React.FC = () => {
           </FormButton>
         </div>
       </div>
-    </FormikForm>
+    </HookForm>
   );
 };
 

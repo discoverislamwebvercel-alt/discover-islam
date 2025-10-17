@@ -1,6 +1,8 @@
 import React from 'react';
+import { FieldError } from 'react-hook-form';
 
 interface ValidationMessageProps {
+  error?: FieldError | undefined;
   message?: string;
   type?: 'error' | 'success' | 'warning';
   className?: string;
@@ -9,14 +11,20 @@ interface ValidationMessageProps {
 
 /**
  * Reusable ValidationMessage component for displaying form validation feedback
+ * Works with both react-hook-form FieldError and manual messages
  *
- * @param message - The validation message to display
+ * @param error - React Hook Form FieldError object
+ * @param message - Manual validation message to display
  * @param type - Type of message (error, success, warning)
  * @param className - Additional CSS classes
- * @param show - Whether to show the message (default: true if message exists)
+ * @param show - Whether to show the message (default: true if message or error exists)
  *
  * @example
  * ```tsx
+ * <ValidationMessage
+ *   error={errors.email}
+ * />
+ *
  * <ValidationMessage
  *   message="This field is required"
  *   type="error"
@@ -29,55 +37,35 @@ interface ValidationMessageProps {
  * ```
  */
 const ValidationMessage: React.FC<ValidationMessageProps> = ({
+  error,
   message,
   type = 'error',
   className = '',
-  show = !!message,
+  show,
 }) => {
-  if (!show || !message) {
+  const displayMessage = error?.message || message;
+  const shouldShow = show !== undefined ? show : !!displayMessage;
+
+  if (!shouldShow || !displayMessage) {
     return null;
   }
 
-  const getTypeStyles = () => {
+  const getTextColor = () => {
     switch (type) {
       case 'error':
-        return 'text-red-500 bg-red-50 border-red-200';
+        return 'text-red-500';
       case 'success':
-        return 'text-green-600 bg-green-50 border-green-200';
+        return 'text-green-600';
       case 'warning':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+        return 'text-yellow-600';
       default:
-        return 'text-red-500 bg-red-50 border-red-200';
-    }
-  };
-
-  const getIcon = () => {
-    switch (type) {
-      case 'error':
-        return '⚠️';
-      case 'success':
-        return '✅';
-      case 'warning':
-        return '⚠️';
-      default:
-        return '⚠️';
+        return 'text-red-500';
     }
   };
 
   return (
-    <div
-      className={`
-        flex items-center gap-2 
-        px-3 py-2 
-        text-sm 
-        border 
-        rounded-lg 
-        ${getTypeStyles()} 
-        ${className}
-      `}
-    >
-      <span className='text-xs'>{getIcon()}</span>
-      <span>{message}</span>
+    <div className={`text-sm mt-1 ${getTextColor()} ${className}`}>
+      {displayMessage}
     </div>
   );
 };

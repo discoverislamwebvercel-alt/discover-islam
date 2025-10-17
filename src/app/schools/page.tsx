@@ -4,6 +4,8 @@ import HeroSection from '@/components/common/HeroSection';
 import AnimatedImageSection from '../../components/common/AnimatedImageSection';
 import ResponsiveFallingCards from '@/components/ResponsiveFallingCards';
 import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
+import SchoolVisitForm from '@/components/SchoolVisitForm';
+import MosqueVisitForm from '@/components/MosqueVisitForm';
 // import { motion } from 'framer-motion';
 
 const cards = [
@@ -67,7 +69,7 @@ export default function School() {
   return (
     <>
       <HeroSection
-        heroImage='/schoolHero.png'
+        heroImage='/schools_hero_bg.jpg'
         title='School Visits'
         subHeading='Knowledge changes everything'
         description='Our school visits provide a dynamic and accessible introduction to Islam for students of all ages. Designed to complement the Religious Education curriculum, each session is thoughtfully structured to engage pupils through storytelling, multimedia, and interactive learning.'
@@ -83,6 +85,8 @@ export default function School() {
         heading2={'Visit with Us?'}
       />
       <TestimonialsSupportSection />
+      <SchoolVisitForm />
+      <MosqueVisitForm />
     </>
   );
 }

@@ -7,6 +7,8 @@ import HostExhibition from '@/components/HostExhibition';
 import MoonSection from '@/components/MoonSection';
 import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
 import ExhibitionBookingForm from '@/components/common/ExhibitionBookingForm';
+import ExhibitionInfiniteCarousel from '@/components/common/ExhibitionInfiniteCarousel';
+import GalleryGrid from '@/components/common/GalleryGrid';
 
 export default function Exhibition() {
   const cards = [
@@ -22,17 +24,17 @@ export default function Exhibition() {
     {
       text: 'Fully Mobile & Self-Contained',
       styles: 'bg-[#408360] text-white rounded-[20px]',
-      rotate: '-6.5deg',
-      y: 10,
-      x: 770,
+      rotate: '-7deg',
+      y: 20,
+      x: 780,
       width: '300px',
       icon: false,
     },
     {
       text: 'Tailored for Non-Muslim Audiences',
       styles: 'bg-[#111111] text-white rounded-[20px]',
-      rotate: '15.51deg',
-      y: 70,
+      rotate: '15.7deg',
+      y: 75,
       x: 50,
       width: '600px',
       icon: false,
@@ -40,8 +42,8 @@ export default function Exhibition() {
     {
       text: 'Backed by Positive feedback',
       styles: 'bg-[#111111] text-white rounded-[20px]',
-      rotate: '5.53deg',
-      y: -70,
+      rotate: '8deg',
+      y: -64,
       x: 250,
       width: '380px',
       icon: false,
@@ -59,7 +61,7 @@ export default function Exhibition() {
       text: 'Interactive, Modern Displays That Engage and inspire',
       styles: 'bg-[#CB892A] text-white rounded-[20px]',
       rotate: '-9deg',
-      y: -180,
+      y: -170,
       x: -550,
       width: '330px',
       icon: false,
@@ -90,6 +92,8 @@ export default function Exhibition() {
       <HostExhibition />
 
       <MoonSection />
+      <ExhibitionInfiniteCarousel />
+      <GalleryGrid />
       <TestimonialsSupportSection showSupport={false} />
       <ExhibitionBookingForm />
     </>

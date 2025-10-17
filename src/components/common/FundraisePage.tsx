@@ -28,7 +28,7 @@ const FundraisePage: React.FC<FundraisePageProps> = ({
   return (
     <div className={twMerge('min-h-screen bg-gray-50', className)}>
       {/* Hero Section with Background Image */}
-      <div className='relative w-full pt-[200px] '>
+      <div className='relative w-full pt-24 sm:pt-28 md:pt-[200px]'>
         <Image
           src='/FormHero.png'
           alt={heroImageAlt}
@@ -38,7 +38,7 @@ const FundraisePage: React.FC<FundraisePageProps> = ({
         />
 
         {/* Hero Content */}
-        <div className=' inset-0 flex items-center justify-center'>
+        <div className='inset-0 flex items-center justify-center'>
           <div className='text-center px-4'>
             <h1
               className={twMerge(

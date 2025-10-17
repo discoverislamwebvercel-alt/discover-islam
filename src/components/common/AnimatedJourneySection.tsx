@@ -23,9 +23,9 @@ export default function AnimatedJourneySection() {
   const content = (
     <div
       className='flex items-center whitespace-nowrap font-bold uppercase'
-      style={{ color: '#AFCBB5', fontSize: '141px' }}
+      style={{ color: '#AFCBB5', fontSize: '141px', lineHeight: 1 }}
     >
-      <span>Lets start your journey</span>
+      <span>Let’s start your journey</span>
       <EightPointedStar />
     </div>
   );
@@ -34,9 +34,17 @@ export default function AnimatedJourneySection() {
     <div className='relative w-full overflow-hidden pt-8'>
       <motion.div
         className='flex items-center'
-        style={{ width: '200%', marginBottom: '-60px' }}
+        style={{
+          width: 'max-content',
+          willChange: 'transform',
+          transform: 'translate3d(0, 0, 0)',
+        }}
         animate={{ x: ['0%', '-50%'] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
       >
         {content}
         {content}
