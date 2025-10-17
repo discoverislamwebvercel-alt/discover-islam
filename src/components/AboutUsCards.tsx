@@ -126,13 +126,138 @@ export default function AboutUsCards() {
       className='py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white'
     >
       <div className='max-w-7xl mx-auto'>
-        <div className='flex justify-center mb-12 sm:mb-16 md:mb-20 lg:mb-[100px]'>
+        {/* Mobile Layout - Stacked Cards with Layering Effect */}
+        <div className='block lg:hidden'>
+          <div className='flex justify-center mb-8 sm:mb-12'>
+            <div className='relative w-full max-w-sm sm:max-w-md md:max-w-lg h-[500px] sm:h-[600px] md:h-[700px]'>
+              <AnimatePresence>
+                {/* Card 1 - Mobile Stacked */}
+                {cardStates.card1.isVisible && (
+                  <motion.div
+                    key='card1-mobile'
+                    className={`absolute w-full h-[200px] sm:h-[240px] md:h-[280px] ${cards[0].bgColor} rounded-3xl p-4 sm:p-6 cursor-pointer`}
+                    style={{ left: '0px', top: '20px', zIndex: 3 }}
+                    variants={clickVariants}
+                    initial={
+                      cardStates.card1.isVisible === 'reappear'
+                        ? 'hidden'
+                        : 'visible'
+                    }
+                    animate={
+                      cardStates.card1.isVisible === 'reappear'
+                        ? 'reappear'
+                        : 'visible'
+                    }
+                    exit='hidden'
+                    onClick={() => handleCardClick(0)}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 h-full'>
+                      <div className='flex flex-col gap-2 sm:gap-3 flex-1'>
+                        <h3 className='text-lg sm:text-xl md:text-2xl font-bold leading-tight text-white'>
+                          {cards[0].title}
+                        </h3>
+                        <p className='text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white/80'>
+                          {cards[0].description}
+                        </p>
+                      </div>
+                      <div className='w-full sm:w-24 md:w-28 h-16 sm:h-20 md:h-24 rounded-xl overflow-hidden flex-shrink-0'>
+                        <img
+                          src={cards[0].image}
+                          alt={cards[0].title}
+                          className='w-full h-full object-cover'
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Card 2 - Mobile Stacked */}
+                {cardStates.card2.isVisible && (
+                  <motion.div
+                    key='card2-mobile'
+                    className={`absolute w-[95%] sm:w-[96%] md:w-[97%] h-[200px] sm:h-[240px] md:h-[280px] ${cards[1].bgColor} rounded-3xl p-4 sm:p-6 cursor-pointer`}
+                    style={{ left: '8px', top: '30px', zIndex: 2 }}
+                    variants={clickVariants}
+                    initial={
+                      cardStates.card2.isVisible === 'reappear'
+                        ? 'hidden'
+                        : 'visible'
+                    }
+                    animate={
+                      cardStates.card2.isVisible === 'reappear'
+                        ? 'reappear'
+                        : 'visible'
+                    }
+                    exit='hidden'
+                    onClick={() => handleCardClick(1)}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 h-full'>
+                      <div className='flex flex-col gap-2 sm:gap-3 flex-1'>
+                        <h3 className='text-lg sm:text-xl md:text-2xl font-bold leading-tight text-white'>
+                          {cards[1].title}
+                        </h3>
+                        <p className='text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white/80'>
+                          {cards[1].description}
+                        </p>
+                      </div>
+                      <div className='w-full sm:w-24 md:w-28 h-16 sm:h-20 md:h-24 rounded-xl overflow-hidden flex-shrink-0'>
+                        <img
+                          src={cards[1].image}
+                          alt={cards[1].title}
+                          className='w-full h-full object-cover'
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Card 3 - Mobile Stacked */}
+                {cardStates.card3.isVisible && (
+                  <motion.div
+                    key='card3-mobile'
+                    className={`absolute w-[90%] sm:w-[92%] md:w-[94%] h-[200px] sm:h-[240px] md:h-[280px] ${cards[2].bgColor} rounded-3xl p-4 sm:p-6 cursor-pointer`}
+                    style={{ left: '16px', top: '40px', zIndex: 1 }}
+                    variants={clickVariants}
+                    initial='hidden'
+                    animate='visible'
+                    exit='hidden'
+                    onClick={() => handleCardClick(2)}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 h-full'>
+                      <div className='flex flex-col gap-2 sm:gap-3 flex-1'>
+                        <h3 className='text-lg sm:text-xl md:text-2xl font-bold leading-tight text-white'>
+                          {cards[2].title}
+                        </h3>
+                        <p className='text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white/80'>
+                          {cards[2].description}
+                        </p>
+                      </div>
+                      <div className='w-full sm:w-24 md:w-28 h-16 sm:h-20 md:h-24 rounded-xl overflow-hidden flex-shrink-0'>
+                        <img
+                          src={cards[2].image}
+                          alt={cards[2].title}
+                          className='w-full h-full object-cover'
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Layout - Layered Cards */}
+        <div className='hidden lg:flex justify-center mb-12 sm:mb-16 md:mb-20 lg:mb-[100px]'>
           <div className='relative w-full max-w-[1245px] h-[600px]'>
             <AnimatePresence>
-              {/* Card 1 */}
+              {/* Card 1 - Desktop */}
               {cardStates.card1.isVisible && (
                 <motion.div
-                  key='card1'
+                  key='card1-desktop'
                   className={`absolute w-full max-w-[1245px] h-[485px] ${cards[0].bgColor} ${cards[0].borderRadius} ${cards[0].padding} ${cards[0].gap} flex flex-col items-end cursor-pointer`}
                   style={{ left: '0px', top: '15px', zIndex: 3 }}
                   variants={clickVariants}
@@ -180,10 +305,10 @@ export default function AboutUsCards() {
                 </motion.div>
               )}
 
-              {/* Card 2 */}
+              {/* Card 2 - Desktop */}
               {cardStates.card2.isVisible && (
                 <motion.div
-                  key='card2'
+                  key='card2-desktop'
                   className={`absolute w-full max-w-[1199px] h-[467.08px] ${cards[1].bgColor} ${cards[1].borderRadius} ${cards[1].padding} ${cards[1].gap} flex flex-col items-end cursor-pointer`}
                   style={{ left: '23px', top: '47px', zIndex: 2 }}
                   variants={clickVariants}
@@ -231,10 +356,10 @@ export default function AboutUsCards() {
                 </motion.div>
               )}
 
-              {/* Card 3 */}
+              {/* Card 3 - Desktop */}
               {cardStates.card3.isVisible && (
                 <motion.div
-                  key='card3'
+                  key='card3-desktop'
                   className={`absolute w-full max-w-[1141px] h-[444.49px] ${cards[2].bgColor} ${cards[2].borderRadius} ${cards[2].padding} ${cards[2].gap} flex flex-col items-end cursor-pointer`}
                   style={{ left: '52px', top: '83px', zIndex: 1 }}
                   variants={clickVariants}
