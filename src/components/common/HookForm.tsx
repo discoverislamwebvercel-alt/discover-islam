@@ -46,10 +46,10 @@ const HookForm = <T extends z.ZodType<any, any, any>>({
   const { isSubmitting, isValid } = formState;
 
   return (
-    <div className={`w-full flex justify-center ${className}`}>
+    <div className={`w-full flex justify-center rounded-t-4xl ${className}`}>
       <div className='w-full px-4 sm:px-6 lg:px-8' style={{ maxWidth }}>
         {title && (
-          <div className='text-center mb-8'>
+          <div className='text-center my-8'>
             <h1
               className={twMerge(
                 'text-4xl md:text-5xl lg:text-[80px] font-extrabold text-[#408360]',

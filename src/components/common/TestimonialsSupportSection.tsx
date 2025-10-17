@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import Button from './Button';
 
 interface Testimonial {
@@ -80,7 +81,7 @@ export default function TestimonialsSupportSection({
   );
 
   return (
-    <section className='relative w-full bg-white py-14 sm:py-16 md:py-20'>
+    <section className='relative w-full bg-gray-100 py-14 sm:py-16 md:py-20'>
       {/* Heading group */}
       <div className='relative mx-auto max-w-[934px] text-center'>
         <div className='text-[28px] sm:text-[40px] md:text-[64px] lg:text-[80px] font-extrabold text-[#111111] leading-[1.07]'>
@@ -95,15 +96,19 @@ export default function TestimonialsSupportSection({
               <HeartIcon className='w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7' />
             </span>
           </span>
-          <span className='text-[28px] sm:text-[40px] md:text-[64px] lg:text-[80px] font-extrabold text-[#111111] leading-[1.07] relative'>
+          <span className='text-[28px] sm:text-[40px] md:text-[64px] lg:text-[80px] font-extrabold text-[#111111] leading-[1.07] relative inline-block'>
             {headingMainRight}
-            <span className='block w-[180px] sm:w-[260px] md:w-[320px] lg:w-[386.81px] h-[0px] border-b-[6px] border-[#408360] -rotate-[5.34deg] mx-auto mt-1 sm:mt-2' />
+            <img
+              src='/figma/underline_green.png'
+              alt='underline'
+              className='absolute left-1/2 -translate-x-1/2 -bottom-2 w-[220px] sm:w-[300px] md:w-[360px] lg:w-[386.81px] h-[8px] sm:h-[9px] md:h-[10px] rotate-[-2deg] pointer-events-none select-none'
+            />
           </span>
         </div>
       </div>
 
       {/* Layered testimonial cards */}
-      <div className='relative mt-10 sm:mt-12 min-h-[420px] sm:min-h-[520px] md:h-[588px]'>
+      <div className='relative mt-10 sm:mt-12 min-h-[560px] sm:min-h-[640px] md:min-h-[760px]'>
         {/* Far left blurred card */}
         <div className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[360px] xl:h-[478.13px] left-0 top-0 bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] transform [transform:matrix(0.74,-0.67,0,1,0,0)] p-6 xl:p-[28.56px]'>
           <div className='w-[323.36px] h-[398.71px] [transform:matrix(0.74,-0.67,0,1,0,0)]'>
@@ -215,9 +220,11 @@ export default function TestimonialsSupportSection({
           <div className='my-2 text-[30px] font-bold text-[#408360]'>
             {supportSubtext}
           </div>
-          <Button className='w-[200px]' variant='secondary'>
-            {donateLabel}
-          </Button>
+          <Link href='/donations'>
+            <Button className='w-[200px]' variant='secondary'>
+              {donateLabel}
+            </Button>
+          </Link>
         </div>
       )}
     </section>

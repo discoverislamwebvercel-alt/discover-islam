@@ -92,7 +92,8 @@ export const exhibitionFormSchema = z.object({
 
   attendees: z
     .string()
-    .max(100, 'Attendees information cannot exceed 100 characters')
+    .regex(/^\d+$/, 'Attendees must be a number')
+    .transform(val => (val === '' ? val : String(Number(val))))
     .optional()
     .or(z.literal('')),
 

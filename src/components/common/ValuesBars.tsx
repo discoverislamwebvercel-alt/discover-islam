@@ -35,7 +35,7 @@ export default function ValuesBars() {
             Stand For
           </motion.h2>
           <motion.img
-            src='/figma/ribbon.svg'
+            src='/figma/underline_green.png'
             alt='underline'
             className='mt-2 w-[280px] sm:w-[360px]'
             initial={{ opacity: 0, scaleX: 0.8 }}
@@ -80,7 +80,7 @@ export default function ValuesBars() {
                       rest: { opacity: 0, x: 60, maxWidth: 0 },
                       hover: { opacity: 1, x: 0, maxWidth: 680 },
                     }}
-                    transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
                   >
                     <div className='text-right text-[26px] leading-[31px]'>
                       {bar.extra}

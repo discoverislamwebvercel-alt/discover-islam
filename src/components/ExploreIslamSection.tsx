@@ -1,64 +1,69 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, type Variants } from 'framer-motion';
 
 export default function ExploreIslamSection() {
   const textVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0.15, y: 28 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
   const imageVariants: Variants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0.15, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
   return (
-    <section className='py-12 sm:py-16 lg:py-20 bg-amber-50 relative'>
+    <section className='py-12 sm:py-16 lg:py-20 bg-[#F2F2F0] relative'>
       {/* Islamic Lanterns */}
-      <div className='absolute top-0 left-4 sm:left-8 lg:left-[130px] opacity-60 hidden sm:block'>
-        <img
+      <div className='absolute top-0 left-8 sm:left-8 lg:left-[400px] opacity-60 hidden sm:block'>
+        <Image
+          width={185}
+          height={185}
           src='/islamic-lantern 2.png'
           alt='Islamic Lantern'
-          className='w-16 h-24 sm:w-20 sm:h-32 drop-shadow-lg'
+          className='drop-shadow-lg'
           style={{ filter: 'contrast(1.2) brightness(0.9)' }}
         />
       </div>
 
-      <div className='absolute top-0 right-4 sm:right-8 lg:right-[130px] opacity-60 hidden sm:block'>
-        <img
+      <div className='absolute top-0 right-4 sm:right-8 lg:right-[400px] opacity-60 hidden sm:block'>
+        <Image
+          width={178}
+          height={800}
           src='/islamic-lantern 1.png'
           alt='Islamic Lantern'
-          className='w-16 h-24 sm:w-20 sm:h-32 drop-shadow-lg'
+          className='drop-shadow-lg'
           style={{ filter: 'contrast(1.2) brightness(0.9)' }}
         />
       </div>
 
-      <div className='max-w-6xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8'>
+      <div className='mx-auto mt-12 relative z-10 px-4 sm:px-6 lg:px-8 max-w-[1242px]'>
         {/* Section Title */}
         <motion.div
-          className='text-center mb-12'
+          className='text-center mb-12 max-w-[728px] mx-auto pt-16 sm:pt-20 lg:pt-24'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, amount: 0.5 }}
           variants={textVariants}
         >
-          <h2 className='text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 leading-tight'>
-            Explore <span className='text-[#4c735d]'>Islam</span>
+          <h2 className='font-extrabold text-[#111111] leading-[94%] tracking-[-0.03em] text-[40px] sm:text-[56px] md:text-[64px] lg:text-[80px]'>
+            Explore <span className='text-[#4C735D]'>Islam</span>
           </h2>
         </motion.div>
 
         {/* Description */}
         <motion.p
-          className='text-center text-base sm:text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-12 leading-relaxed'
+          className='text-center mx-auto mb-12 max-w-[684px] text-[20px] sm:text-[24px] md:text-[28px] lg:text-[30px] leading-[26px] sm:leading-[32px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, amount: 0.5 }}
@@ -80,31 +85,31 @@ export default function ExploreIslamSection() {
           <img
             src='/Rectangle 8.png'
             alt='Call to Prayer'
-            className=' max-w-4xl w-full h-auto'
+            className='w-full h-auto rounded-[50px]'
           />
         </motion.div>
 
         {/* Adhan Section */}
         <motion.div
-          className='max-w-xl text-left ml-0 sm:ml-8 lg:ml-32'
+          className='max-w-[878px] text-left ml-0 sm:ml-4 lg:ml-8'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, amount: 0.5 }}
           variants={textVariants}
         >
-          <h3 className='text-2xl md:text-3xl font-bold text-gray-800 mb-4'>
+          <h3 className='font-bold text-[#111111] tracking-[-0.03em] text-[28px] sm:text-[34px] md:text-[40px] leading-[36px] sm:leading-[44px] md:leading-[48px] mb-4'>
             Listen to the Call to Prayer{' '}
-            <span className='relative inline-block'>
+            <span className='relative inline-block pb-1'>
               (Adhan)
               <img
                 src='/Ellipse 11.png'
                 alt='Underline'
-                className='absolute left-0 right-0 bottom-[-4px] w-full h-auto'
+                className='absolute left-0 right-0 bottom-[-14px] w-[174.19px] h-[21.41px] rotate-[2deg]'
               />
             </span>
           </h3>
 
-          <p className='text-lg text-gray-700 leading-relaxed'>
+          <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500'>
             The Adhān is more than a call — it&apos;s a living rhythm of faith
             that encircles the globe. As it ends in one city, it begins in the
             next, creating a continuous wave of remembrance that never leaves
@@ -114,32 +119,35 @@ export default function ExploreIslamSection() {
         </motion.div>
 
         {/* Two Column Section */}
-        <div className='flex flex-col lg:flex-row gap-6 sm:gap-8 mt-12 sm:mt-16'>
+        <motion.div
+          className='flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 mt-14 sm:mt-20'
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.3 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.25 } },
+          }}
+        >
           {/* Left Column - Quran Recitation */}
-          <motion.div
-            className='flex-1'
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true, amount: 0.3 }}
-            variants={textVariants}
-          >
+          <motion.div className='flex-1' variants={textVariants}>
             <img
               src='/Rectangle 11.png'
               alt='Quran Recitation'
-              className='w-full h-auto mb-6'
+              className='w-full h-auto mb-6 rounded-[50px]'
             />
-            <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4'>
+            <h3 className='font-bold text-[#111111] tracking-[-0.03em] text-[28px] sm:text-[34px] md:text-[40px] leading-[36px] sm:leading-[44px] md:leading-[48px] mb-4'>
               Enjoy the Recitation of the{' '}
-              <span className='relative inline-block'>
+              <span className='relative inline-block pb-2'>
                 Qur&apos;an
                 <img
                   src='/Ellipse 11 (1).png'
                   alt='Quran underline'
-                  className='absolute left-0 right-0 bottom-[-4px] w-full h-auto'
+                  className='absolute left-0 right-0 bottom-[-14px] w-[174.19px] h-[21.41px] rotate-[3deg]'
                 />
               </span>
             </h3>
-            <p className='text-base sm:text-lg text-gray-700 leading-relaxed'>
+            <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500]'>
               Immerse yourself in the timeless words of Allah, recited with
               beauty, clarity, and deep emotion. Every verse offers a message of
               guidance, peace, and reflection.
@@ -147,33 +155,27 @@ export default function ExploreIslamSection() {
           </motion.div>
 
           {/* Right Column - Makkah 360 */}
-          <motion.div
-            className='flex-1'
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true, amount: 0.3 }}
-            variants={textVariants}
-          >
+          <motion.div className='flex-1 mt-14' variants={textVariants}>
             <img
               src='/Rectangle 12.png'
               alt='Makkah 360'
-              className='w-full h-auto mb-6 mt-[200px]'
+              className='w-full h-auto mb-6 rounded-[50px] lg:mt-[60px]'
             />
-            <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 relative inline-block'>
+            <h3 className='font-bold text-[#111111] tracking-[-0.03em] text-[28px] sm:text-[34px] md:text-[40px] leading-[36px] sm:leading-[44px] md:leading-[48px] mb-4 relative inline-block pb-2'>
               Explore Makkah in 360°
               <img
                 src='/Ellipse 11.png'
                 alt='Makkah underline'
-                className='absolute left-0 right-0 bottom-[-4px] w-full h-auto'
+                className='absolute left-0 bottom-[-14px] w-[260.75px] h-[21.41px] rotate-[2deg]'
               />
             </h3>
-            <p className='text-base sm:text-lg text-gray-700 leading-relaxed'>
+            <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500]'>
               Take a virtual journey to the holiest site in Islam. Stand before
               the Ka&apos;bah, walk through Masjid al-Haram, and witness the
               spiritual harmony of millions — from wherever you are.
             </p>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

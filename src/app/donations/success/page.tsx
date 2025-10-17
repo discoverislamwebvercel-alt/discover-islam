@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 import FundraisePage from '@/components/common/FundraisePage';
@@ -24,7 +24,7 @@ const CheckIcon: React.FC<{ className?: string }> = ({ className = '' }) => (
   </svg>
 );
 
-export default function DonationSuccessPage() {
+function DonationSuccessContent() {
   const searchParams = useSearchParams();
   const [paymentStatus, setPaymentStatus] = useState<
     'success' | 'error' | 'loading'
@@ -195,5 +195,19 @@ export default function DonationSuccessPage() {
 
       <AnimatedJourneySection />
     </>
+  );
+}
+
+export default function DonationSuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className='w-full flex justify-center py-20'>
+          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-[#CB892A]'></div>
+        </div>
+      }
+    >
+      <DonationSuccessContent />
+    </Suspense>
   );
 }

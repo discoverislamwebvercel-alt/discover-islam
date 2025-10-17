@@ -15,29 +15,28 @@ export default function GetInvolvedSection() {
   };
 
   return (
-    <section className='py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gray-100'>
-      <div className='max-w-6xl mx-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 h-auto lg:h-[470px] max-w-4xl mx-auto'>
+    <section className='py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-[linear-gradient(186.54deg,rgba(242,242,240,0)_5.14%,#C9C9C9_247.82%)]'>
+      <div className='mx-auto max-w-[1251px]'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
           {/* Large Left Card - Fundraise with us */}
           <motion.div
-            className='bg-[#cb892a] rounded-2xl p-4 sm:p-6 flex flex-col justify-between relative shadow-lg min-h-[300px] lg:min-h-0'
+            className='bg-[#CB892A] rounded-[30px] p-6 sm:p-8 flex flex-col justify-between relative shadow-lg min-h-[300px] lg:h-[662px]'
             variants={cardVariants}
             initial='hidden'
             whileInView='visible'
             viewport={{ once: true, amount: 0.3 }}
           >
             <div>
-              <h3 className='text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight'>
+              <h3 className='font-extrabold text-white leading-[93%] text-[40px] sm:text-[56px] md:text-[72px] lg:text-[80px]'>
                 Fundraise
-              </h3>
-              <h3 className='text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight'>
+                <br />
                 with us
               </h3>
             </div>
 
             <div className='flex flex-col items-start'>
               <button
-                className='bg-black text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-base sm:text-lg hover:bg-gray-800 transition-colors duration-300 cursor-pointer'
+                className='bg-[#181818] text-white w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-black transition-colors duration-300 cursor-pointer px-[37px]'
                 onClick={() => router.push('/fundraise')}
               >
                 Fill out form
@@ -58,24 +57,23 @@ export default function GetInvolvedSection() {
           <div className='flex flex-col gap-6'>
             {/* Top Right Card - Volunteer with us */}
             <motion.div
-              className='bg-[#4c735d] rounded-2xl p-4 sm:p-6 flex flex-col justify-between shadow-lg flex-1 min-h-[200px]'
+              className='bg-[#4C735D] rounded-[30px] p-6 sm:p-8 flex flex-col justify-between shadow-lg flex-1 min-h-[200px] lg:h-[324px]'
               variants={cardVariants}
               initial='hidden'
               whileInView='visible'
               viewport={{ once: true, amount: 0.3 }}
             >
               <div>
-                <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight'>
+                <h3 className='font-extrabold text-white leading-[93%] text-[32px] sm:text-[48px] md:text-[64px] lg:text-[80px]'>
                   Volunteer
-                </h3>
-                <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight'>
+                  <br />
                   with us
                 </h3>
               </div>
 
               <div className='flex justify-start'>
                 <button
-                  className='bg-black text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-base sm:text-lg hover:bg-gray-800 transition-colors duration-300 cursor-pointer'
+                  className='bg-[#181818] text-white w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-black transition-colors duration-300 cursor-pointer px-[37px]'
                   onClick={() => router.push('/volunteer')}
                 >
                   Fill out form
@@ -85,24 +83,23 @@ export default function GetInvolvedSection() {
 
             {/* Bottom Right Card - Partner with us */}
             <motion.div
-              className='bg-black rounded-2xl p-4 sm:p-6 flex flex-col justify-between shadow-lg flex-1 min-h-[200px]'
+              className='bg-black rounded-[30px] p-6 sm:p-8 flex flex-col justify-between shadow-lg flex-1 min-h-[200px] lg:h-[324px]'
               variants={cardVariants}
               initial='hidden'
               whileInView='visible'
               viewport={{ once: true, amount: 0.3 }}
             >
               <div>
-                <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight'>
+                <h3 className='font-extrabold text-white leading-[93%] text-[32px] sm:text-[48px] md:text-[64px] lg:text-[80px]'>
                   Partner
-                </h3>
-                <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight'>
+                  <br />
                   with us
                 </h3>
               </div>
 
               <div className='flex justify-start'>
                 <button
-                  className='bg-white text-black px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-base sm:text-lg hover:bg-gray-200 transition-colors duration-300 cursor-pointer'
+                  className='bg-[#F2F2F0] text-black w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-white transition-colors duration-300 cursor-pointer px-[37px]'
                   onClick={() => router.push('/partner-with-us')}
                 >
                   Fill out form

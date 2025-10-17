@@ -15,6 +15,9 @@ interface UseGoCardlessReturn {
     description: string;
     success_redirect_url: string;
     session_token: string;
+    amount?: number;
+    payment_type?: string;
+    category?: string;
   }) => Promise<RedirectFlow>;
 }
 
@@ -60,6 +63,9 @@ export function useGoCardless(): UseGoCardlessReturn {
       description: string;
       success_redirect_url: string;
       session_token: string;
+      amount?: number;
+      payment_type?: string;
+      category?: string;
     }): Promise<RedirectFlow> => {
       const response = await fetch('/api/gocardless/redirect-flow', {
         method: 'POST',

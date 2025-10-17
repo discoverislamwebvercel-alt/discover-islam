@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 import FundraisePage from '@/components/common/FundraisePage';
@@ -60,7 +60,7 @@ const AlertTriangleIcon: React.FC<{ className?: string }> = ({
   </svg>
 );
 
-export default function DonationFailedPage() {
+function DonationFailedContent() {
   const searchParams = useSearchParams();
   const [errorDetails, setErrorDetails] = useState<{
     type:
@@ -295,5 +295,19 @@ export default function DonationFailedPage() {
 
       <AnimatedJourneySection />
     </>
+  );
+}
+
+export default function DonationFailedPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className='w-full flex justify-center py-20'>
+          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-[#CB892A]'></div>
+        </div>
+      }
+    >
+      <DonationFailedContent />
+    </Suspense>
   );
 }

@@ -6,7 +6,7 @@ export default function AboutStats() {
   return (
     <section className='relative w-full bg-[#111111]'>
       {/* Desktop layout (absolute, pixel-precise) */}
-      <div className='relative mx-auto w-full max-w-[1442px] h-[383px] hidden md:block'>
+      <div className='relative mx-auto w-full max-w-[1442px] h-[383px] hidden xl:block'>
         {/* Left stat - 100+ Exhibitions delivered */}
         <motion.div
           className='absolute left-[214px] top-[142px]'
@@ -95,9 +95,65 @@ export default function AboutStats() {
         </motion.div>
       </div>
 
-      {/* Mobile/tablet layout */}
+      {/* Tablet/Laptop layout */}
+      <div className='hidden md:block xl:hidden px-6 py-12'>
+        <div className='flex flex-col items-center gap-8 lg:gap-10'>
+          <motion.div
+            className='flex flex-col items-center gap-4'
+            initial={{ opacity: 0, y: 40, rotate: 3.81 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+          >
+            <div className='h-[72px] lg:h-[80px] px-6 lg:px-8 rounded-[18px] bg-[#408360] flex items-center justify-center'>
+              <div className='text-[44px] lg:text-[48px] font-bold text-[#F2F2F0] leading-[52px] lg:leading-[56px] tracking-[-0.03em]'>
+                100+
+              </div>
+            </div>
+            <div className='text-[#F2F2F0] text-base lg:text-lg font-medium'>
+              Exhibitions delivered
+            </div>
+          </motion.div>
+
+          <motion.div
+            className='flex flex-col items-center gap-4'
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.12 }}
+          >
+            <div className='h-[72px] lg:h-[80px] px-6 lg:px-8 rounded-[18px] bg-[#F2F2F0] text-[#111111] flex items-center justify-center'>
+              <div className='text-[44px] lg:text-[48px] font-bold leading-[52px] lg:leading-[56px] tracking-[-0.03em]'>
+                1000+
+              </div>
+            </div>
+            <div className='text-[#F2F2F0] text-base lg:text-lg font-medium'>
+              school visits completed
+            </div>
+          </motion.div>
+
+          <motion.div
+            className='flex flex-col items-center gap-4'
+            initial={{ opacity: 0, y: 40, rotate: -2.36 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.24 }}
+          >
+            <div className='h-[72px] lg:h-[80px] px-6 lg:px-8 rounded-[18px] bg-[#CB892A] flex items-center justify-center'>
+              <div className='text-[36px] lg:text-[40px] font-bold text-[#F2F2F0] leading-[44px] lg:leading-[48px] tracking-[-0.03em]'>
+                1,000,000
+              </div>
+            </div>
+            <div className='text-[#F2F2F0] text-base lg:text-lg font-medium'>
+              literature pieces shared
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Mobile layout */}
       <div className='md:hidden px-4 py-10'>
-        <div className='flex flex-col items-center gap-8'>
+        <div className='flex flex-col items-center gap-6 sm:gap-8'>
           <motion.div
             className='flex flex-col items-center gap-3'
             initial={{ opacity: 0, y: 40, rotate: 3.81 }}
@@ -105,12 +161,12 @@ export default function AboutStats() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <div className='h-[64px] px-6 rounded-[16px] bg-[#408360] flex items-center justify-center'>
-              <div className='text-[42px] font-bold text-[#F2F2F0] leading-[48px] tracking-[-0.03em]'>
+            <div className='h-[56px] sm:h-[64px] px-4 sm:px-6 rounded-[14px] sm:rounded-[16px] bg-[#408360] flex items-center justify-center'>
+              <div className='text-[32px] sm:text-[42px] font-bold text-[#F2F2F0] leading-[40px] sm:leading-[48px] tracking-[-0.03em]'>
                 100+
               </div>
             </div>
-            <div className='text-[#F2F2F0] text-base'>
+            <div className='text-[#F2F2F0] text-sm sm:text-base font-medium text-center'>
               Exhibitions delivered
             </div>
           </motion.div>
@@ -122,12 +178,12 @@ export default function AboutStats() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.12 }}
           >
-            <div className='h-[64px] px-6 rounded-[16px] bg-[#F2F2F0] text-[#111111] flex items-center justify-center'>
-              <div className='text-[42px] font-bold leading-[48px] tracking-[-0.03em]'>
+            <div className='h-[56px] sm:h-[64px] px-4 sm:px-6 rounded-[14px] sm:rounded-[16px] bg-[#F2F2F0] text-[#111111] flex items-center justify-center'>
+              <div className='text-[32px] sm:text-[42px] font-bold leading-[40px] sm:leading-[48px] tracking-[-0.03em]'>
                 1000+
               </div>
             </div>
-            <div className='text-[#F2F2F0] text-base'>
+            <div className='text-[#F2F2F0] text-sm sm:text-base font-medium text-center'>
               school visits completed
             </div>
           </motion.div>
@@ -139,12 +195,12 @@ export default function AboutStats() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.24 }}
           >
-            <div className='h-[64px] px-6 rounded-[16px] bg-[#CB892A] flex items-center justify-center'>
-              <div className='text-[36px] sm:text-[42px] font-bold text-[#F2F2F0] leading-[44px] tracking-[-0.03em]'>
+            <div className='h-[56px] sm:h-[64px] px-4 sm:px-6 rounded-[14px] sm:rounded-[16px] bg-[#CB892A] flex items-center justify-center'>
+              <div className='text-[24px] sm:text-[36px] font-bold text-[#F2F2F0] leading-[32px] sm:leading-[44px] tracking-[-0.03em]'>
                 1,000,000
               </div>
             </div>
-            <div className='text-[#F2F2F0] text-base'>
+            <div className='text-[#F2F2F0] text-sm sm:text-base font-medium text-center'>
               literature pieces shared
             </div>
           </motion.div>

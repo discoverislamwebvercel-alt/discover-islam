@@ -95,7 +95,7 @@ export default function Literature() {
     <>
       <HeroSection
         heroImage='/literatureHero.png'
-        title='ISLAMIC LITERATURE'
+        title='LITERATURE'
         subHeading='Sharing the Message with Clarity and Compassion'
         description={
           <>

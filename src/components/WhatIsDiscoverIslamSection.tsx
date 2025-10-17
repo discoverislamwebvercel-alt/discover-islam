@@ -36,37 +36,41 @@ export default function WhatIsDiscoverIslamSection() {
           variants={textVariants}
         >
           <h2 className='font-extrabold text-[#111111] leading-[107%] text-[44px] sm:text-[56px] md:text-[72px] lg:text-[80px]'>
-            What is DiscoverIslam?
+            <span className='relative inline-block pb-3'>
+              What is
+              <img
+                src='/figma/underline_green.png'
+                alt='underline'
+                className='absolute left-1/2 -translate-x-1/2 -bottom-2 w-[386.81px] h-[21.41px] pointer-events-none select-none'
+              />
+            </span>
+            <br />
+            <span className='relative text-[#CB892A] inline-block'>
+              DiscoverIslam?
+            </span>
           </h2>
-          <div className='mt-1 flex justify-center'>
-            <img
-              src='/Ellipse 11.png'
-              alt='underline'
-              className='w-[240px] sm:w-[300px] md:w-[340px] lg:w-[386.81px] h-[21.41px] -rotate-[2deg]'
-            />
-          </div>
         </motion.div>
 
         {/* Description */}
         <motion.div
-          className='mx-auto mt-8 text-center max-w-[1063px]'
+          className='mx-auto mt-10 text-center max-w-[1063px]'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, amount: 0.4 }}
           variants={textVariants}
         >
-          <p className='text-[22px] md:text-[26px] lg:text-[30px] leading-[28px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)]'>
+          <p className='text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
             DiscoverIslam is a dedicated initiative that shares the beauty,
             values, and teachings of Islam in a clear and authentic way. We work
             to bridge understanding, remove misconceptions, and open dialogue
             between communities.
           </p>
-          <p className='mt-6 text-[22px] md:text-[26px] lg:text-[30px] leading-[28px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)]'>
+          <p className='mt-6 text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
             Over the years, we’ve grown into a trusted platform offering
             exhibitions, educational resources, events, and community programs,
             reaching thousands locally and globally.
           </p>
-          <p className='mt-6 text-[22px] md:text-[26px] lg:text-[30px] leading-[28px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)]'>
+          <p className='mt-6 text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
             Educational Resources: Clear, accessible materials for all
             audiences.
           </p>
@@ -86,7 +90,7 @@ export default function WhatIsDiscoverIslamSection() {
               <h3 className='font-bold text-[40px] leading-[48px] text-[#4C735D]'>
                 Exhibitions & Events
               </h3>
-              <p className='mt-[30px] max-w-[304px] text-[30px] leading-[36px] text-[rgba(0,0,0,0.8)]'>
+              <p className='mt-[30px] max-w-[304px] text-[28px] leading-[36px] text-[rgba(0,0,0,0.8)] font-[500]'>
                 Interactive displays and cultural showcases.
               </p>
             </motion.div>
@@ -102,7 +106,7 @@ export default function WhatIsDiscoverIslamSection() {
               <h3 className='font-bold text-[40px] leading-[48px] text-[#111111]'>
                 Workshops & Seminars
               </h3>
-              <p className='mt-[30px] max-w-[318px] text-[30px] leading-[36px] text-[rgba(0,0,0,0.8)]'>
+              <p className='mt-[30px] max-w-[318px] text-[28px] leading-[36px] text-[rgba(0,0,0,0.8)] font-[500]'>
                 For schools, workplaces, and communities.
               </p>
             </motion.div>
@@ -118,16 +122,11 @@ export default function WhatIsDiscoverIslamSection() {
               <h3 className='font-bold text-[40px] leading-[48px] text-[#CB892A]'>
                 Community Engagement
               </h3>
-              <p className='mt-[30px] max-w-[317px] text-[30px] leading-[36px] text-[rgba(0,0,0,0.8)]'>
+              <p className='mt-[30px] max-w-[317px] text-[28px] leading-[36px] text-[rgba(0,0,0,0.8)] font-[500]'>
                 Building bridges through open dialogue.
               </p>
             </motion.div>
           </div>
-        </div>
-
-        {/* Bottom gradient strip */}
-        <div className='relative mt-10'>
-          <div className='mx-auto h-[379px] max-w-[1438px] bg-[linear-gradient(186.54deg,rgba(242,242,240,0)_5.14%,#C9C9C9_247.82%)] rounded-b-[0px]' />
         </div>
       </div>
     </section>

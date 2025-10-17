@@ -5,6 +5,7 @@ import HookForm from './HookForm';
 import HookFormInput from './HookFormInput';
 import HookFormTextarea from './HookFormTextarea';
 import HookFormRadioGroup from './HookFormRadioGroup';
+import HookFormSelect from './HookFormSelect';
 import FormButton from './FormButton';
 import {
   exhibitionFormSchema,
@@ -15,12 +16,17 @@ import {
 } from '../../lib/validation/exhibitionForm';
 
 // Conditional instructor count component
-function ConditionalInstructorCount() {
+function ConditionalInstructorCount({
+  className = '',
+}: {
+  className?: string;
+}) {
   return (
     <HookFormInput
       label='How many?'
       name='instructorCount'
       placeholder='Enter number of instructors'
+      className={className}
     />
   );
 }
@@ -111,11 +117,11 @@ const ExhibitionBookingForm: React.FC = () => {
             name='venueSize'
             placeholder='Enter Size of the venue'
           />
-          <HookFormRadioGroup
+          <HookFormSelect
             label='Types of exhibition model'
             name='exhibitionModel'
+            placeholder='Select exhibition model'
             options={exhibitionModelOptions}
-            columns={2}
           />
         </div>
 
@@ -130,7 +136,10 @@ const ExhibitionBookingForm: React.FC = () => {
             ]}
             columns={2}
           />
-          <ConditionalInstructorCount />
+          {/* How many (half width to match paired fields) */}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-2'>
+            <ConditionalInstructorCount />
+          </div>
         </div>
 
         {/* Notes */}
@@ -141,13 +150,15 @@ const ExhibitionBookingForm: React.FC = () => {
           rows={4}
         />
 
-        {/* Hear about us */}
-        <HookFormRadioGroup
-          label='How did you hear about us?'
-          name='hearAboutUs'
-          options={hearAboutUsOptions}
-          columns={3}
-        />
+        {/* Hear about us - same width as venue field */}
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <HookFormSelect
+            label='How did you hear about us?'
+            name='hearAboutUs'
+            placeholder='Select platform'
+            options={hearAboutUsOptions}
+          />
+        </div>
 
         {/* Submit */}
         <div className='flex pt-2'>

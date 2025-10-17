@@ -1,6 +1,7 @@
 'use client';
 
 import HeroSection from '@/components/common/HeroSection';
+import { motion } from 'framer-motion';
 import AnimatedImageSection from '../../components/common/AnimatedImageSection';
 import ResponsiveFallingCards from '../../components/ResponsiveFallingCards';
 import HostExhibition from '@/components/HostExhibition';
@@ -70,16 +71,23 @@ export default function Exhibition() {
 
   return (
     <>
-      <HeroSection
-        heroImage='/exhibitionHero.png'
-        title='ISLAMIC EXHIBITIONS'
-        subHeading='Promoting Understanding Through Engagement'
-        description='Our Islamic exhibitions promote understanding and challenge
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+      >
+        <HeroSection
+          heroImage='/exhibitionHero.png'
+          title='ISLAMIC EXHIBITIONS'
+          subHeading='Promoting Understanding Through Engagement'
+          description='Our Islamic exhibitions promote understanding and challenge
                 stereotypes through informative displays and powerful visuals —
                 including interactive tech models, educational exhibits, and
                 authentic artifacts — that engage visitors and offer deeper
                 insight into Islamic culture and values.'
-      />
+        />
+      </motion.div>
 
       <AnimatedImageSection />
 
@@ -89,13 +97,55 @@ export default function Exhibition() {
         heading2={'Islamic Exhibition?'}
       />
 
-      <HostExhibition />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5 }}
+      >
+        <HostExhibition />
+      </motion.div>
 
-      <MoonSection />
-      <ExhibitionInfiniteCarousel />
-      <GalleryGrid />
-      <TestimonialsSupportSection showSupport={false} />
-      <ExhibitionBookingForm />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <MoonSection />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <ExhibitionInfiniteCarousel />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <GalleryGrid />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <TestimonialsSupportSection showSupport={false} />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <ExhibitionBookingForm />
+      </motion.div>
     </>
   );
 }

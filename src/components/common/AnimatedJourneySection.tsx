@@ -41,7 +41,7 @@ export default function AnimatedJourneySection() {
         }}
         animate={{ x: ['0%', '-50%'] }}
         transition={{
-          duration: 3,
+          duration: 5,
           repeat: Infinity,
           ease: 'linear',
         }}

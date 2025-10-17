@@ -17,8 +17,15 @@ export default function GalleryGrid() {
       <div className='mx-auto max-w-[1230px] px-4 sm:px-6 lg:px-8'>
         <h2 className='text-center font-extrabold text-[#111111] leading-[105%] text-[40px] sm:text-[56px] md:text-[72px] lg:text-[80px]'>
           Check out
-          <br className='sm:hidden' />{' '}
-          <span className='text-[#2A6C4C]'>our Gallery</span>
+          <br /> <span className='text-[#111111]'>our </span>
+          <span className='relative inline-block text-[#2A6C4C]'>
+            Gallery
+            <img
+              src='/figma/underline_green.png'
+              alt='underline'
+              className='absolute left-1/2 -translate-x-1/2 -bottom-2 w-[115%] max-w-none h-[10px] sm:h-[12px] md:h-[14px] lg:h-[16px] pointer-events-none select-none'
+            />
+          </span>
         </h2>
       </div>
 
