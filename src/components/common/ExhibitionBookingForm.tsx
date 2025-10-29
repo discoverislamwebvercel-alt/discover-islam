@@ -90,140 +90,142 @@ const ExhibitionBookingForm: React.FC = () => {
   };
 
   return (
-    <HookForm
-      title='Islamic Exhibitions'
-      subtitle='Book an Islamic Exhibition at Your Venue'
-      schema={exhibitionFormSchema}
-      defaultValues={exhibitionFormDefaultValues}
-      onSubmit={handleSubmit}
-      className='mb-24'
-      maxWidth='910px'
-      mode='onBlur'
-    >
-      <div className='space-y-6'>
-        {/* Full Name */}
-        <HookFormInput
-          label='Full Name'
-          name='fullName'
-          placeholder='Enter Full Name'
-        />
-
-        {/* Organisation / Centre Name */}
-        <HookFormInput
-          label='Organisation / Centre Name'
-          name='organization'
-          placeholder='Enter Organisation / Centre Name'
-        />
-
-        {/* Email / Phone */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+    <div id='exhibitions-form'>
+      <HookForm
+        title='Islamic Exhibitions'
+        subtitle='Book an Islamic Exhibition at Your Venue'
+        schema={exhibitionFormSchema}
+        defaultValues={exhibitionFormDefaultValues}
+        onSubmit={handleSubmit}
+        className='mb-24'
+        maxWidth='910px'
+        mode='onBlur'
+      >
+        <div className='space-y-6'>
+          {/* Full Name */}
           <HookFormInput
-            label='Email'
-            name='email'
-            type='email'
-            placeholder='Enter Email'
+            label='Full Name'
+            name='fullName'
+            placeholder='Enter Full Name'
           />
+
+          {/* Organisation / Centre Name */}
           <HookFormInput
-            label='Phone Number'
-            name='phone'
-            type='tel'
-            placeholder='Enter Phone Number'
+            label='Organisation / Centre Name'
+            name='organization'
+            placeholder='Enter Organisation / Centre Name'
           />
-        </div>
 
-        {/* Address */}
-        <HookFormInput
-          label='Location / Address of Venue'
-          name='address'
-          placeholder='Enter Location / Address of Venue'
-        />
+          {/* Email / Phone */}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <HookFormInput
+              label='Email'
+              name='email'
+              type='email'
+              placeholder='Enter Email'
+            />
+            <HookFormInput
+              label='Phone Number'
+              name='phone'
+              type='tel'
+              placeholder='Enter Phone Number'
+            />
+          </div>
 
-        {/* Preferred Date(s) */}
-        <HookFormInput
-          label='Preferred Date(s)'
-          name='preferredDates'
-          type='date'
-          placeholder='Enter Preferred Date(s)'
-        />
-
-        {/* Audience & Attendees */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          {/* Address */}
           <HookFormInput
-            label='Type of Audience'
-            name='audienceType'
-            placeholder='e.g., Public, Interfaith, School, College'
+            label='Location / Address of Venue'
+            name='address'
+            placeholder='Enter Location / Address of Venue'
           />
-          <HookFormInput
-            label='Approximate Number of Attendees'
-            name='attendees'
-            placeholder='Enter Approximate Number of Attendees'
-          />
-        </div>
 
-        {/* Venue size & Exhibition model */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          {/* Preferred Date(s) */}
           <HookFormInput
-            label='Size of the venue'
-            name='venueSize'
-            placeholder='Enter Size of the venue'
+            label='Preferred Date(s)'
+            name='preferredDates'
+            type='date'
+            placeholder='Enter Preferred Date(s)'
           />
-          <HookFormSelect
-            label='Types of exhibition model'
-            name='exhibitionModel'
-            placeholder='Select exhibition model'
-            options={exhibitionModelOptions}
-          />
-        </div>
 
-        {/* Instructors required? */}
-        <div>
-          <HookFormRadioGroup
-            label='Do you require instructors from our team to attend and deliver?'
-            name='instructorsRequired'
-            options={[
-              { value: 'yes', label: 'Yes' },
-              { value: 'no', label: 'No' },
-            ]}
-            columns={2}
+          {/* Audience & Attendees */}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <HookFormInput
+              label='Type of Audience'
+              name='audienceType'
+              placeholder='e.g., Public, Interfaith, School, College'
+            />
+            <HookFormInput
+              label='Approximate Number of Attendees'
+              name='attendees'
+              placeholder='Enter Approximate Number of Attendees'
+            />
+          </div>
+
+          {/* Venue size & Exhibition model */}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <HookFormInput
+              label='Size of the venue'
+              name='venueSize'
+              placeholder='Enter Size of the venue'
+            />
+            <HookFormSelect
+              label='Types of exhibition model'
+              name='exhibitionModel'
+              placeholder='Select exhibition model'
+              options={exhibitionModelOptions}
+            />
+          </div>
+
+          {/* Instructors required? */}
+          <div>
+            <HookFormRadioGroup
+              label='Do you require instructors from our team to attend and deliver?'
+              name='instructorsRequired'
+              options={[
+                { value: 'yes', label: 'Yes' },
+                { value: 'no', label: 'No' },
+              ]}
+              columns={2}
+            />
+            {/* How many (half width to match paired fields) */}
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-2'>
+              <ConditionalInstructorCount />
+            </div>
+          </div>
+
+          {/* Notes */}
+          <HookFormTextarea
+            label='Any Specific Requirements or Notes'
+            name='requirements'
+            placeholder='Enter any additional information...'
+            rows={4}
           />
-          {/* How many (half width to match paired fields) */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-2'>
-            <ConditionalInstructorCount />
+
+          {/* Hear about us - same width as venue field */}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <HookFormSelect
+              label='How did you hear about us?'
+              name='hearAboutUs'
+              placeholder='Select platform'
+              options={hearAboutUsOptions}
+            />
+          </div>
+
+          {/* Submit */}
+          <div className='flex pt-2'>
+            <FormButton
+              type='submit'
+              variant='primary'
+              size='lg'
+              loading={isLoading}
+              className='w-full max-w-[400px] font-extrabold'
+            >
+              {isLoading ? 'Submitting...' : 'Submit Booking Request'}
+            </FormButton>
           </div>
         </div>
-
-        {/* Notes */}
-        <HookFormTextarea
-          label='Any Specific Requirements or Notes'
-          name='requirements'
-          placeholder='Enter any additional information...'
-          rows={4}
-        />
-
-        {/* Hear about us - same width as venue field */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <HookFormSelect
-            label='How did you hear about us?'
-            name='hearAboutUs'
-            placeholder='Select platform'
-            options={hearAboutUsOptions}
-          />
-        </div>
-
-        {/* Submit */}
-        <div className='flex pt-2'>
-          <FormButton
-            type='submit'
-            variant='primary'
-            size='lg'
-            loading={isLoading}
-            className='w-full max-w-[400px] font-extrabold'
-          >
-            {isLoading ? 'Submitting...' : 'Submit Booking Request'}
-          </FormButton>
-        </div>
-      </div>
-    </HookForm>
+      </HookForm>
+    </div>
   );
 };
 

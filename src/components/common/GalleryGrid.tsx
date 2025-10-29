@@ -1,6 +1,8 @@
 'use client';
 
 import Image from 'next/image';
+import useEmblaCarousel from 'embla-carousel-react';
+import AutoScroll from 'embla-carousel-auto-scroll';
 
 const images = [
   '/figma/gallery/grid-1.png',
@@ -12,6 +14,33 @@ const images = [
 ];
 
 export default function GalleryGrid() {
+  const row1 = images.slice(0, 3);
+  const row2 = images.slice(3, 6);
+
+  const [emblaRef1] = useEmblaCarousel(
+    { loop: true, align: 'start', dragFree: true },
+    [
+      AutoScroll({
+        playOnInit: true,
+        speed: 3.5,
+        stopOnInteraction: false,
+        stopOnMouseEnter: false,
+      }),
+    ]
+  );
+  const [emblaRef2] = useEmblaCarousel(
+    { loop: true, align: 'start', dragFree: true },
+    [
+      AutoScroll({
+        playOnInit: true,
+        speed: 3,
+        direction: 'backward',
+        stopOnInteraction: false,
+        stopOnMouseEnter: false,
+      }),
+    ]
+  );
+
   return (
     <section className='w-full bg-white py-12 sm:py-16'>
       <div className='mx-auto max-w-[1230px] px-4 sm:px-6 lg:px-8'>
@@ -29,73 +58,47 @@ export default function GalleryGrid() {
         </h2>
       </div>
 
-      <div className='mt-8 sm:mt-10 relative w-full overflow-hidden'>
-        {/* Row 1 - Three images side by side, centered */}
+      <div className='mt-8 sm:mt-10 relative w-full overflow-hidden flex flex-col gap-3'>
+        {/* Row 1 - Infinite carousel, preserves sizes and centering */}
         <div className='mx-auto w-full max-w-[1837px] px-4 sm:px-6 lg:px-8 relative'>
-          <div className='flex flex-col md:flex-row gap-4 mb-4 justify-center'>
-            <div className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0'>
-              <Image
-                src={images[0]}
-                alt={`Gallery image 1`}
-                width={599}
-                height={380}
-                className='w-full h-full object-cover'
-              />
-            </div>
-
-            <div className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0'>
-              <Image
-                src={images[1]}
-                alt={`Gallery image 2`}
-                width={599}
-                height={380}
-                className='w-full h-full object-cover'
-              />
-            </div>
-
-            <div className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0'>
-              <Image
-                src={images[2]}
-                alt={`Gallery image 3`}
-                width={599}
-                height={380}
-                className='w-full h-full object-cover'
-              />
+          <div className='overflow-hidden' ref={emblaRef1}>
+            <div className='flex gap-4 md:justify-start justify-center'>
+              {row1.concat(row1).map((src, idx) => (
+                <div
+                  key={`r1-${idx}`}
+                  className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0 flex-shrink-0'
+                >
+                  <Image
+                    src={src}
+                    alt={`Gallery image ${idx + 1}`}
+                    width={599}
+                    height={380}
+                    className='w-full h-full object-cover'
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Row 2 - Full width layout with cut-off effects */}
+        {/* Row 2 - Infinite carousel with left cut-off look */}
         <div className='w-full px-4 sm:px-6 lg:px-8'>
-          <div className='flex flex-col md:flex-row gap-4 overflow-hidden'>
-            <div className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0 md:-ml-[393px]'>
-              <Image
-                src={images[3]}
-                alt={`Gallery image 4`}
-                width={599}
-                height={380}
-                className='w-full h-full object-cover'
-              />
-            </div>
-
-            <div className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0'>
-              <Image
-                src={images[4]}
-                alt={`Gallery image 5`}
-                width={599}
-                height={380}
-                className='w-full h-full object-cover'
-              />
-            </div>
-
-            <div className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0'>
-              <Image
-                src={images[5]}
-                alt={`Gallery image 6`}
-                width={599}
-                height={380}
-                className='w-full h-full object-cover'
-              />
+          <div className='overflow-hidden' ref={emblaRef2}>
+            <div className='flex gap-4 md:-ml-[393px]'>
+              {row2.concat(row2).map((src, idx) => (
+                <div
+                  key={`r2-${idx}`}
+                  className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0 flex-shrink-0'
+                >
+                  <Image
+                    src={src}
+                    alt={`Gallery image ${idx + 4}`}
+                    width={599}
+                    height={380}
+                    className='w-full h-full object-cover mr'
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

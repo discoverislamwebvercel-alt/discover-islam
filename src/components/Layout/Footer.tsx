@@ -2,8 +2,10 @@
 
 import { motion, type Variants } from 'framer-motion';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Footer() {
+  const router = useRouter();
   const textVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -14,7 +16,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className='relative mx-4 sm:mx-6 lg:mx-8 mb-8 rounded-[30px] overflow-hidden text-white bg-[#111111]'>
+    <footer
+      id='footer'
+      className='relative mx-4 sm:mx-6 lg:mx-8 mb-8 rounded-[30px] overflow-hidden text-white bg-[#111111]'
+    >
       {/* Decorative overlay: lantern */}
       <div className='pointer-events-none absolute top-6 right-6'>
         <Image
@@ -59,13 +64,13 @@ export default function Footer() {
                 Friday 10am – 5pm
               </p>
 
-              <motion.button
-                className='mt-6 inline-flex items-center justify-center h-[54px] sm:h-[60px] lg:h-[67px] px-6 sm:px-8 lg:px-[37px] rounded-[52px] bg-[#CB892A] text-white font-extrabold text-[18px] sm:text-[22px] lg:text-[26px]'
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
+              <button
+                className='relative overflow-hidden group bg-[#CB892A] text-black w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#CB892A]/70 mt-8 hover:text-black/70'
+                onClick={() => router.push('/donations')}
               >
-                Reach Out
-              </motion.button>
+                <span aria-hidden className='hover-animation' />
+                Donate Now
+              </button>
             </motion.div>
 
             {/* Right column */}
@@ -119,7 +124,7 @@ export default function Footer() {
             viewport={{ once: true, amount: 0.2 }}
             variants={textVariants}
           >
-            © 2024 Discover Islam. All Rights Reserved.
+            © 2025 Discover Islam. All Rights Reserved.
           </motion.p>
           <motion.p
             className='text-[#CB892A] text-[12px] sm:text-[14px] lg:text-[16px]'

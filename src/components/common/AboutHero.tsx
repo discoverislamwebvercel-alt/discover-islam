@@ -10,8 +10,6 @@ export default function AboutHero() {
         className='absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none select-none'
         style={{ backgroundImage: "url('/image 2.png')" }}
       />
-      {/* Gradient to white like the shared HeroSection */}
-      <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white' />
 
       <div className='relative mx-auto max-w-[1230px] px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 md:pt-44 lg:pt-48 xl:pt-52 pb-6 sm:pb-12 lg:pb-20 xl:pb-24'>
         <motion.h1

@@ -1,0 +1,280 @@
+{
+  "donationPackages": [
+    {
+      "id": "one-off-school-5",
+      "name": "Support School Visits - Small",
+      "description": "Help us organize educational school visits",
+      "amount": 5,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "school"
+    },
+    {
+      "id": "one-off-school-10",
+      "name": "Support School Visits - Medium",
+      "description": "Contribute to multiple school visit projects",
+      "amount": 10,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "school"
+    },
+    {
+      "id": "one-off-school-25",
+      "name": "Support School Visits - Large",
+      "description": "Major support for school visit initiatives",
+      "amount": 25,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "school"
+    },
+    {
+      "id": "one-off-school-50",
+      "name": "Support School Visits - Premium",
+      "description": "Premium contribution to school visit programs",
+      "amount": 50,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "school"
+    },
+    {
+      "id": "one-off-exhibition-5",
+      "name": "Support Exhibition - Small",
+      "description": "Help us create inspiring exhibitions",
+      "amount": 5,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "exhibition"
+    },
+    {
+      "id": "one-off-exhibition-10",
+      "name": "Support Exhibition - Medium",
+      "description": "Contribute to exhibition projects",
+      "amount": 10,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "exhibition"
+    },
+    {
+      "id": "one-off-exhibition-25",
+      "name": "Support Exhibition - Large",
+      "description": "Major support for exhibition initiatives",
+      "amount": 25,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "exhibition"
+    },
+    {
+      "id": "one-off-exhibition-50",
+      "name": "Support Exhibition - Premium",
+      "description": "Premium contribution to exhibition programs",
+      "amount": 50,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "exhibition"
+    },
+    {
+      "id": "one-off-literature-5",
+      "name": "Support Literature - Small",
+      "description": "Help us create educational literature",
+      "amount": 5,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "literature"
+    },
+    {
+      "id": "one-off-literature-10",
+      "name": "Support Literature - Medium",
+      "description": "Contribute to literature projects",
+      "amount": 10,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "literature"
+    },
+    {
+      "id": "one-off-literature-25",
+      "name": "Support Literature - Large",
+      "description": "Major support for literature initiatives",
+      "amount": 25,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "literature"
+    },
+    {
+      "id": "one-off-literature-50",
+      "name": "Support Literature - Premium",
+      "description": "Premium contribution to literature programs",
+      "amount": 50,
+      "currency": "GBP",
+      "type": "one-off",
+      "category": "literature"
+    },
+    {
+      "id": "recurring-school-5",
+      "name": "Monthly School Support - Small",
+      "description": "Monthly support for school visit projects",
+      "amount": 5,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "school",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-school-10",
+      "name": "Monthly School Support - Medium",
+      "description": "Monthly support for school visit programs",
+      "amount": 10,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "school",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-school-25",
+      "name": "Monthly School Support - Large",
+      "description": "Monthly major support for school visits",
+      "amount": 25,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "school",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-school-50",
+      "name": "Monthly School Support - Premium",
+      "description": "Monthly premium support for school programs",
+      "amount": 50,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "school",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-exhibition-5",
+      "name": "Monthly Exhibition Support - Small",
+      "description": "Monthly support for exhibition projects",
+      "amount": 5,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "exhibition",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-exhibition-10",
+      "name": "Monthly Exhibition Support - Medium",
+      "description": "Monthly support for exhibition programs",
+      "amount": 10,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "exhibition",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-exhibition-25",
+      "name": "Monthly Exhibition Support - Large",
+      "description": "Monthly major support for exhibitions",
+      "amount": 25,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "exhibition",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-exhibition-50",
+      "name": "Monthly Exhibition Support - Premium",
+      "description": "Monthly premium support for exhibition programs",
+      "amount": 50,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "exhibition",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-literature-5",
+      "name": "Monthly Literature Support - Small",
+      "description": "Monthly support for literature projects",
+      "amount": 5,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "literature",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-literature-10",
+      "name": "Monthly Literature Support - Medium",
+      "description": "Monthly support for literature programs",
+      "amount": 10,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "literature",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-literature-25",
+      "name": "Monthly Literature Support - Large",
+      "description": "Monthly major support for literature",
+      "amount": 25,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "literature",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    },
+    {
+      "id": "recurring-literature-50",
+      "name": "Monthly Literature Support - Premium",
+      "description": "Monthly premium support for literature programs",
+      "amount": 50,
+      "currency": "GBP",
+      "type": "recurring",
+      "category": "literature",
+      "interval": "monthly",
+      "metadata": {
+        "dayOfMonth": 1,
+        "scheduleText": "1st of every month"
+      }
+    }
+  ]
+}

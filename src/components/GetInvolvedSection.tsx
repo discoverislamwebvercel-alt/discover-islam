@@ -13,10 +13,36 @@ export default function GetInvolvedSection() {
       transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
     },
   };
+  const textVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
 
   return (
     <section className='py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-[linear-gradient(186.54deg,rgba(242,242,240,0)_5.14%,#C9C9C9_247.82%)]'>
       <div className='mx-auto max-w-[1251px]'>
+        {/* Title */}
+        <motion.div
+          className='text-center'
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.5 }}
+          variants={textVariants}
+        >
+          <h2 className='font-extrabold text-[#111111] leading-[107%] text-[44px] sm:text-[56px] md:text-[72px] lg:text-[80px] mb-28'>
+            Get Involved
+            <img
+              src='/figma/underline_green.png'
+              alt='underline'
+              className='absolute left-1/2 -translate-x-1/2  w-[386.81px] h-[21.41px] pointer-events-none select-none'
+            />
+          </h2>
+        </motion.div>
+
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
           {/* Large Left Card - Fundraise with us */}
           <motion.div
@@ -36,9 +62,10 @@ export default function GetInvolvedSection() {
 
             <div className='flex flex-col items-start'>
               <button
-                className='bg-[#181818] text-white w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-black transition-colors duration-300 cursor-pointer px-[37px]'
+                className='relative overflow-hidden group bg-[#181818] text-white w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-black transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105'
                 onClick={() => router.push('/fundraise')}
               >
+                <span aria-hidden className='hover-animation' />
                 Fill out form
               </button>
 
@@ -73,9 +100,10 @@ export default function GetInvolvedSection() {
 
               <div className='flex justify-start'>
                 <button
-                  className='bg-[#181818] text-white w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-black transition-colors duration-300 cursor-pointer px-[37px]'
+                  className='relative overflow-hidden group bg-[#181818] text-white w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-black transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105'
                   onClick={() => router.push('/volunteer')}
                 >
+                  <span aria-hidden className='hover-animation' />
                   Fill out form
                 </button>
               </div>
@@ -99,9 +127,10 @@ export default function GetInvolvedSection() {
 
               <div className='flex justify-start'>
                 <button
-                  className='bg-[#F2F2F0] text-black w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-white transition-colors duration-300 cursor-pointer px-[37px]'
+                  className='relative overflow-hidden group bg-[#F2F2F0] text-black w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#F2F2F0]/70'
                   onClick={() => router.push('/partner-with-us')}
                 >
+                  <span aria-hidden className='hover-animation' />
                   Fill out form
                 </button>
               </div>

@@ -1,6 +1,31 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  animate,
+} from 'framer-motion';
+import { useEffect, useRef } from 'react';
+
+function Stat({ to = 0, duration = 2 }: { to?: number; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+
+  const base = useMotionValue(0);
+  const smooth = useSpring(base, { stiffness: 100, damping: 20 });
+  const rounded = useTransform(smooth, v => Math.round(v).toLocaleString());
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(base, to, { duration, ease: 'easeOut' });
+    return controls.stop;
+  }, [inView, to, duration, base]);
+
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+}
 
 export default function AboutStats() {
   return (
@@ -22,7 +47,7 @@ export default function AboutStats() {
         >
           <div className='flex items-center justify-center gap-2 px-8 py-1 h-[80px] w-[253px] bg-[#408360] rounded-[20px]'>
             <div className='font-bold text-[#F2F2F0] text-[60px] leading-[72px] tracking-[-0.03em]'>
-              100+
+              <Stat to={100} />+
             </div>
           </div>
         </motion.div>
@@ -51,7 +76,7 @@ export default function AboutStats() {
         >
           <div className='flex items-center justify-center gap-2 px-8 py-1 h-[80px] w-[253px] bg-[#F2F2F0] text-[#111111] rounded-[20px]'>
             <div className='font-bold text-[60px] leading-[72px] tracking-[-0.03em]'>
-              1000+
+              <Stat to={1000} />+
             </div>
           </div>
         </motion.div>
@@ -80,7 +105,7 @@ export default function AboutStats() {
         >
           <div className='flex items-center justify-center gap-2 px-8 py-1 h-[80px] w-[343px] bg-[#CB892A] rounded-[20px]'>
             <div className='font-bold text-[#F2F2F0] text-[60px] leading-[72px] tracking-[-0.03em]'>
-              1,000,000
+              <Stat to={1000000} />
             </div>
           </div>
         </motion.div>
@@ -107,7 +132,7 @@ export default function AboutStats() {
           >
             <div className='h-[72px] lg:h-[80px] px-6 lg:px-8 rounded-[18px] bg-[#408360] flex items-center justify-center'>
               <div className='text-[44px] lg:text-[48px] font-bold text-[#F2F2F0] leading-[52px] lg:leading-[56px] tracking-[-0.03em]'>
-                100+
+                <Stat to={100} />+
               </div>
             </div>
             <div className='text-[#F2F2F0] text-base lg:text-lg font-medium'>
@@ -124,7 +149,7 @@ export default function AboutStats() {
           >
             <div className='h-[72px] lg:h-[80px] px-6 lg:px-8 rounded-[18px] bg-[#F2F2F0] text-[#111111] flex items-center justify-center'>
               <div className='text-[44px] lg:text-[48px] font-bold leading-[52px] lg:leading-[56px] tracking-[-0.03em]'>
-                1000+
+                <Stat to={1000} />+
               </div>
             </div>
             <div className='text-[#F2F2F0] text-base lg:text-lg font-medium'>
@@ -141,7 +166,7 @@ export default function AboutStats() {
           >
             <div className='h-[72px] lg:h-[80px] px-6 lg:px-8 rounded-[18px] bg-[#CB892A] flex items-center justify-center'>
               <div className='text-[36px] lg:text-[40px] font-bold text-[#F2F2F0] leading-[44px] lg:leading-[48px] tracking-[-0.03em]'>
-                1,000,000
+                <Stat to={1000000} />
               </div>
             </div>
             <div className='text-[#F2F2F0] text-base lg:text-lg font-medium'>
@@ -163,7 +188,7 @@ export default function AboutStats() {
           >
             <div className='h-[56px] sm:h-[64px] px-4 sm:px-6 rounded-[14px] sm:rounded-[16px] bg-[#408360] flex items-center justify-center'>
               <div className='text-[32px] sm:text-[42px] font-bold text-[#F2F2F0] leading-[40px] sm:leading-[48px] tracking-[-0.03em]'>
-                100+
+                <Stat to={100} />+
               </div>
             </div>
             <div className='text-[#F2F2F0] text-sm sm:text-base font-medium text-center'>
@@ -180,7 +205,7 @@ export default function AboutStats() {
           >
             <div className='h-[56px] sm:h-[64px] px-4 sm:px-6 rounded-[14px] sm:rounded-[16px] bg-[#F2F2F0] text-[#111111] flex items-center justify-center'>
               <div className='text-[32px] sm:text-[42px] font-bold leading-[40px] sm:leading-[48px] tracking-[-0.03em]'>
-                1000+
+                <Stat to={1000} />+
               </div>
             </div>
             <div className='text-[#F2F2F0] text-sm sm:text-base font-medium text-center'>
@@ -197,7 +222,7 @@ export default function AboutStats() {
           >
             <div className='h-[56px] sm:h-[64px] px-4 sm:px-6 rounded-[14px] sm:rounded-[16px] bg-[#CB892A] flex items-center justify-center'>
               <div className='text-[24px] sm:text-[36px] font-bold text-[#F2F2F0] leading-[32px] sm:leading-[44px] tracking-[-0.03em]'>
-                1,000,000
+                <Stat to={1000000} />
               </div>
             </div>
             <div className='text-[#F2F2F0] text-sm sm:text-base font-medium text-center'>

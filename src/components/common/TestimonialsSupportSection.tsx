@@ -1,8 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Button from './Button';
+import { motion } from 'framer-motion';
+import HeartIcon from '../icons/HeartIcon';
+import DoubleQuoteIcon from '../icons/DoubleQuoteIcon';
+import useEmblaCarousel from 'embla-carousel-react';
 
 interface Testimonial {
   quote: string;
@@ -21,64 +25,70 @@ interface TestimonialsSupportSectionProps {
   showSupport?: boolean;
 }
 
+const testimonials: Testimonial[] = [
+  {
+    quote:
+      'Very welcoming and calming environment. Our host spoke beautifully and answered the questions wonderfully. Thanks',
+    author: "St Paul's Primary School Whiteinch",
+  },
+  {
+    quote:
+      'It was a great learning experience! The children were extremely engaged. Thank you for taking the time to visit our class.',
+    author: 'Westbridge Primary School, England',
+  },
+  {
+    quote:
+      'Excellent and easy for the children to understand. There were plenty opportunities for them to discuss and ask questions!',
+    author: 'St James Primary, Harlow',
+  },
+  {
+    quote:
+      'Very confident presentation, children found it very interesting, appropriate content for age level, personalised to classes question.',
+    author: 'Giffnock primary',
+  },
+  {
+    quote:
+      "A very informative and interesting presentation, with some practical elements that were fantastic for the students to experience (hearing the call to prayer, listening to the Qu'ran read aloud, joining in with the prayer movements, seeing a prayer mat etc).",
+    author: 'Chirnsyde Primary School',
+  },
+];
+
 export default function TestimonialsSupportSection({
   headingTop = 'See why',
   headingMainLeft = 'people',
   headingMainRight = 'love us',
-  testimonial = {
-    quote:
-      'Take a virtual journey to the holiest site in Islam. Stand before the Kaabah, walk through Masjid al-Haram, and witness the spiritual harmony of millions — from wherever you are.',
-    author: 'Ali Amin',
-    subtext: 'Subtext',
-  },
   supportHeading = 'Support this project',
   supportSubtext = 'Help us build a better community',
   donateLabel = 'Donate Now',
   showSupport = true,
 }: TestimonialsSupportSectionProps) {
-  const HeartIcon = ({ className = '' }: { className?: string }) => (
-    <svg
-      viewBox='0 0 40 37'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-      className={className}
-    >
-      <path
-        d='M5.59278 23.9344L25.4796 36.5752L38.1204 16.6884C39.6087 14.3468 40.106 11.5099 39.5027 8.80166L39.4006 8.34364C38.2007 2.95707 32.8612 -0.436869 27.4748 0.763058C24.5117 1.42313 22.0096 3.3942 20.6741 6.12012L19.3137 8.89672L16.9035 6.96008C14.5372 5.05879 11.4349 4.3362 8.47202 4.99624C3.08545 6.19619 -0.308494 11.5356 0.891455 16.9222L0.993487 17.3802C1.59679 20.0884 3.2512 22.4461 5.59278 23.9344Z'
-        fill='#111111'
-      />
-    </svg>
-  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [emblaRef, embla] = useEmblaCarousel({ loop: true, align: 'center' });
 
-  const DoubleQuoteIcon = ({
-    color = '#408360',
-    opacity = 1,
-    className = '',
-  }: {
-    color?: string;
-    opacity?: number;
-    className?: string;
-  }) => (
-    <svg
-      viewBox='0 0 64 48'
-      width='64'
-      height='48'
-      className={className}
-      xmlns='http://www.w3.org/2000/svg'
-      style={{ opacity }}
-    >
-      {/* Left quote */}
-      <path
-        d='M6 44c0-9.5 7.7-18 17.2-18h4.8V8H16C8.3 8 2 14.3 2 22v22h4Z'
-        fill={color}
-      />
-      {/* Right quote */}
-      <path
-        d='M38 44c0-9.5 7.7-18 17.2-18h4.8V8H48C40.3 8 34 14.3 34 22v22h4Z'
-        fill={color}
-      />
-    </svg>
-  );
+  useEffect(() => {
+    if (!embla) return;
+    const onSelect = () => setCurrentIndex(embla.selectedScrollSnap());
+    onSelect();
+    embla.on('select', onSelect);
+    return () => {
+      embla.off('select', onSelect);
+    };
+  }, [embla]);
+
+  useEffect(() => {
+    if (!embla) return;
+    const interval = setInterval(() => {
+      if (embla.canScrollNext()) {
+        embla.scrollNext();
+      } else {
+        embla.scrollTo(0);
+      }
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [embla]);
+
+  const getTestimonial = (offset: number) =>
+    testimonials[(currentIndex + offset) % testimonials.length];
 
   return (
     <section className='relative w-full bg-gray-100 py-14 sm:py-16 md:py-20'>
@@ -107,108 +117,235 @@ export default function TestimonialsSupportSection({
         </div>
       </div>
 
-      {/* Layered testimonial cards */}
-      <div className='relative mt-10 sm:mt-12 min-h-[560px] sm:min-h-[640px] md:min-h-[760px]'>
+      {/* Hidden Embla carousel for slide control */}
+      <div
+        className='absolute opacity-0 pointer-events-none overflow-hidden w-0 h-0'
+        ref={emblaRef}
+      >
+        <div className='flex'>
+          {testimonials.map((_, i) => (
+            <div key={i} className='flex-[0_0_100%]' />
+          ))}
+        </div>
+      </div>
+
+      {/* Layered testimonial cards with previous layout */}
+      <div
+        className='relative mt-10 sm:mt-12 min-h-[560px] sm:min-h-[640px] md:min-h-[760px]'
+        style={{ perspective: '1200px' }}
+      >
         {/* Far left blurred card */}
-        <div className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[360px] xl:h-[478.13px] left-0 top-0 bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] transform [transform:matrix(0.74,-0.67,0,1,0,0)] p-6 xl:p-[28.56px]'>
-          <div className='w-[323.36px] h-[398.71px] [transform:matrix(0.74,-0.67,0,1,0,0)]'>
+        <motion.div
+          key={`far-left-${currentIndex + 2}`}
+          layout
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.4, scale: 0.8, rotateX: -1, rotateY: -100 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            opacity: { duration: 0.6 },
+          }}
+          className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[650px] left-[10px] xl:left-[10rem] bottom-[60px] xl:bottom-[80px] bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] p-6 xl:p-[28.56px]'
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
               color='#CB892A'
               opacity={0.3}
               className='w-[77.31px] h-[50.86px]'
             />
-            <div className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              {testimonial.quote}
-            </div>
-            <div className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'>
-              Ali Amin
-            </div>
-            <div className='text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              Subtext
-            </div>
+            <motion.div
+              key={`far-left-quote-${currentIndex + 2}`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
+            >
+              {getTestimonial(2).quote}
+            </motion.div>
+            <motion.div
+              key={`far-left-author-${currentIndex + 2}`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
+            >
+              {getTestimonial(2).author}
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Far right blurred card */}
-        <div className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[360px] xl:h-[478.13px] right-0 top-0 bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] transform [transform:matrix(-0.74,-0.67,0,1,0,0)] p-6 xl:p-[28.56px]'>
-          <div className='w-[323.36px] h-[398.71px] [transform:matrix(-0.74,-0.67,0,1,0,0)]'>
+        <motion.div
+          key={`far-right-${currentIndex + 3}`}
+          layout
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.4, scale: 0.8, rotateX: -1, rotateY: 100 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            opacity: { duration: 0.6 },
+          }}
+          className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[650px] right-[10px] xl:right-[10rem] bottom-[60px] xl:bottom-[80px] bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] p-6 xl:p-[28.56px]'
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
               color='#CB892A'
               opacity={0.3}
               className='w-[77.31px] h-[50.86px]'
             />
-            <div className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              {testimonial.quote}
-            </div>
-            <div className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'>
-              Ali Amin
-            </div>
-            <div className='text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              Subtext
-            </div>
+            <motion.div
+              key={`far-right-quote-${currentIndex + 3}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
+            >
+              {getTestimonial(3).quote}
+            </motion.div>
+            <motion.div
+              key={`far-right-author-${currentIndex + 3}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
+            >
+              {getTestimonial(3).author}
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Mid-left subtle card */}
-        <div className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[360px] xl:h-[478.13px] left-[24px] xl:left-[42px] bottom-0 bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] transform [transform:matrix(0.95,0.33,0,1,0,0)] p-6 xl:p-[28.56px]'>
-          <div className='w-[323.36px] h-[398.71px] [transform:matrix(0.95,0.33,0,1,0,0)]'>
+        <motion.div
+          key={`mid-left-${currentIndex + 1}`}
+          layout
+          initial={{ opacity: 0, scale: 0.9, x: -30 }}
+          animate={{ opacity: 1, scale: 1, x: 0, rotateY: -22 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            opacity: { duration: 0.6 },
+          }}
+          className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[500px] left-[12px] xl:left-[15rem] bottom-[5rem] bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] p-6 xl:p-[28.56px]'
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
               color='#CB892A'
               opacity={0.3}
               className='w-[77.31px] h-[50.86px]'
             />
-            <div className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              {testimonial.quote}
-            </div>
-            <div className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'>
-              Ali Amin
-            </div>
-            <div className='text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              Subtext
-            </div>
+            <motion.div
+              key={`mid-left-quote-${currentIndex + 1}`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
+            >
+              {getTestimonial(1).quote}
+            </motion.div>
+            <motion.div
+              key={`mid-left-author-${currentIndex + 1}`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
+            >
+              {getTestimonial(1).author}
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Mid-right subtle card */}
-        <div className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[360px] xl:h-[478.13px] right-[24px] xl:right-[42px] bottom-0 bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] transform [transform:matrix(0.93,-0.37,0,1,0,0)] p-6 xl:p-[28.56px]'>
-          <div className='w-[323.36px] h-[398.71px] [transform:matrix(0.93,-0.37,0,1,0,0)]'>
+        <motion.div
+          key={`mid-right-${currentIndex + 4}`}
+          layout
+          initial={{ opacity: 0, scale: 0.9, x: 30 }}
+          animate={{ opacity: 1, scale: 1, x: 0, rotateY: 22 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            opacity: { duration: 0.6 },
+          }}
+          className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[500px] right-[12px] xl:right-[15rem] bottom-[5rem] bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] p-6 xl:p-[28.56px]'
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
               color='#CB892A'
               opacity={0.3}
               className='w-[77.31px] h-[50.86px]'
             />
-            <div className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              {testimonial.quote}
-            </div>
-            <div className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'>
-              Ali Amin
-            </div>
-            <div className='text-[#111111] opacity-30 text-[23.95px] leading-[29px]'>
-              Subtext
-            </div>
+            <motion.div
+              key={`mid-right-quote-${currentIndex + 4}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
+            >
+              {getTestimonial(4).quote}
+            </motion.div>
+            <motion.div
+              key={`mid-right-author-${currentIndex + 4}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 0.3, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
+            >
+              {getTestimonial(4).author}
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Center primary card */}
-        <div className='absolute left-1/2 -translate-x-1/2 bottom-0 w-[320px] sm:w-[420px] md:w-[495.81px] bg-[#D8E2DA] rounded-[22.69px] p-6 md:p-[35.17px]'>
+        <motion.div
+          key={`center-${currentIndex}`}
+          layout
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -30, scale: 0.95 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            opacity: { duration: 0.6 },
+          }}
+          className='absolute left-1/2 -translate-x-1/2 bottom-0 w-[320px] sm:w-[420px] md:w-[495.81px] bg-[#D8E2DA] rounded-[22.69px] p-6 md:p-[35.17px]'
+        >
           <div className='flex flex-col gap-6 md:gap-[44.25px] w-[280px] sm:w-[340px] md:w-[398.24px]'>
-            <DoubleQuoteIcon
-              color='#408360'
-              className='w-[50px] sm:w-[72px] md:w-[95.22px] h-[34px] sm:h-[48px] md:h-[62.63px]'
-            />
-            <p className='text-[#111111] text-[18px] sm:text-[22px] md:text-[30px] leading-[24px] sm:leading-[30px] md:leading-[36px] font-medium'>
-              {testimonial.quote}
-            </p>
-            <div className='flex flex-col'>
+            <motion.div
+              key={`center-icon-${currentIndex}`}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <DoubleQuoteIcon
+                color='#408360'
+                className='w-[50px] sm:w-[72px] md:w-[95.22px] h-[34px] sm:h-[48px] md:h-[62.63px]'
+              />
+            </motion.div>
+            <motion.p
+              key={`center-quote-${currentIndex}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className='text-[#111111] text-[18px] sm:text-[22px] md:text-[30px] leading-[24px] sm:leading-[30px] md:leading-[36px] font-medium'
+            >
+              {getTestimonial(0).quote}
+            </motion.p>
+            <motion.div
+              key={`center-author-${currentIndex}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className='flex flex-col'
+            >
               <div className='text-[#111111] font-bold text-[26px] sm:text-[32px] md:text-[45px]'>
-                {testimonial.author}
+                {getTestimonial(0).author}
               </div>
-              <div className='text-[#111111] text-opacity-50 text-[18px] sm:text-[22px] md:text-[30px] leading-[26px] sm:leading-[30px] md:leading-[36px]'>
-                {testimonial.subtext}
-              </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Support CTA */}
@@ -220,7 +357,7 @@ export default function TestimonialsSupportSection({
           <div className='my-2 text-[30px] font-bold text-[#408360]'>
             {supportSubtext}
           </div>
-          <Link href='/donations'>
+          <Link href='/donations' className='cursor-pointer'>
             <Button className='w-[200px]' variant='secondary'>
               {donateLabel}
             </Button>

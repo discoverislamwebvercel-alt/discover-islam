@@ -70,7 +70,7 @@ export default function AnimatedImageSection({
             }}
             animate={{ x: ['0%', '-50%'] }}
             transition={{
-              duration: 20,
+              duration: 25,
               repeat: Infinity,
               ease: 'linear',
             }}
@@ -99,7 +99,7 @@ export default function AnimatedImageSection({
           }}
           animate={{ x: ['-50%', '0%'] }}
           transition={{
-            duration: 20,
+            duration: 25,
             repeat: Infinity,
             ease: 'linear',
           }}

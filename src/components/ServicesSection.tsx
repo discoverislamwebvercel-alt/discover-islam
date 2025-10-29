@@ -47,17 +47,17 @@ export default function ServicesSection() {
         whileInView='visible'
         viewport={{ once: true, amount: 0.5 }}
         variants={titleVariants}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.3 }}
       >
         <h2 className='font-extrabold text-[#111111] leading-[107%] text-[32px] sm:text-[40px] md:text-[56px] lg:text-[64px] xl:text-[80px]'>
-          Explore our
-          <br />
-          Services
+          Explore our Services
         </h2>
         <div className='mx-auto mt-2 flex justify-center'>
           <img
             src='/Ellipse 11.png'
             alt='underline'
-            className='w-[180px] sm:w-[240px] md:w-[300px] lg:w-[340px] xl:w-[386.81px] h-[16px] sm:h-[18px] md:h-[20px] lg:h-[21.41px] -rotate-[2deg]'
+            className='w-[180px] sm:w-[240px] md:w-[300px] lg:w-[340px] xl:w-[386.81px] h-[16px] sm:h-[18px] md:h-[20px] lg:h-[21.41px]'
           />
         </div>
       </motion.div>
@@ -70,7 +70,10 @@ export default function ServicesSection() {
         viewport={{ once: true, amount: 0.3 }}
       >
         {/* Exhibition Card */}
-        <Link href='/exhibition' className='w-full max-w-[412px]'>
+        <Link
+          href='/exhibition'
+          className='w-full max-w-[412px] cursor-pointer'
+        >
           <motion.div
             className='group relative w-full max-w-[412px] h-[280px] sm:h-[350px] lg:h-[413px] bg-[#408360]/15 rounded-[20px] sm:rounded-[25px] lg:rounded-[30px] px-4 sm:px-5 lg:px-6 pt-16 sm:pt-20 lg:pt-24 shadow-sm cursor-pointer'
             variants={cardVariants}
@@ -96,7 +99,7 @@ export default function ServicesSection() {
         </Link>
 
         {/* Schools Card */}
-        <Link href='/schools' className='w-full max-w-[412px]'>
+        <Link href='/schools' className='w-full max-w-[412px] cursor-pointer'>
           <motion.div
             className='group relative w-full max-w-[412px] h-[280px] sm:h-[350px] lg:h-[413px] bg-[#111111]/15 rounded-[20px] sm:rounded-[25px] lg:rounded-[30px] px-4 sm:px-5 lg:px-6 pt-16 sm:pt-20 lg:pt-24 shadow-sm cursor-pointer'
             variants={cardVariants}
@@ -122,7 +125,10 @@ export default function ServicesSection() {
         </Link>
 
         {/* Literature Card */}
-        <Link href='/literature' className='w-full max-w-[412px]'>
+        <Link
+          href='/literature'
+          className='w-full max-w-[412px] cursor-pointer'
+        >
           <motion.div
             className='group relative w-full max-w-[412px] h-[280px] sm:h-[350px] lg:h-[413px] bg-[#CB892A]/15 rounded-[20px] sm:rounded-[25px] lg:rounded-[30px] px-4 sm:px-5 lg:px-6 pt-16 sm:pt-20 lg:pt-24 shadow-sm cursor-pointer'
             variants={cardVariants}

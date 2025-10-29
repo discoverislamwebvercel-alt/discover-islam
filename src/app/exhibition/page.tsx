@@ -78,7 +78,7 @@ export default function Exhibition() {
         transition={{ duration: 0.6 }}
       >
         <HeroSection
-          heroImage='/exhibitionHero.png'
+          heroImage='/Exhibitions_hero_bg.jpg'
           title='ISLAMIC EXHIBITIONS'
           subHeading='Promoting Understanding Through Engagement'
           description='Our Islamic exhibitions promote understanding and challenge

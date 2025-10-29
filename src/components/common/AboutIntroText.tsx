@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function AboutIntroText() {
   return (
-    <section className='w-full bg-white px-4 sm:px-6 lg:px-8 py-10 sm:py-12'>
+    <section className='w-full bg-white px-4 sm:px-6 lg:px-8 py-10 sm:py-12 -mt-32'>
       <div className='mx-auto max-w-4xl text-center text-gray-800'>
         <motion.p
           className='mb-8 font-medium text-[30px] leading-[100%] text-center'

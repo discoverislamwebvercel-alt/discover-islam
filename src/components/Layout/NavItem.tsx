@@ -94,7 +94,7 @@ export default function NavItem({
                   {item.href ? (
                     <Link
                       href={item.href}
-                      className='block px-4 py-2 text-gray-800 hover:text-[#cb892a] hover:bg-gray-50 transition-colors duration-200'
+                      className='block px-4 py-2 text-gray-800 hover:text-[#cb892a] hover:bg-gray-50 transition-all duration-200 cursor-pointer hover:scale-[1.02]'
                       onClick={() => {
                         if (item.onClick) item.onClick();
                         setIsDropdownOpen(false);
@@ -104,7 +104,7 @@ export default function NavItem({
                     </Link>
                   ) : (
                     <button
-                      className='w-full text-left px-4 py-2 text-gray-800 hover:text-[#cb892a] hover:bg-gray-50 transition-colors duration-200'
+                      className='w-full text-left px-4 py-2 text-gray-800 hover:text-[#cb892a] hover:bg-gray-50 transition-all duration-200 cursor-pointer hover:scale-[1.02] active:scale-[0.98]'
                       onClick={() => {
                         if (item.onClick) item.onClick();
                         setIsDropdownOpen(false);

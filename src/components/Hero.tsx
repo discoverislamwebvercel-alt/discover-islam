@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <div
       id='home'
-      className='h-screen relative'
+      className='h-screen relative opacity-100'
       style={{
         backgroundImage: "url('/image 2.png')",
         backgroundSize: 'cover',
@@ -21,6 +21,21 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
+          whileHover={{
+            scale: 2,
+            y: [0, -50, 0, -40, 0, -30, 0, -20, 0, -10, 0],
+            cursor: 'default',
+            transition: {
+              scale: { duration: 0.2, ease: 'easeOut' },
+              y: {
+                delay: 0.15,
+                duration: 2.8,
+                ease: 'easeOut',
+                repeat: Infinity,
+                repeatType: 'loop',
+              },
+            },
+          }}
         >
           <motion.h1
             className='w-full max-w-[584px] text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[80px] font-extrabold leading-[0.9] tracking-tight'

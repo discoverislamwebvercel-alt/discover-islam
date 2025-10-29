@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { motion, type Variants } from 'framer-motion';
+import dynamic from 'next/dynamic';
 
 export default function ExploreIslamSection() {
   const textVariants: Variants = {
@@ -58,12 +59,17 @@ export default function ExploreIslamSection() {
         >
           <h2 className='font-extrabold text-[#111111] leading-[94%] tracking-[-0.03em] text-[40px] sm:text-[56px] md:text-[64px] lg:text-[80px]'>
             Explore <span className='text-[#4C735D]'>Islam</span>
+            <img
+              src='/figma/underline_green.png'
+              alt='underline'
+              className='absolute left-1/2 -translate-x-1/2  w-[386.81px] h-[21.41px] pointer-events-none select-none mt-3'
+            />
           </h2>
         </motion.div>
 
         {/* Description */}
         <motion.p
-          className='text-center mx-auto mb-12 max-w-[684px] text-[20px] sm:text-[24px] md:text-[28px] lg:text-[30px] leading-[26px] sm:leading-[32px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'
+          className='text-center mx-auto mb-22 max-w-[684px] text-[20px] sm:text-[24px] md:text-[28px] lg:text-[30px] leading-[26px] sm:leading-[32px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, amount: 0.5 }}
@@ -74,28 +80,13 @@ export default function ExploreIslamSection() {
           but to feel it.
         </motion.p>
 
-        {/* Main Image */}
+        {/* Main Video */}
         <motion.div
-          className='flex justify-center mb-8'
+          className='flex justify-center mb-8 flex-col gap-5'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, amount: 0.3 }}
           variants={imageVariants}
-        >
-          <img
-            src='/Rectangle 8.png'
-            alt='Call to Prayer'
-            className='w-full h-auto rounded-[50px]'
-          />
-        </motion.div>
-
-        {/* Adhan Section */}
-        <motion.div
-          className='max-w-[878px] text-left ml-0 sm:ml-4 lg:ml-8'
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, amount: 0.5 }}
-          variants={textVariants}
         >
           <h3 className='font-bold text-[#111111] tracking-[-0.03em] text-[28px] sm:text-[34px] md:text-[40px] leading-[36px] sm:leading-[44px] md:leading-[48px] mb-4'>
             Listen to the Call to Prayer{' '}
@@ -108,7 +99,22 @@ export default function ExploreIslamSection() {
               />
             </span>
           </h3>
+          <DynamicVideoPlayer
+            src='/videos/adhan_video.mp4'
+            className='w-full h-[420px] sm:h-[500px] md:h-[580px] lg:h-[640px] object-cover rounded-[50px]'
+            roundedClassName='rounded-[50px] overflow-hidden'
+            poster='/Rectangle 8.png'
+          />
+        </motion.div>
 
+        {/* Adhan Section */}
+        <motion.div
+          className='max-w-[878px] text-left ml-0 sm:ml-4 lg:ml-8'
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.5 }}
+          variants={textVariants}
+        >
           <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500'>
             The Adhān is more than a call — it&apos;s a living rhythm of faith
             that encircles the globe. As it ends in one city, it begins in the
@@ -131,11 +137,6 @@ export default function ExploreIslamSection() {
         >
           {/* Left Column - Quran Recitation */}
           <motion.div className='flex-1' variants={textVariants}>
-            <img
-              src='/Rectangle 11.png'
-              alt='Quran Recitation'
-              className='w-full h-auto mb-6 rounded-[50px]'
-            />
             <h3 className='font-bold text-[#111111] tracking-[-0.03em] text-[28px] sm:text-[34px] md:text-[40px] leading-[36px] sm:leading-[44px] md:leading-[48px] mb-4'>
               Enjoy the Recitation of the{' '}
               <span className='relative inline-block pb-2'>
@@ -147,6 +148,11 @@ export default function ExploreIslamSection() {
                 />
               </span>
             </h3>
+            <img
+              src='/Rectangle 11.png'
+              alt='Quran Recitation'
+              className='w-full h-auto mb-6 rounded-[50px]'
+            />
             <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500]'>
               Immerse yourself in the timeless words of Allah, recited with
               beauty, clarity, and deep emotion. Every verse offers a message of
@@ -156,11 +162,6 @@ export default function ExploreIslamSection() {
 
           {/* Right Column - Makkah 360 */}
           <motion.div className='flex-1 mt-14' variants={textVariants}>
-            <img
-              src='/Rectangle 12.png'
-              alt='Makkah 360'
-              className='w-full h-auto mb-6 rounded-[50px] lg:mt-[60px]'
-            />
             <h3 className='font-bold text-[#111111] tracking-[-0.03em] text-[28px] sm:text-[34px] md:text-[40px] leading-[36px] sm:leading-[44px] md:leading-[48px] mb-4 relative inline-block pb-2'>
               Explore Makkah in 360°
               <img
@@ -169,6 +170,11 @@ export default function ExploreIslamSection() {
                 className='absolute left-0 bottom-[-14px] w-[260.75px] h-[21.41px] rotate-[2deg]'
               />
             </h3>
+            <img
+              src='/Rectangle 12.png'
+              alt='Makkah 360'
+              className='w-full h-auto mb-6 rounded-[50px] lg:mt-[60px]'
+            />
             <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500]'>
               Take a virtual journey to the holiest site in Islam. Stand before
               the Ka&apos;bah, walk through Masjid al-Haram, and witness the
@@ -180,3 +186,7 @@ export default function ExploreIslamSection() {
     </section>
   );
 }
+
+const DynamicVideoPlayer = dynamic(() => import('./common/VideoPlayer'), {
+  ssr: false,
+});

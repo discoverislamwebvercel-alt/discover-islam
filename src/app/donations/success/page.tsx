@@ -116,7 +116,7 @@ function DonationSuccessContent() {
               <div className='flex flex-col sm:flex-row gap-4 mt-6'>
                 <motion.button
                   onClick={() => (window.location.href = '/donations')}
-                  className='px-8 py-3 bg-[#CB892A] text-white rounded-full font-semibold hover:bg-[#B8791F] transition-colors'
+                  className='px-8 py-3 bg-[#CB892A] text-white rounded-full font-semibold hover:bg-[#B8791F] transition-all duration-300 cursor-pointer'
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -124,7 +124,7 @@ function DonationSuccessContent() {
                 </motion.button>
                 <motion.button
                   onClick={() => (window.location.href = '/')}
-                  className='px-8 py-3 border border-gray-300 text-gray-700 rounded-full font-semibold hover:bg-gray-50 transition-colors'
+                  className='px-8 py-3 border border-gray-300 text-gray-700 rounded-full font-semibold hover:bg-gray-50 transition-all duration-300 cursor-pointer'
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Button from '../common/Button';
 import NavItem from './NavItem';
 
+import { scrollToElement } from '@/lib/utils';
+
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -40,7 +42,7 @@ export default function Navbar() {
     },
     {
       label: 'Contact Us',
-      href: '/#contact',
+      onClick: () => scrollToElement('footer'),
     },
   ];
 
@@ -74,6 +76,7 @@ export default function Navbar() {
               href={item.href}
               hasDropdown={item.hasDropdown}
               dropdownItems={item.dropdownItems}
+              onClick={item.onClick}
             />
           ))}
         </div>
@@ -82,7 +85,7 @@ export default function Navbar() {
         <div className='flex items-center'>
           {/* Desktop Donate Button */}
           <div className='hidden md:block'>
-            <Link href='/donations'>
+            <Link href='/donations' className='cursor-pointer'>
               <Button variant='primary' size='navbar'>
                 Donate
               </Button>
@@ -91,7 +94,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className='md:hidden text-gray-800 hover:text-[#cb892a] p-2 ml-2 transition-colors duration-300'
+            className='md:hidden text-gray-800 hover:text-[#cb892a] p-2 ml-2 transition-all duration-300 cursor-pointer hover:scale-110 active:scale-95'
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -129,7 +132,7 @@ export default function Navbar() {
                 <div className='flex justify-end mb-8'>
                   <button
                     onClick={handleMobileMenuClose}
-                    className='text-gray-800 hover:text-[#cb892a] transition-colors duration-300'
+                    className='text-gray-800 hover:text-[#cb892a] transition-all duration-300 cursor-pointer hover:scale-110 active:scale-95'
                   >
                     <X className='w-6 h-6' />
                   </button>
@@ -151,7 +154,7 @@ export default function Navbar() {
                                   {dropdownItem.href ? (
                                     <Link
                                       href={dropdownItem.href}
-                                      className='block text-gray-600 hover:text-[#cb892a] transition-colors duration-300'
+                                      className='block text-gray-600 hover:text-[#cb892a] transition-all duration-300 cursor-pointer hover:scale-[1.02]'
                                       onClick={handleMobileMenuClose}
                                     >
                                       {dropdownItem.label}
@@ -159,7 +162,7 @@ export default function Navbar() {
                                   ) : (
                                     <Link
                                       href={dropdownItem.href!}
-                                      className='block text-gray-600 hover:text-[#cb892a] transition-colors duration-300 text-left'
+                                      className='block text-gray-600 hover:text-[#cb892a] transition-all duration-300 cursor-pointer text-left hover:scale-[1.02]'
                                       onClick={handleMobileMenuClose}
                                     >
                                       {dropdownItem.label}
@@ -173,26 +176,32 @@ export default function Navbar() {
                       ) : item.href ? (
                         <Link
                           href={item.href}
-                          className='block text-gray-800 hover:text-[#cb892a] transition-colors duration-300 font-medium text-lg'
+                          className='block text-gray-800 hover:text-[#cb892a] transition-all duration-300 font-medium text-lg cursor-pointer hover:scale-[1.02]'
                           onClick={handleMobileMenuClose}
                         >
                           {item.label}
                         </Link>
                       ) : (
-                        <Link
-                          href={item.href!}
-                          className='text-gray-800 hover:text-[#cb892a] transition-colors duration-300 font-medium text-lg text-left'
-                          onClick={handleMobileMenuClose}
+                        <button
+                          className='text-gray-800 hover:text-[#cb892a] transition-all duration-300 font-medium text-lg text-left cursor-pointer hover:scale-[1.02] active:scale-[0.98]'
+                          onClick={() => {
+                            if (item.onClick) item.onClick();
+                            handleMobileMenuClose();
+                          }}
                         >
                           {item.label}
-                        </Link>
+                        </button>
                       )}
                     </div>
                   ))}
 
                   {/* Mobile Donate Button */}
                   <div className='pt-6 border-t border-gray-200'>
-                    <Link href='/donations' onClick={handleMobileMenuClose}>
+                    <Link
+                      href='/donations'
+                      onClick={handleMobileMenuClose}
+                      className='cursor-pointer'
+                    >
                       <Button variant='primary' size='navbar'>
                         Donate
                       </Button>

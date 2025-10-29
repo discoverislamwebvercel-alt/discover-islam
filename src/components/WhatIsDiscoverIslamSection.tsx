@@ -36,18 +36,15 @@ export default function WhatIsDiscoverIslamSection() {
           variants={textVariants}
         >
           <h2 className='font-extrabold text-[#111111] leading-[107%] text-[44px] sm:text-[56px] md:text-[72px] lg:text-[80px]'>
-            <span className='relative inline-block pb-3'>
-              What is
-              <img
-                src='/figma/underline_green.png'
-                alt='underline'
-                className='absolute left-1/2 -translate-x-1/2 -bottom-2 w-[386.81px] h-[21.41px] pointer-events-none select-none'
-              />
+            What is
+            <span className='relative text-[#CB892A] inline-block ml-4'>
+              Discover Islam?
             </span>
-            <br />
-            <span className='relative text-[#CB892A] inline-block'>
-              DiscoverIslam?
-            </span>
+            <img
+              src='/figma/underline_green.png'
+              alt='underline'
+              className='absolute left-1/2 -translate-x-1/2  w-[386.81px] h-[21.41px] pointer-events-none select-none'
+            />
           </h2>
         </motion.div>
 

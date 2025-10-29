@@ -126,8 +126,9 @@ export default function FallingCardsDesktop({
                 padding: card.padding,
                 gap: card.gap,
               }}
-              className={`relative gap-[10px] py-[25px] px-[27px] shadow-lg text-center font-extrabold text-lg break-words ${card.styles}`}
+              className={`relative overflow-hidden group gap-[10px] py-[25px] px-[27px] shadow-lg text-center font-extrabold text-lg break-words ${card.styles} hover:scale-105 transition-transform duration-300 ease-out`}
             >
+              <span aria-hidden className='hover-animation' />
               {card.icon && renderIcon(card.icon)}
               {card.text}
             </motion.div>

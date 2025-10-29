@@ -127,7 +127,7 @@ const MoonSection = () => {
     type: 'spring' as const,
     stiffness: 120,
     damping: 25,
-    duration: 2.2,
+    duration: 2,
   };
 
   const slideVariants = {
@@ -167,7 +167,13 @@ const MoonSection = () => {
   return (
     <section className='relative min-h-screen bg-[#F2F2F0] flex flex-col items-center justify-center py-8 sm:py-12 lg:py-20 px-4 overflow-hidden'>
       {/* Moon Navigation */}
-      <div className='relative flex items-center justify-center mb-8 sm:mb-12 lg:mb-16 w-full max-w-7xl'>
+      <motion.div
+        className='relative flex items-center justify-center mb-8 sm:mb-12 lg:mb-16 w-full max-w-7xl'
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
         <div className='relative w-full h-[120px] sm:h-[160px] lg:h-[200px] flex items-center justify-center'>
           {moonData.map((moon, index) => {
             const position = getMoonPosition(index);
@@ -211,10 +217,16 @@ const MoonSection = () => {
             );
           })}
         </div>
-      </div>
+      </motion.div>
 
       {/* Content Section */}
-      <div className='w-full max-w-xs sm:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto text-center relative px-4'>
+      <motion.div
+        className='w-full max-w-xs sm:max-w-2xl lg:max-w-4xl xl-max-w-5xl mx-auto text-center relative px-4'
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.1, ease: 'easeOut' }}
+      >
         <AnimatePresence mode='wait' custom={direction}>
           <motion.div
             key={currentMoon}
@@ -223,7 +235,7 @@ const MoonSection = () => {
             initial='enter'
             animate='center'
             exit='exit'
-            transition={sharedTransition}
+            transition={{ ease: 'easeIn' }}
             className='space-y-4 sm:space-y-6 lg:space-y-8'
           >
             {/* Title */}
@@ -273,7 +285,7 @@ const MoonSection = () => {
             </motion.div>
           </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
     </section>
   );
 };

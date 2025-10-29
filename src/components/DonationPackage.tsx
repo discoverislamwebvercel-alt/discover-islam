@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { DonationTemplate } from '@/lib/gocardless';
+import { DonationTemplate } from '@/types/donation';
 
 interface DonationPackageProps {
   template: DonationTemplate;
@@ -47,13 +47,13 @@ const DonationPackage: React.FC<DonationPackageProps> = ({
       onClick={onClick}
       className={`
         w-full max-w-[283px] h-[199px] rounded-[20px] flex flex-col items-center justify-center px-4 sm:px-[42px] py-6 sm:py-[54px] gap-[20px]
-        border transition-all duration-200
+        border transition-all duration-200 cursor-pointer
         ${
           selected
             ? 'bg-[#CB892A] border-[#CB892A] text-[#F2F2F0]'
-            : 'bg-white border-[#E7E7E7] text-[#111111] hover:shadow-md'
+            : 'bg-white border-[#E7E7E7] text-[#111111] hover:shadow-md hover:scale-[1.02]'
         }
-        focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CB892A]/40
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CB892A]/40 active:scale-[0.98]
       `}
       whileTap={{ scale: 0.98 }}
       whileHover={{ scale: selected ? 1.05 : 1.02 }}

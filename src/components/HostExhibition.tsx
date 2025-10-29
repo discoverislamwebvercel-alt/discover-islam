@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { scrollToElement } from '@/lib/utils';
 
 const HostExhibition = () => {
   const [colorTransition, setColorTransition] = useState(false);
@@ -213,9 +214,11 @@ const HostExhibition = () => {
 
         {/* Bottom content container */}
         <motion.div
-          className='relative z-10 flex flex-col  items-center justify-center mt-auto mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-16 lg:pb-24'
+          className='relative z-40 flex flex-col items-center justify-center mt-auto mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-16 lg:pb-24'
           animate={
-            animationsComplete ? { y: 'clamp(-50px, -20vh, -300px)' } : { y: 0 }
+            animationsComplete
+              ? { y: 'clamp(-50px, -20vh, -300px)' }
+              : { y: -10 }
           }
           transition={{
             duration: 1.5,
@@ -223,19 +226,38 @@ const HostExhibition = () => {
             delay: 0,
           }}
         >
-          {/* Decorative arrows - centered with CTA */}
-          <Image
-            src='/figma/arrows.svg'
-            alt='Decorative arrows'
-            width={626}
-            height={76}
-            className='h-auto w-auto max-w-[400px] sm:max-w-[500px] lg:max-w-[626px] drop-shadow-[0px_2px_10px_rgba(0,0,0,0.1)]'
-          />
-
-          {/* CTA Button - centered */}
-          <button className='bg-[#181818] text-white px-6 sm:px-8 lg:px-[37px] py-3 sm:py-4 lg:py-[18px] rounded-full flex items-center justify-center gap-2 font-extrabold text-lg sm:text-xl lg:text-2xl hover:bg-[#2a2a2a] transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform leading-[1.193359375em]'>
+          {/* CTA Button - centered at top */}
+          <button
+            onClick={() => scrollToElement('exhibitions-form')}
+            className='relative z-50 mb-6 overflow-hidden group bg-[#181818] text-white px-6 sm:px-8 lg:px-[37px] py-3 sm:py-4 lg:py-[18px] rounded-full flex items-center justify-center gap-2 font-extrabold text-lg sm:text-xl lg:text-2xl hover:bg-[#2a2a2a] transition-colors duration-200 shadow-lg cursor-pointer hover:shadow-xl transform hover:scale-105 transition-transform duration-300 leading-[1.193359375em]'
+          >
+            <span className='hover-animation' />
             Host an Exhibition Now!
           </button>
+
+          {/* Decorative arrows - centered with CTA (bounce after all animations) */}
+          <motion.div
+            className='pointer-events-none'
+            animate={animationsComplete ? { y: [0, -8, 0] } : { y: 0 }}
+            transition={
+              animationsComplete
+                ? {
+                    duration: 1.4,
+                    repeat: Infinity,
+                    repeatType: 'loop',
+                    ease: 'easeInOut',
+                  }
+                : { duration: 0 }
+            }
+          >
+            <Image
+              src='/figma/arrows.svg'
+              alt='Decorative arrows'
+              width={626}
+              height={76}
+              className='h-auto w-auto max-w-[400px] sm:max-w-[500px] lg:max-w-[626px] drop-shadow-[0px_2px_10px_rgba(0,0,0,0.1)]'
+            />
+          </motion.div>
         </motion.div>
       </div>
     </div>
