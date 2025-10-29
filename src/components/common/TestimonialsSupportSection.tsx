@@ -83,7 +83,7 @@ export default function TestimonialsSupportSection({
       } else {
         embla.scrollTo(0);
       }
-    }, 4500);
+    }, 5000);
     return () => clearInterval(interval);
   }, [embla]);
 
@@ -132,21 +132,29 @@ export default function TestimonialsSupportSection({
       {/* Layered testimonial cards with previous layout */}
       <div
         className='relative mt-10 sm:mt-12 min-h-[560px] sm:min-h-[640px] md:min-h-[760px]'
-        style={{ perspective: '1200px' }}
+        style={{
+          perspective: '1200px',
+          transformStyle: 'preserve-3d',
+          willChange: 'transform',
+        }}
       >
         {/* Far left blurred card */}
         <motion.div
-          key={`far-left-${currentIndex + 2}`}
-          layout
+          key={'far-left'}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.4, scale: 0.8, rotateX: -1, rotateY: -100 }}
           transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            opacity: { duration: 0.6 },
+            duration: 1,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            opacity: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+            scale: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
           }}
-          className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[650px] left-[10px] xl:left-[10rem] bottom-[60px] xl:bottom-[80px] bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] p-6 xl:p-[28.56px]'
-          style={{ transformStyle: 'preserve-3d' }}
+          className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[650px] left-[10px] xl:left-[4rem] bottom-[60px] xl:bottom-[80px] bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] p-6 xl:p-[28.56px]'
+          style={{
+            transformStyle: 'preserve-3d',
+            // willChange: 'transform, opacity',
+            // backfaceVisibility: 'hidden',
+          }}
         >
           <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
@@ -155,19 +163,27 @@ export default function TestimonialsSupportSection({
               className='w-[77.31px] h-[50.86px]'
             />
             <motion.div
-              key={`far-left-quote-${currentIndex + 2}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              key={'far-left-quote'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
             >
               {getTestimonial(2).quote}
             </motion.div>
             <motion.div
-              key={`far-left-author-${currentIndex + 2}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              key={'far-left-author'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
             >
               {getTestimonial(2).author}
@@ -177,17 +193,21 @@ export default function TestimonialsSupportSection({
 
         {/* Far right blurred card */}
         <motion.div
-          key={`far-right-${currentIndex + 3}`}
-          layout
+          key={'far-right'}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.4, scale: 0.8, rotateX: -1, rotateY: 100 }}
           transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            opacity: { duration: 0.6 },
+            duration: 1,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            opacity: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+            scale: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
           }}
-          className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[650px] right-[10px] xl:right-[10rem] bottom-[60px] xl:bottom-[80px] bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] p-6 xl:p-[28.56px]'
-          style={{ transformStyle: 'preserve-3d' }}
+          className='hidden lg:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[650px] right-[10px] xl:right-[4rem] bottom-[60px] xl:bottom-[80px] bg-[#EBE8E3] opacity-40 rounded-[18.4px] blur-[5.16px] p-6 xl:p-[28.56px]'
+          style={{
+            transformStyle: 'preserve-3d',
+            // willChange: 'transform, opacity',
+            // backfaceVisibility: 'hidden',
+          }}
         >
           <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
@@ -196,19 +216,27 @@ export default function TestimonialsSupportSection({
               className='w-[77.31px] h-[50.86px]'
             />
             <motion.div
-              key={`far-right-quote-${currentIndex + 3}`}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              key={'far-right-quote'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
             >
               {getTestimonial(3).quote}
             </motion.div>
             <motion.div
-              key={`far-right-author-${currentIndex + 3}`}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              key={'far-right-author'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
             >
               {getTestimonial(3).author}
@@ -218,17 +246,22 @@ export default function TestimonialsSupportSection({
 
         {/* Mid-left subtle card */}
         <motion.div
-          key={`mid-left-${currentIndex + 1}`}
-          layout
+          key={'mid-left'}
           initial={{ opacity: 0, scale: 0.9, x: -30 }}
           animate={{ opacity: 1, scale: 1, x: 0, rotateY: -22 }}
           transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            opacity: { duration: 0.6 },
+            duration: 1,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            opacity: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+            scale: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
+            x: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
           }}
-          className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[500px] left-[12px] xl:left-[15rem] bottom-[5rem] bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] p-6 xl:p-[28.56px]'
-          style={{ transformStyle: 'preserve-3d' }}
+          className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[500px] left-[12px] xl:left-[8rem] bottom-[5rem] bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] p-6 xl:p-[28.56px]'
+          style={{
+            transformStyle: 'preserve-3d',
+            // willChange: 'transform, opacity',
+            // backfaceVisibility: 'hidden',
+          }}
         >
           <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
@@ -237,19 +270,27 @@ export default function TestimonialsSupportSection({
               className='w-[77.31px] h-[50.86px]'
             />
             <motion.div
-              key={`mid-left-quote-${currentIndex + 1}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              key={'mid-left-quote'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
             >
               {getTestimonial(1).quote}
             </motion.div>
             <motion.div
-              key={`mid-left-author-${currentIndex + 1}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              key={'mid-left-author'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
             >
               {getTestimonial(1).author}
@@ -259,17 +300,22 @@ export default function TestimonialsSupportSection({
 
         {/* Mid-right subtle card */}
         <motion.div
-          key={`mid-right-${currentIndex + 4}`}
-          layout
+          key={'mid-right'}
           initial={{ opacity: 0, scale: 0.9, x: 30 }}
           animate={{ opacity: 1, scale: 1, x: 0, rotateY: 22 }}
           transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            opacity: { duration: 0.6 },
+            duration: 1,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            opacity: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+            scale: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
+            x: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
           }}
-          className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[500px] right-[12px] xl:right-[15rem] bottom-[5rem] bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] p-6 xl:p-[28.56px]'
-          style={{ transformStyle: 'preserve-3d' }}
+          className='hidden md:block absolute w-[300px] xl:w-[402.59px] h-[400px] xl:h-[500px] right-[12px] xl:right-[8rem] bottom-[5rem] bg-[#EBE8E3] rounded-[18.4px] blur-[2.27px] p-6 xl:p-[28.56px]'
+          style={{
+            transformStyle: 'preserve-3d',
+            willChange: 'transform, opacity',
+            backfaceVisibility: 'hidden',
+          }}
         >
           <div className='w-[323.36px] h-[475.24px]'>
             <DoubleQuoteIcon
@@ -278,19 +324,27 @@ export default function TestimonialsSupportSection({
               className='w-[77.31px] h-[50.86px]'
             />
             <motion.div
-              key={`mid-right-quote-${currentIndex + 4}`}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              key={'mid-right-quote'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 text-[23.95px] leading-[29px]'
             >
               {getTestimonial(4).quote}
             </motion.div>
             <motion.div
-              key={`mid-right-author-${currentIndex + 4}`}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 0.3, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              key={'mid-right-author'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
               className='mt-6 text-[#111111] opacity-30 font-bold text-[36.85px]'
             >
               {getTestimonial(4).author}
@@ -300,24 +354,33 @@ export default function TestimonialsSupportSection({
 
         {/* Center primary card */}
         <motion.div
-          key={`center-${currentIndex}`}
-          layout
+          key={'center'}
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -30, scale: 0.95 }}
           transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            opacity: { duration: 0.6 },
+            duration: 1,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            opacity: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+            y: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
+            scale: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] },
           }}
           className='absolute left-1/2 -translate-x-1/2 bottom-0 w-[320px] sm:w-[420px] md:w-[495.81px] bg-[#D8E2DA] rounded-[22.69px] p-6 md:p-[35.17px]'
+          style={{
+            willChange: 'transform, opacity',
+            backfaceVisibility: 'hidden',
+          }}
         >
           <div className='flex flex-col gap-6 md:gap-[44.25px] w-[280px] sm:w-[340px] md:w-[398.24px]'>
             <motion.div
-              key={`center-icon-${currentIndex}`}
+              key={'center-icon'}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.2,
+                ease: [0.25, 0.46, 0.45, 0.94],
+                scale: { duration: 0.7, ease: [0.34, 1.56, 0.64, 1] },
+              }}
             >
               <DoubleQuoteIcon
                 color='#408360'
@@ -325,19 +388,29 @@ export default function TestimonialsSupportSection({
               />
             </motion.div>
             <motion.p
-              key={`center-quote-${currentIndex}`}
+              key={'center-quote'}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.25, 0.46, 0.45, 0.94],
+                y: { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] },
+              }}
               className='text-[#111111] text-[18px] sm:text-[22px] md:text-[30px] leading-[24px] sm:leading-[30px] md:leading-[36px] font-medium'
             >
               {getTestimonial(0).quote}
             </motion.p>
             <motion.div
-              key={`center-author-${currentIndex}`}
+              key={'center-author'}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94],
+                y: { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] },
+              }}
               className='flex flex-col'
             >
               <div className='text-[#111111] font-bold text-[26px] sm:text-[32px] md:text-[45px]'>

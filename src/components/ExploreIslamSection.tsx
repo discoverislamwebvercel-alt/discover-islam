@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion, type Variants } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import VideoPlayer from '@/components/common/VideoPlayer';
 
 export default function ExploreIslamSection() {
   const textVariants: Variants = {
@@ -104,6 +105,7 @@ export default function ExploreIslamSection() {
             className='w-full h-[420px] sm:h-[500px] md:h-[580px] lg:h-[640px] object-cover rounded-[50px]'
             roundedClassName='rounded-[50px] overflow-hidden'
             poster='/Rectangle 8.png'
+            autoPlayOnView={false}
           />
         </motion.div>
 
@@ -170,10 +172,12 @@ export default function ExploreIslamSection() {
                 className='absolute left-0 bottom-[-14px] w-[260.75px] h-[21.41px] rotate-[2deg]'
               />
             </h3>
-            <img
-              src='/Rectangle 12.png'
-              alt='Makkah 360'
-              className='w-full h-auto mb-6 rounded-[50px] lg:mt-[60px]'
+            <VideoPlayer
+              src='/videos/experience_islam.mp4'
+              className='w-full h-auto mb-6 lg:mt-[60px]'
+              roundedClassName='rounded-[50px]'
+              autoPlayOnView={false}
+              poster='/Rectangle 12.png'
             />
             <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500]'>
               Take a virtual journey to the holiest site in Islam. Stand before

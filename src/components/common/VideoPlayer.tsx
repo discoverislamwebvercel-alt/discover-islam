@@ -49,19 +49,9 @@ export default function VideoPlayer({
         className={className}
         src={src}
         playsInline
-        autoPlay
         controls
         preload='auto'
         poster={poster}
-        onLoadedData={() => {
-          const el = videoRef.current;
-          if (!el) return;
-          if (el.paused) {
-            el.play().catch(() => {
-              setNeedsUserAction(true);
-            });
-          }
-        }}
       />
       {needsUserAction && (
         <button

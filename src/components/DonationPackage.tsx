@@ -59,11 +59,14 @@ const DonationPackage: React.FC<DonationPackageProps> = ({
       whileHover={{ scale: selected ? 1.05 : 1.02 }}
     >
       <div className='text-center gap-[20px] flex flex-col'>
-        <div
-          className={`font-bold text-2xl sm:text-3xl md:text-[40px] leading-[107%] ${selected ? 'text-[#F2F2F0]' : 'text-[#111111]'}`}
-        >
-          {formatAmount(template.amount)}
-        </div>
+        {(template.type === 'one-off' ||
+          (template.type === 'recurring' && template.amount > 0)) && (
+          <div
+            className={`font-bold text-2xl sm:text-3xl md:text-[40px] leading-[107%] ${selected ? 'text-[#F2F2F0]' : 'text-[#111111]'}`}
+          >
+            {formatAmount(template.amount)}
+          </div>
+        )}
         {template.type === 'recurring' && (
           <div
             className={`text-lg sm:text-xl md:text-[24px] leading-[107%] opacity-50 ${selected ? 'text-[#F2F2F0]' : 'text-[#111111]'}`}

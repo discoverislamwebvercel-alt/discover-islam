@@ -34,7 +34,7 @@ const cards = [
   },
   {
     text: '',
-    styles: 'bg-transparent text-white rounded-[20px]',
+    styles: 'bg-transparent text-white rounded-[20px] shadow-none',
     rotate: '-6.5deg',
     y: 10,
     x: 770,
@@ -135,7 +135,7 @@ export default function Literature() {
   return (
     <>
       <HeroSection
-        heroImage='/literatureHero.png'
+        heroImage='/Literature_hero_bg.jpg'
         title='LITERATURE'
         subHeading='Sharing the Message with Clarity and Compassion'
         description={
