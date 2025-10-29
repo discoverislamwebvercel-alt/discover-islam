@@ -150,10 +150,12 @@ export default function ExploreIslamSection() {
                 />
               </span>
             </h3>
-            <img
-              src='/Rectangle 11.png'
-              alt='Quran Recitation'
-              className='w-full h-auto mb-6 rounded-[50px]'
+            <VideoPlayer
+              src='/videos/quran_video.mp4'
+              className='w-full h-auto mb-6 lg:mt-[60px]'
+              roundedClassName='rounded-[50px]'
+              autoPlayOnView={false}
+              poster='/Rectangle 11.png'
             />
             <p className='text-[18px] sm:text-[22px] md:text-[26px] leading-[26px] sm:leading-[30px] md:leading-[31px] text-[rgba(17,17,17,0.6)] font-[500]'>
               Immerse yourself in the timeless words of Allah, recited with
