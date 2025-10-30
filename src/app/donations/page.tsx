@@ -13,12 +13,12 @@ import MultiTickIcon from '@/components/icons/MultiTickIcon';
 import RefreshIcon from '@/components/icons/RefreshIcon';
 
 import {
-  getGoCardlessTemplates,
-  createGoCardlessOneOffRedirectFlow,
-} from '@/lib/gocardless';
-import { DonationTemplate, PaymentType, Category } from '@/types/donation';
-
-// Using GoCardless for one-off and recurring payments
+  DonationTemplate,
+  PaymentType,
+  Category,
+  RecurringPlan,
+} from '@/types/donation';
+import plansData from '@/lib/donations.json';
 
 export default function DonationsPage() {
   const [paymentType, setPaymentType] = useState<PaymentType>('one-off');
@@ -26,142 +26,46 @@ export default function DonationsPage() {
   const [selectedTemplate, setSelectedTemplate] =
     useState<DonationTemplate | null>(null);
   const [customAmount, setCustomAmount] = useState('');
-  const [showCustomAmount, setShowCustomAmount] = useState(false);
+  const [customSelected, setCustomSelected] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [recurringTemplates, setRecurringTemplates] = useState<
-    Array<{
-      id: string;
-      name: string;
-      description: string;
-      amount: string | null;
-      authorisationUrl?: string;
-      createdAt: string;
-      updatedAt: string;
-      type: 'recurring';
-      currency: string;
-    }>
-  >([]);
-  const [oneOffTemplates, setOneOffTemplates] = useState<
-    Array<{
-      id: string;
-      name: string;
-      amount: string;
-      description?: string;
-      authorisationUrl?: string;
-      createdAt: string;
-      updatedAt: string;
-      type: 'one-off';
-    }>
-  >([]);
-  const [loadingPackages, setLoadingPackages] = useState(false);
 
-  // Fetch GoCardless templates
-  React.useEffect(() => {
-    setLoadingPackages(true);
-    getGoCardlessTemplates()
-      .then(result => {
-        if (result.success && 'recurring' in result && 'oneOff' in result) {
-          // eslint-disable-next-line no-console
-          console.log('GoCardless API result:', {
-            recurringCount:
-              'recurringCount' in result ? result.recurringCount : 0,
-            oneOffCount: 'oneOffCount' in result ? result.oneOffCount : 0,
-            recurring: result.recurring,
-            oneOff: result.oneOff,
-          });
-          setRecurringTemplates(result.recurring || []);
-          setOneOffTemplates(result.oneOff || []);
-        } else {
-          console.error('Error loading GoCardless templates:', result.error);
-          setError('Failed to load donation packages. Please try again.');
-        }
-      })
-      .catch(err => {
-        console.error('Error fetching GoCardless templates:', err);
-        setError('Failed to load donation packages. Please try again.');
-      })
-      .finally(() => {
-        setLoadingPackages(false);
-      });
-  }, []); // Fetch once on mount
+  // Build recurring templates from JSON plans
+  const recurringTemplatesFromJson: DonationTemplate[] = useMemo(() => {
+    const plans =
+      (plansData as { recurringPlans?: RecurringPlan[] }).recurringPlans || [];
+    return plans.map((p: RecurringPlan) => ({
+      id: p.id,
+      name: p.name,
+      description: '',
+      amount: p.amount,
+      currency: p.currency || 'GBP',
+      type: 'recurring',
+      category: (p.category as Category) || 'literature',
+      interval: 'monthly',
+      metadata: { url: p.url },
+    }));
+  }, []);
 
-  // Map templates to DonationTemplate format and filter based on payment type
+  // Choose templates for display
   const filteredTemplates = useMemo(() => {
-    // eslint-disable-next-line no-console
-    console.log('Filtering templates:', {
-      paymentType,
-      recurringCount: recurringTemplates.length,
-      oneOffCount: oneOffTemplates.length,
-    });
-
-    let templates: DonationTemplate[] = [];
-
-    if (paymentType === 'regular') {
-      // Map recurring templates to DonationTemplate format
-      templates = recurringTemplates.map(t => {
-        // Parse amount if provided (e.g., "10 GBP")
-        let amount = 0;
-        if (t.amount) {
-          const m = t.amount.match(/(\d+(?:\.\d+)?)/);
-          amount = m ? parseFloat(m[1]) : 0;
-        }
-        return {
-          id: t.id,
-          name: t.name,
-          description: t.description || '',
-          amount, // May be 0 if not provided in template
-          currency: t.currency || 'GBP',
-          type: 'recurring' as const,
-          category: 'school' as const, // Default category, could be extracted from metadata later
-          interval: 'monthly' as const, // Default interval
-          metadata: {
-            authorisationUrl: t.authorisationUrl,
-            createdAt: t.createdAt,
-            updatedAt: t.updatedAt,
-          },
-        };
-      });
-    } else {
-      // Map one-off templates to DonationTemplate format
-      templates = oneOffTemplates.map(t => {
-        // Parse amount from string like "10 GBP" or "5.0 GBP"
-        const amountMatch = t.amount?.match(/(\d+(?:\.\d+)?)/);
-        const amount = amountMatch ? parseFloat(amountMatch[1]) : 0;
-        const currencyMatch = t.amount?.match(/(GBP|USD|EUR)/);
-        const currency = currencyMatch ? currencyMatch[1] : 'GBP';
-
-        return {
-          id: t.id,
-          name: t.name,
-          description: t.description || '',
-          amount,
-          currency,
-          type: 'one-off' as const,
-          category: 'school' as const, // Default category
-          metadata: {
-            authorisationUrl: t.authorisationUrl,
-            createdAt: t.createdAt,
-            updatedAt: t.updatedAt,
-          },
-        };
-      });
+    if (paymentType === 'one-off') {
+      // No packages for one-off; only custom amount card is shown
+      return [] as DonationTemplate[];
     }
-
-    // eslint-disable-next-line no-console
-    console.log('Filtered templates result:', templates.length);
-    return templates;
-  }, [paymentType, recurringTemplates, oneOffTemplates]);
+    // For regular payments, filter plans from JSON by category
+    return recurringTemplatesFromJson.filter(t => t.category === category);
+  }, [paymentType, category, recurringTemplatesFromJson]);
 
   const handleTemplateSelect = (template: DonationTemplate) => {
     setSelectedTemplate(prev => (prev?.id === template.id ? null : template));
-    setShowCustomAmount(false);
+    setCustomSelected(false);
     setError(null);
   };
 
   const handleCustomAmountSelect = () => {
     setSelectedTemplate(null);
-    setShowCustomAmount(prev => !prev);
+    setCustomSelected(prev => !prev);
     setError(null);
   };
 
@@ -172,79 +76,34 @@ export default function DonationsPage() {
     setError(null);
 
     try {
-      // For one-off payments, allow custom amount
+      // One-off: open Stripe URL when custom selected; no input capture
       if (paymentType === 'one-off') {
-        const amount = selectedTemplate
-          ? selectedTemplate.amount
-          : Number(customAmount || 0);
-
-        if (amount <= 0) {
-          throw new Error('Please select a valid amount');
+        if (!customSelected) {
+          throw new Error('Please select custom amount to continue');
         }
 
-        // GoCardless minimum amount is £1.00
-        const minimumAmount = 1.0;
-        if (amount < minimumAmount) {
-          throw new Error(
-            `Minimum donation amount is £${minimumAmount.toFixed(2)}`
-          );
-        }
-
-        // If a template is selected and has a payment link, use it directly
-        if (selectedTemplate) {
-          const authUrl = selectedTemplate.metadata?.authorisationUrl as
-            | string
-            | undefined;
-          if (authUrl) {
-            window.location.href = authUrl;
-            return;
-          }
-        }
-
-        // Otherwise, create a one-off billing request via server action
-        const successUrl = new URL(
-          '/donations/success',
-          window.location.origin
-        ).toString();
-        const result = await createGoCardlessOneOffRedirectFlow(
-          {
-            amount,
-            currency: selectedTemplate?.currency || 'GBP',
-            description: selectedTemplate?.description || 'One-off donation',
-          },
-          successUrl
+        window.open(
+          'https://donate.stripe.com/28E7sN4AP9XXcG2crMe3e00',
+          '_blank',
+          'noopener,noreferrer'
         );
-
-        if (result.success && result.redirectUrl) {
-          window.location.href = result.redirectUrl as string;
-          return;
-        }
-
-        throw new Error(
-          (result as { error?: string }).error ||
-            'Failed to initiate one-off payment. Please try again.'
-        );
+        setIsProcessing(false);
+        return;
       } else {
-        // For recurring payments, require a template selection
         if (!selectedTemplate) {
           throw new Error(
             'Please select a donation package for recurring payments'
           );
         }
-
-        // Get the authorisation URL from the template metadata
-        const authUrl = selectedTemplate.metadata?.authorisationUrl as
-          | string
-          | undefined;
-
-        if (!authUrl) {
-          throw new Error(
-            'No payment link available for this template. Please contact support.'
-          );
+        const url = (selectedTemplate.metadata as { url?: string } | undefined)
+          ?.url;
+        if (!url) {
+          throw new Error('No payment link available for this plan.');
         }
-
-        // Redirect to GoCardless checkout
-        window.location.href = authUrl;
+        window.open(url, '_blank', 'noopener,noreferrer');
+        setSelectedTemplate(null);
+        setIsProcessing(false);
+        return;
       }
     } catch (err) {
       setError(
@@ -301,83 +160,83 @@ export default function DonationsPage() {
             </ToggleButton>
           </motion.div>
 
-          {/* Donation option heading */}
-          <motion.div
-            className='text-center w-full mt-30'
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          {/* Donation option heading and filters - only for regular payments */}
+          {paymentType === 'regular' && (
             <motion.div
-              className='text-2xl sm:text-3xl md:text-[40px] font-bold leading-[107%] text-center text-[#111111] px-4'
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              Please select a donation option
-            </motion.div>
-            <motion.div
-              className='mt-3 sm:mt-4 md:mt-6 flex flex-col sm:flex-row sm:flex-nowrap items-stretch sm:items-center justify-center gap-3 sm:gap-[42px] px-4 no-scrollbar'
-              initial={{ opacity: 0, y: 15 }}
+              className='text-center w-full mt-30'
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <CategoryTab
-                label='Support school visits projects'
-                active={category === 'school'}
-                onClick={() => setCategory('school')}
-              />
-              <CategoryTab
-                label='Support exhibition projects'
-                active={category === 'exhibition'}
-                onClick={() => setCategory('exhibition')}
-              />
-              <CategoryTab
-                label='Support literature projects'
-                active={category === 'literature'}
-                onClick={() => setCategory('literature')}
-              />
+              <motion.div
+                className='text-2xl sm:text-3xl md:text-[40px] font-bold leading-[107%] text-center text-[#111111] px-4'
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                Please select a donation option
+              </motion.div>
+              <motion.div
+                className='mt-3 sm:mt-4 md:mt-6 flex flex-col sm:flex-row sm:flex-nowrap items-stretch sm:items-center justify-center gap-3 sm:gap-[42px] px-4 no-scrollbar'
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <CategoryTab
+                  label='Support school visits projects'
+                  active={category === 'school'}
+                  onClick={() => setCategory('school')}
+                />
+                <CategoryTab
+                  label='Support exhibition projects'
+                  active={category === 'exhibition'}
+                  onClick={() => setCategory('exhibition')}
+                />
+                <CategoryTab
+                  label='Support literature projects'
+                  active={category === 'literature'}
+                  onClick={() => setCategory('literature')}
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
+          )}
 
-          {/* Donation Packages */}
-          <motion.div
-            className='w-full  sm:mt-4'
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-          >
-            {loadingPackages ? (
-              <div className='flex justify-center items-center min-h-[387px]'>
-                <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-[#CB892A]'></div>
-              </div>
-            ) : filteredTemplates.length === 0 ? (
-              <div className='flex justify-center items-center min-h-[387px] text-gray-500'>
-                <p>No donation packages available for this category.</p>
-              </div>
-            ) : (
-              <div className='flex flex-row flex-wrap justify-center items-start content-center gap-1 sm:gap-[8px] w-full max-w-[1174px] min-h-[387px] sm:mt-6'>
-                {filteredTemplates.map((template, index) => (
-                  <motion.div
-                    key={template.id}
-                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0.6 + index * 0.1,
-                      ease: 'easeOut',
-                    }}
-                  >
-                    <DonationPackage
-                      template={template}
-                      selected={selectedTemplate?.id === template.id}
-                      onClick={() => handleTemplateSelect(template)}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </motion.div>
+          {/* Donation Packages - only for regular payments */}
+          {paymentType === 'regular' && (
+            <motion.div
+              className='w-full  sm:mt-4'
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+            >
+              {filteredTemplates.length === 0 ? (
+                <div className='flex justify-center items-center min-h-[387px] text-gray-500'>
+                  <p>No donation packages available for this category.</p>
+                </div>
+              ) : (
+                <div className='flex flex-row flex-wrap justify-center items-start content-center gap-1 sm:gap-[8px] w-full max-w-[1174px] min-h-[387px] sm:mt-6'>
+                  {filteredTemplates.map((template, index) => (
+                    <motion.div
+                      key={template.id}
+                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.6 + index * 0.1,
+                        ease: 'easeOut',
+                      }}
+                    >
+                      <DonationPackage
+                        template={template}
+                        selected={selectedTemplate?.id === template.id}
+                        onClick={() => handleTemplateSelect(template)}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          )}
 
           {/* Custom Amount - Only show for one-off payments */}
           {paymentType === 'one-off' && (
@@ -399,7 +258,8 @@ export default function DonationsPage() {
                 <CustomAmountCard
                   amount={customAmount}
                   setAmount={setCustomAmount}
-                  active={showCustomAmount}
+                  active={false}
+                  selected={customSelected}
                   error={error}
                 />
               </motion.button>
@@ -428,10 +288,9 @@ export default function DonationsPage() {
               onClick={handleCheckout}
               disabled={
                 isProcessing ||
-                loadingPackages ||
                 (paymentType === 'regular'
                   ? !selectedTemplate
-                  : !selectedTemplate && !customAmount)
+                  : !customSelected)
               }
               className='flex flex-row justify-center items-center px-6 sm:px-[37px] py-4 sm:py-[18px] gap-[10px] w-full sm:w-[360px] h-[60px] sm:h-[67px] bg-[#408360] rounded-[52px] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-white font-extrabold text-lg sm:text-[26px] leading-[31px] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#408360]/40'
               whileHover={{

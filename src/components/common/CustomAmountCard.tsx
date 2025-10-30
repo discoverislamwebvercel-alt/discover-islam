@@ -7,6 +7,7 @@ interface CustomAmountCardProps {
   setAmount: (v: string) => void;
   active?: boolean;
   error?: string | null;
+  selected?: boolean;
 }
 
 const CustomAmountCard: React.FC<CustomAmountCardProps> = ({
@@ -14,6 +15,7 @@ const CustomAmountCard: React.FC<CustomAmountCardProps> = ({
   setAmount,
   active = false,
   error,
+  selected = false,
 }) => {
   const formatAmount = (value: string) => {
     // Remove any non-numeric characters except decimal point
@@ -43,8 +45,13 @@ const CustomAmountCard: React.FC<CustomAmountCardProps> = ({
   return (
     <div
       className={`w-full max-w-[570px] h-[180px] rounded-[20px] bg-white flex flex-col items-center justify-center px-4 sm:px-[42px] py-6 sm:py-[54px] gap-[1px] ${
-        error ? 'border-2 border-red-300' : ''
+        error
+          ? 'border-2 border-red-300'
+          : selected
+            ? 'border-2 border-[#408360] shadow-[0_6px_18px_rgba(64,131,96,0.15)]'
+            : 'border border-transparent'
       }`}
+      aria-selected={selected}
     >
       {active ? (
         <div className='w-full flex flex-col sm:flex-row items-center justify-center gap-3'>

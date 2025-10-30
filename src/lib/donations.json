@@ -1,0 +1,52 @@
+{
+  "recurringPlans": [
+    {
+      "id": "iman-plan",
+      "name": "Iman plan",
+      "amount": 10,
+      "currency": "GBP",
+      "url": "https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01K8TQZ075CCAK4GGJ70R63R2V4NS&initial=/collect-customer-details",
+      "category": "literature"
+    },
+    {
+      "id": "ilm-plan",
+      "name": "Ilm plan",
+      "amount": 15,
+      "currency": "GBP",
+      "url": "https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01K8TQZ31CZJFZJXZ2FY92SMJCVEH&initial=/collect-customer-details",
+      "category": "literature"
+    },
+    {
+      "id": "taqwa-plan",
+      "name": "Taqwa plan",
+      "amount": 25,
+      "currency": "GBP",
+      "url": "https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01K8TQZ5T2RMQXD2YV7135FDTE171&initial=/collect-customer-details",
+      "category": "literature"
+    },
+    {
+      "id": "ihsaan-plan",
+      "name": "Ihsaan plan",
+      "amount": 50,
+      "currency": "GBP",
+      "url": "https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01K8TQZ8PKTNG5017DFDKQ51W2T3M&initial=/collect-customer-details",
+      "category": "literature"
+    },
+    {
+      "id": "school-visit-sponsor",
+      "name": "School visit sponsor",
+      "amount": 150,
+      "currency": "GBP",
+      "url": "https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01K8TQZBXVW84FMP43EYE1YECC1WH&initial=/collect-customer-details",
+      "category": "school"
+    },
+    {
+      "id": "exhibition-sponsor",
+      "name": "Exhibition sponsor",
+      "amount": 750,
+      "currency": "GBP",
+      "url": "https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01K8TQZERF12F1P6FD13YF91AS1QG&initial=/collect-customer-details",
+      "category": "exhibition"
+    }
+  ]
+}

@@ -13,3 +13,12 @@ export interface DonationTemplate {
 export type PaymentType = 'one-off' | 'regular';
 
 export type Category = 'school' | 'exhibition' | 'literature';
+
+export type RecurringPlan = {
+  id: string;
+  name: string;
+  amount: number;
+  currency?: string;
+  url: string;
+  category?: Category;
+};
