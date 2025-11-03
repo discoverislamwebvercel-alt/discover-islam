@@ -152,6 +152,7 @@ export default function ExploreIslamSection() {
             </h3>
             <VideoPlayer
               src='/videos/quran_video.mp4'
+              playlist={['/videos/quran_video.mp4', '/videos/quran_video.mp4']}
               className='w-full h-auto mb-6 lg:mt-[60px]'
               roundedClassName='rounded-[50px]'
               autoPlayOnView={false}
