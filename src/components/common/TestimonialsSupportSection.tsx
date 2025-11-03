@@ -61,7 +61,11 @@ export default function TestimonialsSupportSection({
   donateLabel = 'Donate Now',
   showSupport = true,
 }: TestimonialsSupportSectionProps) {
-  const [emblaRef, embla] = useEmblaCarousel({ loop: true, align: 'center' });
+  const [emblaRef, embla] = useEmblaCarousel({
+    loop: true,
+    align: 'center',
+    containScroll: 'trimSnaps',
+  });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Track selected slide to control center/full vs side/low opacity
@@ -121,7 +125,7 @@ export default function TestimonialsSupportSection({
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className={`flex-shrink-0 w-[320px] sm:w-[420px] md:w-[495.81px] h-auto flex items-stretch justify-center pb-2 transition-opacity ${
+                className={`flex-shrink-0 basis-[85%] sm:basis-1/2 lg:basis-1/3 h-auto flex items-stretch justify-center pb-2 transition-opacity ${
                   i === selectedIndex ? 'opacity-100' : 'opacity-40'
                 }`}
                 aria-hidden={i !== selectedIndex}
