@@ -7,7 +7,7 @@ const createTransporter = () => {
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER || 'faizanmehmood3165@gmail.com',
+      user: process.env.EMAIL_USER || 'Info@discoverislam.co.uk',
       pass: process.env.EMAIL_PASS || 'uylp qtum ogdu xtpp',
     },
   });
@@ -17,7 +17,7 @@ const createTransporter = () => {
 export async function sendFormSubmissionEmail(
   formData: Record<string, unknown>,
   formType: string,
-  recipientEmail: string = 'faizanmehmood3165@gmail.com'
+  recipientEmail: string = 'Info@discoverislam.co.uk'
 ) {
   try {
     const transporter = createTransporter();
@@ -46,7 +46,7 @@ This email was sent from the Discover Islam website contact form.
     `.trim();
 
     const mailOptions = {
-      from: process.env.EMAIL_USER || 'faizanmehmood3165@gmail.com',
+      from: process.env.EMAIL_USER || 'Info@discoverislam.co.uk',
       to: recipientEmail,
       subject: `New ${formType} Form Submission - Discover Islam`,
       text: emailContent,
@@ -157,7 +157,7 @@ export async function sendUserConfirmationEmail(
     `;
 
     const mailOptions = {
-      from: process.env.EMAIL_USER || 'faizanmehmood3165@gmail.com',
+      from: process.env.EMAIL_USER || 'Info@discoverislam.co.uk',
       to: userEmail,
       subject: `Confirmation: ${formType} Request Received - Discover Islam`,
       html: emailContent,
