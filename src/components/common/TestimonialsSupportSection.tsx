@@ -156,22 +156,7 @@ export default function TestimonialsSupportSection({
             ))}
           </div>
 
-          {/* Pagination dots */}
-          <div className='absolute left-1/2 -translate-x-1/2 bottom-3 flex items-center gap-2'>
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                type='button'
-                aria-label={`Go to slide ${idx + 1}`}
-                onClick={() => embla?.scrollTo(idx)}
-                className={`${
-                  idx === selectedIndex
-                    ? 'w-6 h-1.5 rounded-full bg-[#111111] opacity-80'
-                    : 'w-2 h-2 rounded-full bg-[#111111] opacity-30'
-                }`}
-              />
-            ))}
-          </div>
+          {/* Pagination dots moved outside to avoid overlap */}
 
           {/* Carousel arrows */}
           <button
@@ -218,6 +203,23 @@ export default function TestimonialsSupportSection({
               />
             </svg>
           </button>
+        </div>
+        <div className='mt-6 flex items-center justify-center'>
+          <div className='flex items-center gap-2'>
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                type='button'
+                aria-label={`Go to slide ${idx + 1}`}
+                onClick={() => embla?.scrollTo(idx)}
+                className={`${
+                  idx === selectedIndex
+                    ? 'w-6 h-1.5 rounded-full bg-[#111111] opacity-80'
+                    : 'w-2 h-2 rounded-full bg-[#111111] opacity-30'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
