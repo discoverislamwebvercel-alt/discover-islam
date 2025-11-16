@@ -1,9 +1,11 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import VideoPlayer from '@/components/common/VideoPlayer';
+import Button from './common/Button';
 
 export default function ExploreIslamSection() {
   const textVariants: Variants = {
@@ -189,6 +191,14 @@ export default function ExploreIslamSection() {
             </p>
           </motion.div>
         </motion.div>
+        <div className='w-full p-4 mt-12 flex items-center justify-center'>
+          <Link
+            href='/literature?scrollTo=exploreGuides'
+            className='cursor-pointer'
+          >
+            <Button>Interetsed to know more about Islam?</Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

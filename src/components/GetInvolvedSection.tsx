@@ -54,16 +54,14 @@ export default function GetInvolvedSection() {
           >
             <div>
               <h3 className='font-extrabold text-white leading-[93%] text-[40px] sm:text-[56px] md:text-[72px] lg:text-[80px]'>
-                Fundraise
-                <br />
-                with us
+                Support us
               </h3>
             </div>
 
             <div className='flex flex-col items-start'>
               <button
                 className='relative overflow-hidden group bg-[#181818] text-white w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] hover:bg-black transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105'
-                onClick={() => router.push('/fundraise')}
+                onClick={() => router.push('/donations')}
               >
                 <span aria-hidden className='hover-animation' />
                 Fill out form

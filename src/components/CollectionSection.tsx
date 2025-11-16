@@ -19,6 +19,7 @@ interface CollectionSectionProps {
   buttonText?: string;
   onButtonClick?: () => void;
   className?: string;
+  id?: string;
 }
 
 export default function CollectionSection({
@@ -28,7 +29,16 @@ export default function CollectionSection({
   buttonText = 'View More',
   onButtonClick,
   className = '',
+  id,
 }: CollectionSectionProps) {
+  const textVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -68,6 +78,7 @@ export default function CollectionSection({
 
   return (
     <section
+      id={id}
       className={`py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 ${className}`}
     >
       <div className='max-w-[1220px] mx-auto'>
@@ -82,6 +93,20 @@ export default function CollectionSection({
           <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-[80px] font-bold leading-tight mb-4'>
             {title}
           </h2>
+        </motion.div>
+
+        <motion.div
+          className='mx-auto my-10 text-center max-w-[1063px]'
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.4 }}
+          variants={textVariants}
+        >
+          <p className='text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
+            Discover timeless wisdom and modern insight through our collection
+            of short guides — designed to inspire reflection, learning, and
+            understanding.
+          </p>
         </motion.div>
 
         {/* Collections Grid */}

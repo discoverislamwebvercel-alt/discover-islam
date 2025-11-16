@@ -6,9 +6,9 @@ import AnimatedImageSection from '../../components/common/AnimatedImageSection';
 import ResponsiveFallingCards from '../../components/ResponsiveFallingCards';
 import HostExhibition from '@/components/HostExhibition';
 import MoonSection from '@/components/MoonSection';
-import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
-import ExhibitionBookingForm from '@/components/common/ExhibitionBookingForm';
-import ExhibitionInfiniteCarousel from '@/components/common/ExhibitionInfiniteCarousel';
+// import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
+// import ExhibitionBookingForm from '@/components/common/ExhibitionBookingForm';
+// import ExhibitionInfiniteCarousel from '@/components/common/ExhibitionInfiniteCarousel';
 import GalleryGrid from '@/components/common/GalleryGrid';
 
 export default function Exhibition() {
@@ -81,11 +81,10 @@ export default function Exhibition() {
           heroImage='/Exhibitions_hero_bg.jpg'
           title='ISLAMIC EXHIBITIONS'
           subHeading='Promoting Understanding Through Engagement'
-          description='Our Islamic exhibitions promote understanding and challenge
-                stereotypes through informative displays and powerful visuals —
-                including interactive tech models, educational exhibits, and
-                authentic artifacts — that engage visitors and offer deeper
-                insight into Islamic culture and values.'
+          description='Our Islamic exhibitions promote understanding and challenge stereotypes through
+informative displays and powerful visuals. Featuring interactive technology, educational
+exhibits, and authentic artefacts, they engage visitors and offer meaningful insight into
+Islamic culture and values.'
         />
       </motion.div>
 
@@ -114,14 +113,14 @@ export default function Exhibition() {
       >
         <MoonSection />
       </motion.div>
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
         <ExhibitionInfiniteCarousel />
-      </motion.div>
+      </motion.div> */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -130,21 +129,21 @@ export default function Exhibition() {
       >
         <GalleryGrid />
       </motion.div>
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
         <TestimonialsSupportSection showSupport={false} />
-      </motion.div>
+      </motion.div> */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <ExhibitionBookingForm />
+        {/* <ExhibitionBookingForm /> */}
       </motion.div>
     </>
   );

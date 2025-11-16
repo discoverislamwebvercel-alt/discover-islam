@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import FundraisePageComponent from '@/components/common/FundraisePage';
 import FormikForm from '@/components/common/FormikForm';
 import Input from '@/components/common/Input';
-import Textarea from '@/components/common/Textarea';
+// import Textarea from '@/components/common/Textarea';
 import Select from '@/components/common/Select';
 import * as Yup from 'yup';
 import Button from '@/components/common/Button';
@@ -45,10 +45,10 @@ const partnershipFormSchema = Yup.object({
 
   partnershipType: Yup.string().required('Type of partnership is required'),
 
-  goals: Yup.string()
-    .min(10, 'Please provide more details about your goals')
-    .max(1000, 'Goals must be less than 1000 characters')
-    .required('Goals for partnership are required'),
+  // goals: Yup.string()
+  //   .min(10, 'Please provide more details about your goals')
+  //   .max(1000, 'Goals must be less than 1000 characters')
+  //   .required('Goals for partnership are required'),
 
   workingTogether: Yup.string()
     .min(
@@ -58,10 +58,10 @@ const partnershipFormSchema = Yup.object({
     .max(1000, 'Description must be less than 1000 characters')
     .required('This field is required'),
 
-  motivation: Yup.string()
-    .min(20, 'Please provide more details about your motivation')
-    .max(1000, 'Motivation must be less than 1000 characters')
-    .required('This field is required'),
+  // motivation: Yup.string()
+  //   .min(20, 'Please provide more details about your motivation')
+  //   .max(1000, 'Motivation must be less than 1000 characters')
+  //   .required('This field is required'),
 });
 
 // Initial form values
@@ -73,9 +73,9 @@ const initialValues = {
   email: '',
   phone: '',
   partnershipType: '',
-  goals: '',
+  // goals: '',
   workingTogether: '',
-  motivation: '',
+  // motivation: '',
 };
 
 // Organization type options
@@ -227,12 +227,12 @@ const PartnerWithUsPage: React.FC = () => {
             />
           </div>
 
-          <Input
+          {/* <Input
             name='goals'
             label='Goals for Partnership'
             placeholder='Enter Goals for Partnership'
             required
-          />
+          /> */}
 
           <Input
             name='workingTogether'
@@ -241,13 +241,13 @@ const PartnerWithUsPage: React.FC = () => {
             required
           />
 
-          <Textarea
+          {/* <Textarea
             name='motivation'
             label='Why do you want to partner with Discover Islam?'
             placeholder=''
             rows={4}
             required
-          />
+          /> */}
 
           <div className='flex justify-center mt-8'>
             <Button

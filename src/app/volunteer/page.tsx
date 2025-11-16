@@ -42,9 +42,9 @@ const volunteerFormSchema = Yup.object({
     .min(5, 'Please provide more details about your skills')
     .required('Skills and interests are required'),
 
-  hobbies: Yup.string()
-    .min(3, 'Please provide more details about your hobbies')
-    .required('Hobbies are required'),
+  // hobbies: Yup.string()
+  //   .min(3, 'Please provide more details about your hobbies')
+  //   .required('Hobbies are required'),
 
   availability: Yup.string()
     .min(5, 'Please specify your availability')
@@ -55,14 +55,14 @@ const volunteerFormSchema = Yup.object({
     'Experience description must be less than 1000 characters'
   ),
 
-  motivation: Yup.string()
-    .min(20, 'Please provide more details about your motivation')
-    .max(1000, 'Motivation must be less than 1000 characters')
-    .required('This field is required'),
+  // motivation: Yup.string()
+  //   .min(20, 'Please provide more details about your motivation')
+  //   .max(1000, 'Motivation must be less than 1000 characters')
+  //   .required('This field is required'),
 
-  emergencyContact: Yup.string()
-    .min(10, 'Emergency contact must be at least 10 digits')
-    .required('Emergency contact is required'),
+  // emergencyContact: Yup.string()
+  //   .min(10, 'Emergency contact must be at least 10 digits')
+  //   .required('Emergency contact is required'),
 });
 
 // Initial form values
@@ -74,11 +74,11 @@ const initialValues = {
   location: '',
   occupation: '',
   skills: '',
-  hobbies: '',
+  // hobbies: '',
   availability: '',
   experience: '',
-  motivation: '',
-  emergencyContact: '',
+  // motivation: '',
+  // emergencyContact: '',
 };
 
 const VolunteerPage: React.FC = () => {
@@ -100,6 +100,7 @@ const VolunteerPage: React.FC = () => {
         const userEmail = values.email as string;
         if (userEmail) {
           try {
+            console.log('Sending confirmation email to:', userEmail);
             await sendUserConfirmationEmail(
               userEmail,
               'Volunteer Application',
@@ -206,13 +207,13 @@ const VolunteerPage: React.FC = () => {
               />
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              <Input
+            <div className='grid grid-cols-1 gap-6'>
+              {/* <Input
                 name='hobbies'
                 label='Hobbies'
                 placeholder='Enter Hobbies'
                 required
-              />
+              /> */}
 
               <Input
                 name='availability'
@@ -229,21 +230,21 @@ const VolunteerPage: React.FC = () => {
               rows={3}
             />
 
-            <Textarea
+            {/* <Textarea
               name='motivation'
               label='Why do you want to volunteer with Discover Islam?'
               placeholder=''
               rows={4}
               required
-            />
+            /> */}
 
-            <Input
+            {/* <Input
               name='emergencyContact'
               type='tel'
               label='Emergency Contact'
               placeholder='Enter Phone Number'
               required
-            />
+            /> */}
 
             {/* Submit Button */}
             <div className='flex pt-4'>

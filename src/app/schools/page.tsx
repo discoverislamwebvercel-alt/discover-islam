@@ -3,7 +3,7 @@
 import HeroSection from '@/components/common/HeroSection';
 import AnimatedImageSection from '../../components/common/AnimatedImageSection';
 import ResponsiveFallingCards from '@/components/ResponsiveFallingCards';
-import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
+// import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
 import SchoolVisitForm from '@/components/SchoolVisitForm';
 import MosqueVisitForm from '@/components/MosqueVisitForm';
 // import { motion } from 'framer-motion';
@@ -72,8 +72,10 @@ export default function School() {
         heroImage='/schools_hero_bg.jpg'
         title='School Visits'
         subHeading='Knowledge changes everything'
-        description='Our school visits provide a dynamic and accessible introduction to Islam for students of all ages. Designed to complement the Religious Education curriculum, each session is thoughtfully structured to engage pupils through storytelling, multimedia, and interactive learning.'
-        buttonText='School Visit'
+        description='Our school visits provide pupils with an engaging and interactive introduction to
+Islam. Through tailored presentations, activities, and discussions, we help students explore
+Islamic beliefs, values, and culture in a welcoming and educational environment.'
+        buttonText='Book School Visit'
       />
       <AnimatedImageSection
         text1='KNOWLEDGE CHANGES EVERYTHING'
@@ -84,7 +86,7 @@ export default function School() {
         heading1={'Why Book a School'}
         heading2={'Visit with Us?'}
       />
-      <TestimonialsSupportSection />
+      {/* <TestimonialsSupportSection /> */}
       <SchoolVisitForm />
       <MosqueVisitForm />
     </>

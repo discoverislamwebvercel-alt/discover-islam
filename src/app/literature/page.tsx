@@ -20,7 +20,7 @@ import {
   sendUserConfirmationEmail,
 } from '@/lib/email';
 import toast from 'react-hot-toast';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const cards = [
   {
@@ -83,6 +83,22 @@ const cards = [
 export default function Literature() {
   const [isLoading, setIsLoading] = useState(false);
 
+  // Smoothly scroll to collection section if query param present
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get('scrollTo');
+    if (target === 'exploreGuides') {
+      const el = document.getElementById('exploreGuides');
+      if (el) {
+        // Use requestAnimationFrame to avoid layout thrash during hydration
+        requestAnimationFrame(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    }
+  }, []);
+
   const handleSubmit = async (
     data: LiteratureFormData,
     { reset }: { reset: () => void }
@@ -140,13 +156,11 @@ export default function Literature() {
         subHeading='Sharing the Message with Clarity and Compassion'
         description={
           <>
-            Our literature{' '}
-            <strong>promotes peace, understanding, and harmony</strong> by
-            offering clear and engaging resources about Islam in a variety of
-            languages. Designed for accessibility across diverse communities,
-            these materials help eliminate misconceptions by accurately
-            presenting the{' '}
-            <strong>true teachings, values, and principles</strong> of Islam
+            Our literature promotes peace, understanding, and harmony through
+            clear and engaging resources about Islam, available in a range of
+            languages. Designed to be accessible to diverse communities, these
+            materials help dispel misconceptions by accurately presenting the
+            true teachings, values, and principles of Islam.
           </>
         }
       />
@@ -161,7 +175,8 @@ export default function Literature() {
         heading2={'Literature Effective?'}
       />
       <CollectionSection
-        title='Shop from our collection'
+        id='exploreGuides'
+        title='Explore Our Guides'
         buttonText='View More'
         onButtonClick={() => {
           // Handle browse all books click

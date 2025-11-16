@@ -12,8 +12,8 @@ export default function AboutUsPage() {
   return (
     <div className='bg-white'>
       <AboutHero />
-      <AboutUsCards />
       <AboutIntroText />
+      <AboutUsCards />
       <MissionVision />
       <ValuesBars />
       <AboutStats />

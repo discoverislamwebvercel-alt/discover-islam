@@ -57,20 +57,20 @@ export default function WhatIsDiscoverIslamSection() {
           variants={textVariants}
         >
           <p className='text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
-            DiscoverIslam is a dedicated initiative that shares the beauty,
-            values, and teachings of Islam in a clear and authentic way. We work
-            to bridge understanding, remove misconceptions, and open dialogue
-            between communities.
+            A dedicated initiative sharing the beauty, values, and teachings of
+            Islam in a clear and authentic way. We build understanding, dispel
+            misconceptions, and encourage meaningful dialogue between
+            communities.
           </p>
           <p className='mt-6 text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
-            Over the years, we’ve grown into a trusted platform offering
-            exhibitions, educational resources, events, and community programs,
+            Over the years, we’ve become a trusted platform offering
+            exhibitions, educational resources, and community programmes,
             reaching thousands locally and globally.
           </p>
-          <p className='mt-6 text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
+          {/* <p className='mt-6 text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
             Educational Resources: Clear, accessible materials for all
             audiences.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Cards row */}

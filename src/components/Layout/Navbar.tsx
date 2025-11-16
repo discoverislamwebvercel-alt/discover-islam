@@ -60,11 +60,13 @@ export default function Navbar() {
       <div className='flex items-center justify-between'>
         {/* Left side - Logo */}
         <div className='flex items-center'>
-          <img
-            src='/discover islam horizontal logo - png 1.png'
-            alt='Discover Islam Logo'
-            className='h-8 sm:h-10 md:h-12 w-auto'
-          />
+          <Link href='/'>
+            <img
+              src='/logo.png'
+              alt='Discover Islam Logo'
+              className='h-8 sm:h-10 md:h-12 w-auto'
+            />
+          </Link>
         </div>
 
         {/* Center - Navigation Links (Desktop only) */}
