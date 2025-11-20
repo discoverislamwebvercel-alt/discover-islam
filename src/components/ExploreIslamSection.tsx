@@ -155,7 +155,7 @@ export default function ExploreIslamSection() {
             <VideoPlayer
               src='/videos/quran_video.mp4'
               playlist={['/videos/quran_video.mp4', '/videos/quran_video.mp4']}
-              className='w-full h-auto mb-6 lg:mt-[60px]'
+              className='w-full h-auto mb-6 lg:mt-[60px] rounded-[50px]'
               roundedClassName='rounded-[50px]'
               autoPlayOnView={false}
               poster='/Rectangle 11.png'
@@ -168,7 +168,7 @@ export default function ExploreIslamSection() {
           </motion.div>
 
           {/* Right Column - Makkah 360 */}
-          <motion.div className='flex-1 mt-14' variants={textVariants}>
+          {/* <motion.div className='flex-1 mt-14' variants={textVariants}>
             <h3 className='font-bold text-[#111111] tracking-[-0.03em] text-[28px] sm:text-[34px] md:text-[40px] leading-[36px] sm:leading-[44px] md:leading-[48px] mb-4 relative inline-block pb-2'>
               Explore Makkah in 360°
               <img
@@ -189,7 +189,7 @@ export default function ExploreIslamSection() {
               the Ka&apos;bah, walk through Masjid al-Haram, and witness the
               spiritual harmony of millions — from wherever you are.
             </p>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
         <div className='w-full p-4 mt-12 flex items-center justify-center'>
           <Link

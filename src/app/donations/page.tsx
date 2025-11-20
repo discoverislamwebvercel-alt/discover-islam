@@ -118,8 +118,17 @@ export default function DonationsPage() {
       <FundraisePage
         title='Donations'
         titleClassName='text-[#CB892A]'
-        descriptionClassName='hidden'
         containerClassName='max-w-[980px] px-4 sm:px-6 lg:px-8'
+        descriptionClassName='hidden'
+        // description={
+        //   <>
+        //     “Your donation helps us educate, inspire, and build understanding
+        //     between communities. ”
+        //     <br />
+        //     By supporting our projects, you enable us to continue sharing the
+        //     message of Islam and creating a lasting positive impact.
+        //   </>
+        // }
       >
         <div className='w-full flex flex-col items-center gap-4 sm:gap-6 lg:gap-8 lg:-mt-12'>
           {/* Payment Type Toggle */}

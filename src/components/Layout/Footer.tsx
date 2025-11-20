@@ -93,21 +93,21 @@ export default function Footer() {
                   </div>
                   <div className='text-white'>info@discoverislam.co.uk</div>
                 </div>
-                <div>
+                {/* <div>
                   <div className='font-bold text-[#FFFFFF] mb-1'>
                     IRELAND (HQ)
                   </div>
                   <div className='text-white'>
                     163 South Circular Road, Dublin 8, Ireland
                   </div>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <div className='font-bold text-[#FFFFFF] mb-1'>
                     SCOTLAND (Presentations)
                   </div>
                   <div className='text-white'>079 885 92734</div>
                   <div className='text-white'>info@discoverislam.co.uk</div>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           </div>

@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
 interface FundraisePageProps {
   title?: string;
   titleClassName?: string;
-  description?: string;
+  description?: string | React.ReactNode;
   children?: React.ReactNode;
   className?: string;
   containerClassName?: string;

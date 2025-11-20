@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
+import { School } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ServicesSection() {
@@ -110,11 +111,12 @@ export default function ServicesSection() {
               </div>
             </div>
             <div className='w-[75px] h-[75px] sm:w-[85px] sm:h-[85px] lg:w-[99px] lg:h-[99px] mb-4 sm:mb-5 lg:mb-6 mt-4 sm:mt-5 lg:mt-6 transition-transform duration-300 group-hover:scale-105'>
-              <img
+              {/* <img
                 src='/mosque.png'
                 alt='Mosque Icon'
                 className='w-full h-full object-contain'
-              />
+              /> */}
+              <School className='w-full h-full object-contain' />
             </div>
             <p className='text-[#111111] font-bold text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] leading-[93%] transition-transform duration-300 group-hover:scale-[1.03]'>
               Book a School or

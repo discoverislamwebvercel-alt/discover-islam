@@ -179,7 +179,7 @@ export default function VideoPlayer({
       )}
       {showOverlay && (
         <button
-          className='absolute inset-0 grid place-items-center bg-black/30 transition-colors duration-200 hover:bg-black/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 cursor-pointer'
+          className={`absolute inset-0 grid place-items-center bg-black/30 transition-colors duration-200 hover:bg-black/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 cursor-pointer ${roundedClassName ?? ''}`}
           onClick={() => {
             const el = videoRef.current;
             if (!el) return;
