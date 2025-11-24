@@ -4,7 +4,7 @@ import HeroSection from '@/components/common/HeroSection';
 import { motion } from 'framer-motion';
 import AnimatedImageSection from '../../components/common/AnimatedImageSection';
 import ResponsiveFallingCards from '../../components/ResponsiveFallingCards';
-import HostExhibition from '@/components/HostExhibition';
+// import HostExhibition from '@/components/HostExhibition';
 // import MoonSection from '@/components/MoonSection';
 // import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
 // import ExhibitionBookingForm from '@/components/common/ExhibitionBookingForm';
@@ -96,14 +96,14 @@ Islamic culture and values.'
         heading2={'Islamic Exhibition?'}
       />
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5 }}
       >
         <HostExhibition />
-      </motion.div>
+      </motion.div> */}
 
       {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
