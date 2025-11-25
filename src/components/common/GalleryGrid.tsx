@@ -5,17 +5,18 @@ import useEmblaCarousel from 'embla-carousel-react';
 import AutoScroll from 'embla-carousel-auto-scroll';
 
 const images = [
-  '/figma/gallery/grid-1.png',
-  '/figma/gallery/grid-2.png',
-  '/figma/gallery/grid-3.png',
-  '/figma/gallery/grid-4.png',
-  '/figma/gallery/grid-5.png',
-  '/figma/gallery/grid-6.png',
+  '/exhibitions_gallery/01.jpg',
+  '/exhibitions_gallery/02.jpg',
+  '/exhibitions_gallery/03.jpg',
+  '/exhibitions_gallery/04.jpg',
+  '/exhibitions_gallery/05.jpg',
+  '/exhibitions_gallery/06.jpg',
+  '/exhibitions_gallery/07.jpg',
 ];
 
 export default function GalleryGrid() {
   const row1 = images.slice(0, 3);
-  const row2 = images.slice(3, 6);
+  const row2 = images.slice(3, images.length);
 
   const [emblaRef1] = useEmblaCarousel(
     { loop: true, align: 'start', dragFree: true },

@@ -153,10 +153,13 @@ export default function ExploreIslamSection() {
               </span>
             </h3>
             <VideoPlayer
-              src='/videos/quran_video.mp4'
-              playlist={['/videos/quran_video.mp4', '/videos/quran_video.mp4']}
+              // src='/videos/quran_video_1.mp4'
+              playlist={[
+                '/videos/quran_video_1.mp4',
+                '/videos/quran_video_2.mp4',
+              ]}
               className='w-full h-auto mb-6 lg:mt-[60px] rounded-[50px]'
-              roundedClassName='rounded-[50px]'
+              roundedClassName='rounded-[80px]'
               autoPlayOnView={false}
               poster='/Rectangle 11.png'
             />

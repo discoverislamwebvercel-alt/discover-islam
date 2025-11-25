@@ -67,7 +67,7 @@ export default function AboutUsCards() {
     {
       title: 'Exhibitions & Events',
       description: 'Interactive displays and cultural showcases.',
-      image: '/figma/exhibitions-events-bg.png',
+      image: '/about_us_exhibitions/01.jpg',
       bgColor: 'bg-[#4C735D]',
       borderRadius: 'rounded-[30px]',
       padding: 'p-[15px_14px]',
@@ -85,7 +85,7 @@ export default function AboutUsCards() {
     {
       title: 'Workshops & Seminars',
       description: 'For schools, workplaces, and communities.',
-      image: '/figma/exhibitions-events-bg.png',
+      image: '/about_us_exhibitions/02.jpg',
       bgColor: 'bg-[#111111]',
       borderRadius: 'rounded-[28.8916px]',
       padding: 'p-[14.4458px_13.4827px]',
@@ -103,7 +103,7 @@ export default function AboutUsCards() {
     {
       title: 'Community Engagement',
       description: 'Building bridges through open dialogue.',
-      image: '/figma/exhibitions-events-bg.png',
+      image: '/about_us_exhibitions/03.jpg',
       bgColor: 'bg-gradient-to-r from-[#ECBC1C] to-[#B26D28]',
       borderRadius: 'rounded-[27.494px]',
       padding: 'p-[13.747px_12.8305px]',

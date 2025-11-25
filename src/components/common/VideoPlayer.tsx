@@ -9,7 +9,7 @@ declare global {
 }
 
 type VideoPlayerProps = {
-  src: string;
+  src?: string;
   className?: string;
   poster?: string;
   autoPlayOnView?: boolean;
