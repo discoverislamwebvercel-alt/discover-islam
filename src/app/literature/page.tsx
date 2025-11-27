@@ -6,12 +6,12 @@ import CollectionSection from '@/components/CollectionSection';
 import HookForm from '@/components/common/HookForm';
 import HookFormInput from '@/components/common/HookFormInput';
 import HookFormTextarea from '@/components/common/HookFormTextarea';
-import HookFormRadioGroup from '@/components/common/HookFormRadioGroup';
+// import HookFormRadioGroup from '@/components/common/HookFormRadioGroup';
 import FormButton from '@/components/common/FormButton';
 import {
   literatureFormSchema,
   literatureFormDefaultValues,
-  materialOptions,
+  // materialOptions,
   type LiteratureFormData,
 } from '@/lib/validation/literatureForm';
 import ResponsiveFallingCards from '@/components/ResponsiveFallingCards';
@@ -204,8 +204,8 @@ export default function Literature() {
       />
 
       <HookForm
-        title='Request Free Literature Form'
-        subtitle='Request Free Islamic Literature'
+        title='Need bulk copies for your centre?'
+        subtitle='Fill in the form below'
         schema={literatureFormSchema}
         defaultValues={literatureFormDefaultValues}
         onSubmit={handleSubmit}
@@ -254,13 +254,13 @@ export default function Literature() {
             required
           />
 
-          <HookFormRadioGroup
+          {/* <HookFormRadioGroup
             label="Select the materials you'd like to receive:"
             name='materials'
             options={materialOptions}
             columns={3}
             required
-          />
+          /> */}
 
           <HookFormInput
             label='Quantity Needed'

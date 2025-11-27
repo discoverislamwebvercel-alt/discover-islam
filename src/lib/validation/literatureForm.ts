@@ -72,10 +72,10 @@ export const literatureFormSchema = z.object({
       'Delivery address cannot be empty or contain only spaces'
     ),
 
-  materials: z
-    .string()
-    .min(1, 'Please select at least one material type')
-    .refine(val => val.trim().length > 0, 'Material selection cannot be empty'),
+  // materials: z
+  //   .string()
+  //   .min(1, 'Please select at least one material type')
+  //   .refine(val => val.trim().length > 0, 'Material selection cannot be empty'),
 
   quantity: z
     .number('Quantity must be a valid number')
@@ -111,7 +111,7 @@ export const literatureFormDefaultValues = {
   email: '',
   phone: '',
   address: '',
-  materials: '',
+  // materials: '',
   quantity: 1,
   purpose: '',
   notes: '',
