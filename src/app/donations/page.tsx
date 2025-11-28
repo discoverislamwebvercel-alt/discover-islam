@@ -38,18 +38,21 @@ export default function DonationsPage() {
       title: 'School Visits',
       description:
         'Bring authentic, engaging lessons about Islam directly to classrooms. Your support funds travel, materials, and trained presenters who inspire curiosity and respect among young people.',
+      imageUrl: '/schools_hero_bg.jpg',
       regularUrls: schoolExhibitionRegularUrls,
     },
     {
       title: 'Exhibitions',
       description:
         'Support impactful exhibitions that open doors to dialogue and understanding through powerful visuals and meaningful interaction.',
+      imageUrl: '/Exhibitions_hero_bg.jpg',
       regularUrls: schoolExhibitionRegularUrls,
     },
     {
       title: 'Literature',
       description:
         'Help us share beautifully designed Islamic materials with schools and communities across the country, spreading knowledge and truth with clarity and care.',
+      imageUrl: '/Literature_hero_bg.jpg',
       regularUrls: literatureRegularUrls,
     },
   ];
@@ -143,6 +146,7 @@ export default function DonationsPage() {
               <ProjectDonationCard
                 title={project.title}
                 description={project.description}
+                imageUrl={project.imageUrl}
                 oneOffUrl={oneOffUrl}
                 regularUrls={project.regularUrls}
                 isExpanded={expandedCard === project.title}

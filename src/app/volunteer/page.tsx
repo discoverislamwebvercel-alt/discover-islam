@@ -1,110 +1,103 @@
 'use client';
 
 import React, { useState } from 'react';
-import FundraisePageComponent from '@/components/common/FundraisePage';
-import FormikForm from '@/components/common/FormikForm';
-import Input from '@/components/common/Input';
-import Textarea from '@/components/common/Textarea';
-import * as Yup from 'yup';
-import Button from '@/components/common/Button';
+import { motion } from 'framer-motion';
+import FundraisePage from '@/components/common/FundraisePage';
 import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
+import HookForm from '@/components/common/HookForm';
+import HookFormInput from '@/components/common/HookFormInput';
+import HookFormTextarea from '@/components/common/HookFormTextarea';
+import { useFormContext } from 'react-hook-form';
+import {
+  volunteerFormSchema,
+  volunteerFormDefaultValues,
+  type VolunteerFormData,
+} from '@/lib/validation/volunteerForm';
 import { sendVolunteerFormEmail, sendUserConfirmationEmail } from '@/lib/email';
 import toast from 'react-hot-toast';
-import Spinner from '@/components/common/Spinner';
 
-// Validation schema for volunteer form
-const volunteerFormSchema = Yup.object({
-  fullName: Yup.string()
-    .min(2, 'Full name must be at least 2 characters')
-    .max(100, 'Full name must be less than 100 characters')
-    .required('Full name is required'),
+// Submit Button Component for React Hook Form
+const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
+  const { formState } = useFormContext();
+  const { isSubmitting } = formState;
+  const disabled = isLoading || isSubmitting;
 
-  email: Yup.string()
-    .email('Please enter a valid email address')
-    .required('Email address is required'),
-
-  phone: Yup.string()
-    .min(10, 'Phone number must be at least 10 digits')
-    .required('Phone number is required'),
-
-  age: Yup.number()
-    .min(16, 'Must be at least 16 years old')
-    .max(100, 'Please enter a valid age')
-    .required('Age is required'),
-
-  location: Yup.string().required('Location is required'),
-
-  occupation: Yup.string()
-    .min(2, 'Occupation must be at least 2 characters')
-    .required('Current occupation is required'),
-
-  skills: Yup.string()
-    .min(5, 'Please provide more details about your skills')
-    .required('Skills and interests are required'),
-
-  // hobbies: Yup.string()
-  //   .min(3, 'Please provide more details about your hobbies')
-  //   .required('Hobbies are required'),
-
-  availability: Yup.string()
-    .min(5, 'Please specify your availability')
-    .required('Availability is required'),
-
-  experience: Yup.string().max(
-    1000,
-    'Experience description must be less than 1000 characters'
-  ),
-
-  // motivation: Yup.string()
-  //   .min(20, 'Please provide more details about your motivation')
-  //   .max(1000, 'Motivation must be less than 1000 characters')
-  //   .required('This field is required'),
-
-  // emergencyContact: Yup.string()
-  //   .min(10, 'Emergency contact must be at least 10 digits')
-  //   .required('Emergency contact is required'),
-});
-
-// Initial form values
-const initialValues = {
-  fullName: '',
-  email: '',
-  phone: '',
-  age: '',
-  location: '',
-  occupation: '',
-  skills: '',
-  // hobbies: '',
-  availability: '',
-  experience: '',
-  // motivation: '',
-  // emergencyContact: '',
+  return (
+    <div className='flex justify-center pt-4'>
+      <button
+        type='submit'
+        disabled={disabled}
+        className={`
+          w-full max-w-[400px]
+          px-8 py-4
+          text-[20px]
+          font-medium
+          rounded-[62px]
+          bg-[#408360]
+          hover:bg-[#357050]
+          text-white
+          focus:ring-2
+          focus:ring-[#408360]
+          focus:ring-offset-2
+          transition-all
+          duration-300
+          disabled:opacity-50
+          disabled:cursor-not-allowed
+          cursor-pointer
+          flex items-center justify-center gap-3
+        `}
+      >
+        {(isLoading || isSubmitting) && (
+          <svg
+            className='animate-spin h-5 w-5 text-current'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+          >
+            <circle
+              className='opacity-25'
+              cx='12'
+              cy='12'
+              r='10'
+              stroke='currentColor'
+              strokeWidth='4'
+            ></circle>
+            <path
+              className='opacity-75'
+              fill='currentColor'
+              d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+            ></path>
+          </svg>
+        )}
+        {isLoading || isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </div>
+  );
 };
 
-const VolunteerPage: React.FC = () => {
+export default function VolunteerPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (
-    values: typeof initialValues,
-    { resetForm }: { resetForm: () => void }
+    data: VolunteerFormData,
+    _helpers: { reset: () => void }
   ) => {
     setIsLoading(true);
     const toastId = toast.loading('Submitting your volunteer application...');
 
     try {
       // Send email using server action
-      const result = await sendVolunteerFormEmail(values);
+      const result = await sendVolunteerFormEmail(data);
 
       if (result.success) {
         // Send confirmation email to user
-        const userEmail = values.email as string;
+        const userEmail = data.email as string;
         if (userEmail) {
           try {
-            console.log('Sending confirmation email to:', userEmail);
             await sendUserConfirmationEmail(
               userEmail,
               'Volunteer Application',
-              values
+              data
             );
           } catch (confirmationError) {
             console.error(
@@ -119,8 +112,6 @@ const VolunteerPage: React.FC = () => {
           'Volunteer application submitted successfully! We will contact you soon.',
           { id: toastId }
         );
-        // Reset form after successful submission
-        resetForm();
       } else {
         throw new Error(result.error || 'Failed to send email');
       }
@@ -137,138 +128,141 @@ const VolunteerPage: React.FC = () => {
 
   return (
     <>
-      <FundraisePageComponent
+      <FundraisePage
         title='Volunteer with Us'
         titleClassName='text-[#408360]'
-        description="Volunteers are the heart of Discover Islam's mission. By giving your time, skills, and passion, you help us reach more people and create meaningful connections. Whatever your expertise, there is a place for you in our team!"
+        containerClassName='max-w-[920px] px-4 sm:px-6 lg:px-8'
+        descriptionClassName='hidden'
       >
-        <FormikForm
-          initialValues={initialValues}
-          validationSchema={volunteerFormSchema}
-          onSubmit={handleSubmit}
+        {/* Animated Description Text */}
+        <motion.div
+          className='w-full text-center mb-8 sm:mb-10 md:mb-12 px-4 flex items-center justify-center'
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className='space-y-6'>
-            {/* Personal Information */}
-            <Input
-              name='fullName'
-              label='Full Name'
-              placeholder='Enter Full Name'
-              required
-            />
+          <motion.p
+            className='font-medium text-lg md:text-xl lg:text-[30px] leading-[100%] text-center w-full max-w-[1100px] tracking-normal'
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              fontFamily:
+                'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
+              fontWeight: 500,
+            }}
+          >
+            Volunteers are the heart of Discover Islam&apos;s mission. By giving
+            your time, skills, and passion, you help us reach more people and
+            create meaningful connections. Whatever your expertise, there is a
+            place for you in our team!
+          </motion.p>
+        </motion.div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              <Input
-                name='email'
-                type='email'
-                label='Email'
-                placeholder='Enter Email'
+        {/* Volunteer Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <HookForm
+            schema={volunteerFormSchema}
+            defaultValues={volunteerFormDefaultValues}
+            onSubmit={handleSubmit}
+            className='mb-16'
+            maxWidth='920px'
+            mode='onChange'
+          >
+            <div className='space-y-6'>
+              {/* Personal Information */}
+              <HookFormInput
+                label='Full Name'
+                name='fullName'
+                type='text'
+                placeholder='Enter Full Name'
                 required
               />
 
-              <Input
-                name='phone'
-                type='tel'
-                label='Phone Number'
-                placeholder='Enter Phone Number'
-                required
-              />
-            </div>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <HookFormInput
+                  label='Email'
+                  name='email'
+                  type='email'
+                  placeholder='Enter Email'
+                  required
+                />
+                <HookFormInput
+                  label='Phone Number'
+                  name='phone'
+                  type='tel'
+                  placeholder='Enter Phone Number'
+                  required
+                />
+              </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              <Input
-                name='age'
-                type='number'
-                label='Age'
-                placeholder='Enter Age'
-                required
-              />
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <HookFormInput
+                  label='Age'
+                  name='age'
+                  type='number'
+                  placeholder='Enter Age'
+                  required
+                  min={16}
+                  max={100}
+                />
+                <HookFormInput
+                  label='Location / City'
+                  name='location'
+                  type='text'
+                  placeholder='Enter Location'
+                  required
+                />
+              </div>
 
-              <Input
-                name='location'
-                label='Location / City'
-                placeholder='Enter Location'
-                required
-              />
-            </div>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <HookFormInput
+                  label='Current Occupation/Profession'
+                  name='occupation'
+                  type='text'
+                  placeholder='Teacher, Engineer, Student etc.'
+                  required
+                />
+                <HookFormInput
+                  label='Skills & Interests'
+                  name='skills'
+                  type='text'
+                  placeholder='Teaching, Event Mgmt, Design, Admin etc.'
+                  required
+                />
+              </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              <Input
-                name='occupation'
-                label='Current Occupation/Profession'
-                placeholder='Teacher, Engineer, Student etc.'
-                required
-              />
-
-              <Input
-                name='skills'
-                label='Skills & Interests'
-                placeholder='Teaching, Event Mgmt, Design, Admin etc.'
-                required
-              />
-            </div>
-
-            <div className='grid grid-cols-1 gap-6'>
-              {/* <Input
-                name='hobbies'
-                label='Hobbies'
-                placeholder='Enter Hobbies'
-                required
-              /> */}
-
-              <Input
-                name='availability'
+              <HookFormInput
                 label='Availability'
+                name='availability'
+                type='text'
                 placeholder='Weekdays, Weekends, Evenings, Flexible'
                 required
               />
+
+              <HookFormTextarea
+                label='Previous Volunteer Experience (optional)'
+                name='experience'
+                placeholder='Enter Previous Volunteer Experience (optional)'
+                rows={3}
+                maxLength={1000}
+              />
+
+              {/* Submit Button */}
+              <SubmitButton isLoading={isLoading} />
             </div>
+          </HookForm>
+        </motion.div>
+      </FundraisePage>
 
-            <Textarea
-              name='experience'
-              label='Previous Volunteer Experience (optional)'
-              placeholder='Enter Previous Volunteer Experience (optional)'
-              rows={3}
-            />
-
-            {/* <Textarea
-              name='motivation'
-              label='Why do you want to volunteer with Discover Islam?'
-              placeholder=''
-              rows={4}
-              required
-            /> */}
-
-            {/* <Input
-              name='emergencyContact'
-              type='tel'
-              label='Emergency Contact'
-              placeholder='Enter Phone Number'
-              required
-            /> */}
-
-            {/* Submit Button */}
-            <div className='flex pt-4'>
-              <Button
-                className='w-[200px] text-[26px] font-extrabold flex items-center justify-center gap-3'
-                type='submit'
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <Spinner size='sm' className='text-white' />
-                    Submitting...
-                  </>
-                ) : (
-                  'Submit'
-                )}
-              </Button>
-            </div>
-          </div>
-        </FormikForm>
-      </FundraisePageComponent>
       <AnimatedJourneySection />
     </>
   );
-};
-
-export default VolunteerPage;
+}

@@ -1,130 +1,109 @@
 'use client';
 
 import React, { useState } from 'react';
-import FundraisePageComponent from '@/components/common/FundraisePage';
-import FormikForm from '@/components/common/FormikForm';
-import Input from '@/components/common/Input';
-// import Textarea from '@/components/common/Textarea';
-import Select from '@/components/common/Select';
-import * as Yup from 'yup';
-import Button from '@/components/common/Button';
+import { motion } from 'framer-motion';
+import FundraisePage from '@/components/common/FundraisePage';
 import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
+import HookForm from '@/components/common/HookForm';
+import HookFormInput from '@/components/common/HookFormInput';
+import HookFormSelect from '@/components/common/HookFormSelect';
+import HookFormTextarea from '@/components/common/HookFormTextarea';
+import { useFormContext } from 'react-hook-form';
+import {
+  partnershipFormSchema,
+  partnershipFormDefaultValues,
+  organizationTypeOptions,
+  partnershipTypeOptions,
+  type PartnershipFormData,
+} from '@/lib/validation/partnershipForm';
 import {
   sendPartnershipFormEmail,
   sendUserConfirmationEmail,
 } from '@/lib/email';
 import toast from 'react-hot-toast';
-import Spinner from '@/components/common/Spinner';
 
-// Validation schema for partnership form
-const partnershipFormSchema = Yup.object({
-  organizationName: Yup.string()
-    .min(2, 'Organization name must be at least 2 characters')
-    .max(150, 'Organization name must be less than 150 characters')
-    .required('Organization/Company name is required'),
+// Submit Button Component for React Hook Form
+const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
+  const { formState } = useFormContext();
+  const { isSubmitting } = formState;
+  const disabled = isLoading || isSubmitting;
 
-  organizationType: Yup.string().required('Type of organization is required'),
-
-  contactPersonName: Yup.string()
-    .min(2, 'Contact person name must be at least 2 characters')
-    .max(100, 'Contact person name must be less than 100 characters')
-    .required('Contact person name is required'),
-
-  position: Yup.string()
-    .min(2, 'Position must be at least 2 characters')
-    .max(100, 'Position must be less than 100 characters')
-    .required('Position/Role is required'),
-
-  email: Yup.string()
-    .email('Please enter a valid email address')
-    .required('Email address is required'),
-
-  phone: Yup.string()
-    .min(10, 'Phone number must be at least 10 digits')
-    .required('Phone number is required'),
-
-  partnershipType: Yup.string().required('Type of partnership is required'),
-
-  // goals: Yup.string()
-  //   .min(10, 'Please provide more details about your goals')
-  //   .max(1000, 'Goals must be less than 1000 characters')
-  //   .required('Goals for partnership are required'),
-
-  workingTogether: Yup.string()
-    .min(
-      20,
-      'Please provide more details about how you see us working together'
-    )
-    .max(1000, 'Description must be less than 1000 characters')
-    .required('This field is required'),
-
-  // motivation: Yup.string()
-  //   .min(20, 'Please provide more details about your motivation')
-  //   .max(1000, 'Motivation must be less than 1000 characters')
-  //   .required('This field is required'),
-});
-
-// Initial form values
-const initialValues = {
-  organizationName: '',
-  organizationType: '',
-  contactPersonName: '',
-  position: '',
-  email: '',
-  phone: '',
-  partnershipType: '',
-  // goals: '',
-  workingTogether: '',
-  // motivation: '',
+  return (
+    <div className='flex justify-center pt-4'>
+      <button
+        type='submit'
+        disabled={disabled}
+        className={`
+          w-full max-w-[400px]
+          px-8 py-4
+          text-[20px]
+          font-medium
+          rounded-[62px]
+          bg-[#408360]
+          hover:bg-[#357050]
+          text-white
+          focus:ring-2
+          focus:ring-[#408360]
+          focus:ring-offset-2
+          transition-all
+          duration-300
+          disabled:opacity-50
+          disabled:cursor-not-allowed
+          cursor-pointer
+          flex items-center justify-center gap-3
+        `}
+      >
+        {(isLoading || isSubmitting) && (
+          <svg
+            className='animate-spin h-5 w-5 text-current'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+          >
+            <circle
+              className='opacity-25'
+              cx='12'
+              cy='12'
+              r='10'
+              stroke='currentColor'
+              strokeWidth='4'
+            ></circle>
+            <path
+              className='opacity-75'
+              fill='currentColor'
+              d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+            ></path>
+          </svg>
+        )}
+        {isLoading || isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </div>
+  );
 };
 
-// Organization type options
-const organizationTypeOptions = [
-  { value: 'nonprofit', label: 'Non-Profit Organization' },
-  { value: 'business', label: 'Business/Company' },
-  { value: 'educational', label: 'Educational Institution' },
-  { value: 'religious', label: 'Religious Organization' },
-  { value: 'government', label: 'Government Agency' },
-  { value: 'community', label: 'Community Group' },
-  { value: 'individual', label: 'Individual' },
-  { value: 'other', label: 'Other' },
-];
-
-// Partnership type options
-const partnershipTypeOptions = [
-  { value: 'educational', label: 'Educational Partnership' },
-  { value: 'event', label: 'Event Collaboration' },
-  { value: 'resource', label: 'Resource Sharing' },
-  { value: 'funding', label: 'Funding/Sponsorship' },
-  { value: 'outreach', label: 'Community Outreach' },
-  { value: 'media', label: 'Media Partnership' },
-  { value: 'research', label: 'Research Collaboration' },
-  { value: 'other', label: 'Other' },
-];
-
-const PartnerWithUsPage: React.FC = () => {
+export default function PartnerWithUsPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (
-    values: typeof initialValues,
-    { resetForm }: { resetForm: () => void }
+    data: PartnershipFormData,
+    _helpers: { reset: () => void }
   ) => {
     setIsLoading(true);
     const toastId = toast.loading('Submitting your partnership request...');
 
     try {
       // Send email using server action
-      const result = await sendPartnershipFormEmail(values);
+      const result = await sendPartnershipFormEmail(data);
 
       if (result.success) {
         // Send confirmation email to user
-        const userEmail = values.email as string;
+        const userEmail = data.email as string;
         if (userEmail) {
           try {
             await sendUserConfirmationEmail(
               userEmail,
               'Partnership Request',
-              values
+              data
             );
           } catch (confirmationError) {
             console.error(
@@ -139,8 +118,6 @@ const PartnerWithUsPage: React.FC = () => {
           'Partnership request submitted successfully! We will contact you soon.',
           { id: toastId }
         );
-        // Reset form after successful submission
-        resetForm();
       } else {
         throw new Error(result.error || 'Failed to send email');
       }
@@ -157,119 +134,133 @@ const PartnerWithUsPage: React.FC = () => {
 
   return (
     <>
-      <FundraisePageComponent
+      <FundraisePage
         title='Partner with Us'
         titleClassName='text-[#111111]'
-        description="Strong partnerships build strong communities. Discover Islam welcomes collaboration with individuals, organizations, and institutions that share our vision of education, understanding, and unity. Let's work together on meaningful projects and new initiatives."
+        containerClassName='max-w-[920px] px-4 sm:px-6 lg:px-8'
+        descriptionClassName='hidden'
       >
-        <FormikForm
-          initialValues={initialValues}
-          validationSchema={partnershipFormSchema}
-          onSubmit={handleSubmit}
+        {/* Animated Description Text */}
+        <motion.div
+          className='w-full text-center mb-8 sm:mb-10 md:mb-12 px-4 flex items-center justify-center'
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
         >
-          {/* Organization Information */}
-          <Input
-            name='organizationName'
-            label='Organization/Company Name (or indicate if an individual)'
-            placeholder='Enter Organization/Company Name (or indicate if an individual)'
-            required
-          />
+          <motion.p
+            className='font-medium text-lg md:text-xl lg:text-[30px] leading-[100%] text-center w-full max-w-[1100px] tracking-normal'
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              fontFamily:
+                'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
+              fontWeight: 500,
+            }}
+          >
+            Strong partnerships build strong communities. Discover Islam
+            welcomes collaboration with individuals, organizations, and
+            institutions that share our vision of education, understanding, and
+            unity. Let&apos;s work together on meaningful projects and new
+            initiatives.
+          </motion.p>
+        </motion.div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Select
-              name='organizationType'
-              label='Type of Organization'
-              placeholder='Choose Type of Organization'
-              options={organizationTypeOptions}
-              required
-            />
+        {/* Partnership Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <HookForm
+            schema={partnershipFormSchema}
+            defaultValues={partnershipFormDefaultValues}
+            onSubmit={handleSubmit}
+            className='mb-16'
+            maxWidth='920px'
+            mode='onChange'
+          >
+            <div className='space-y-6'>
+              {/* Organization Information */}
+              <HookFormInput
+                label='Organization/Company Name (or indicate if an individual)'
+                name='organizationName'
+                type='text'
+                placeholder='Enter Organization/Company Name (or indicate if an individual)'
+                required
+              />
 
-            <Input
-              name='contactPersonName'
-              label="Contact Person's Full Name"
-              placeholder="Enter Contact Person's Full Name"
-              required
-            />
-          </div>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <HookFormSelect
+                  label='Type of Organization'
+                  name='organizationType'
+                  placeholder='Choose Type of Organization'
+                  options={organizationTypeOptions}
+                  required
+                />
+                <HookFormInput
+                  label="Contact Person's Full Name"
+                  name='contactPersonName'
+                  type='text'
+                  placeholder="Enter Contact Person's Full Name"
+                  required
+                />
+              </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Input
-              name='position'
-              label='Position/Role'
-              placeholder='Enter Position/Role'
-              required
-            />
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <HookFormInput
+                  label='Position/Role'
+                  name='position'
+                  type='text'
+                  placeholder='Enter Position/Role'
+                  required
+                />
+                <HookFormInput
+                  label='Email Address'
+                  name='email'
+                  type='email'
+                  placeholder='Enter Email Address'
+                  required
+                />
+              </div>
 
-            <Input
-              name='email'
-              type='email'
-              label='Email Address'
-              placeholder='Enter Email Address'
-              required
-            />
-          </div>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <HookFormInput
+                  label='Phone Number'
+                  name='phone'
+                  type='tel'
+                  placeholder='Enter Phone Number'
+                  required
+                />
+                <HookFormSelect
+                  label='Type of Partnership'
+                  name='partnershipType'
+                  placeholder='Choose Type'
+                  options={partnershipTypeOptions}
+                  required
+                />
+              </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <Input
-              name='phone'
-              type='tel'
-              label='Phone Number'
-              placeholder='Enter Phone Number'
-              required
-            />
+              <HookFormTextarea
+                label='How do you see us working together?'
+                name='workingTogether'
+                placeholder='Enter How do you see us working together?'
+                rows={4}
+                required
+                maxLength={1000}
+              />
 
-            <Select
-              name='partnershipType'
-              label='Type of Partnership'
-              placeholder='Choose Type'
-              options={partnershipTypeOptions}
-              required
-            />
-          </div>
+              {/* Submit Button */}
+              <SubmitButton isLoading={isLoading} />
+            </div>
+          </HookForm>
+        </motion.div>
+      </FundraisePage>
 
-          {/* <Input
-            name='goals'
-            label='Goals for Partnership'
-            placeholder='Enter Goals for Partnership'
-            required
-          /> */}
-
-          <Input
-            name='workingTogether'
-            label='How do you see us working together?'
-            placeholder='Enter How do you see us working together?'
-            required
-          />
-
-          {/* <Textarea
-            name='motivation'
-            label='Why do you want to partner with Discover Islam?'
-            placeholder=''
-            rows={4}
-            required
-          /> */}
-
-          <div className='flex justify-center mt-8'>
-            <Button
-              type='submit'
-              className='px-12 py-3 flex items-center justify-center gap-3'
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Spinner size='sm' className='text-white' />
-                  Submitting...
-                </>
-              ) : (
-                'Submit'
-              )}
-            </Button>
-          </div>
-        </FormikForm>
-      </FundraisePageComponent>
       <AnimatedJourneySection />
     </>
   );
-};
-
-export default PartnerWithUsPage;
+}

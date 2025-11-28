@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import MultiTickIcon from '@/components/icons/MultiTickIcon';
 import RefreshIcon from '@/components/icons/RefreshIcon';
@@ -29,6 +30,7 @@ export default function ProjectDonationCard({
   regularUrls,
   isExpanded,
   onExpand,
+  imageUrl,
 }: ProjectDonationCardProps) {
   const [paymentType, setPaymentType] = useState<'one-off' | 'regular'>(
     'regular'
@@ -102,7 +104,19 @@ export default function ProjectDonationCard({
       onClick={handleCardClick}
     >
       {/* Image */}
-      <div className='w-full h-[196px] bg-[#D9D9D9] rounded-lg' />
+      {imageUrl ? (
+        <div className='w-full h-[196px] rounded-lg overflow-hidden relative'>
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            className='object-cover'
+            sizes='(max-width: 432px) 100vw, 432px'
+          />
+        </div>
+      ) : (
+        <div className='w-full h-[196px] bg-[#D9D9D9] rounded-lg' />
+      )}
 
       {/* Title */}
       <h3
