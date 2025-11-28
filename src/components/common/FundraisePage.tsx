@@ -26,7 +26,7 @@ const FundraisePage: React.FC<FundraisePageProps> = ({
   heroImageAlt = 'Fundraise with Us Hero Image',
 }) => {
   return (
-    <div className={twMerge('min-h-screen bg-gray-50', className)}>
+    <div className={twMerge('min-h-screen bg-gray-50 w-full', className)}>
       {/* Hero Section with Background Image */}
       <div className='relative w-full pt-24 sm:pt-28 md:pt-[200px]'>
         <Image
@@ -69,10 +69,7 @@ const FundraisePage: React.FC<FundraisePageProps> = ({
           </div>
 
           {/* Form Container */}
-          <div
-            className={twMerge('w-full', containerClassName)}
-            style={{ maxWidth: '913px' }}
-          >
+          <div className={twMerge('w-full', containerClassName)}>
             {children}
           </div>
         </div>
