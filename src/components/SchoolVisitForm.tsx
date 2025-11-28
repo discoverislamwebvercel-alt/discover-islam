@@ -3,7 +3,7 @@
 import { motion, useAnimationControls } from 'framer-motion';
 import { ArrowDown, ChevronDown } from 'lucide-react';
 import Button from './common/Button';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -130,13 +130,28 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-const SchoolVisitForm = () => {
+interface SchoolVisitFormProps {
+  showFormImmediately?: boolean;
+}
+
+const SchoolVisitForm = ({
+  showFormImmediately = false,
+}: SchoolVisitFormProps) => {
   const formRef = useRef<HTMLDivElement | null>(null);
   const buttonControls = useAnimationControls();
   const formControls = useAnimationControls();
-  const [buttonHidden, setButtonHidden] = useState(false);
-  const [isHidden, setIsHidden] = useState('hidden');
+  const [buttonHidden, setButtonHidden] = useState(showFormImmediately);
+  const [isHidden, setIsHidden] = useState(
+    showFormImmediately ? 'block' : 'hidden'
+  );
   const [isLoading, setIsLoading] = useState(false);
+
+  // Initialize form controls if form should be shown immediately
+  useEffect(() => {
+    if (showFormImmediately) {
+      formControls.set({ opacity: 1, y: 0 });
+    }
+  }, [showFormImmediately, formControls]);
   const {
     control,
     handleSubmit,
@@ -287,8 +302,10 @@ const SchoolVisitForm = () => {
       {/* Form */}
       <motion.div
         ref={formRef}
-        initial={{ opacity: 0, y: 32 }}
-        animate={formControls}
+        initial={
+          showFormImmediately ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }
+        }
+        animate={showFormImmediately ? { opacity: 1, y: 0 } : formControls}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`mx-auto w-full max-w-[600px] sm:max-w-[700px] md:max-w-[800px] lg:max-w-[940px] px-4 sm:px-5 md:px-6 pb-12 sm:pb-14 md:pb-16 transform-gpu ${isHidden}`}
       >

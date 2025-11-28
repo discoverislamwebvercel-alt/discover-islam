@@ -1,12 +1,11 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import HeroSection from '@/components/common/HeroSection';
 import AnimatedImageSection from '../../components/common/AnimatedImageSection';
 import ResponsiveFallingCards from '@/components/ResponsiveFallingCards';
-// import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
-import SchoolVisitForm from '@/components/SchoolVisitForm';
-import MosqueVisitForm from '@/components/MosqueVisitForm';
-// import { motion } from 'framer-motion';
+import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
 
 const cards = [
   {
@@ -66,6 +65,8 @@ const cards = [
 ];
 
 export default function School() {
+  const router = useRouter();
+
   return (
     <>
       <HeroSection
@@ -86,9 +87,109 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
         heading1={'Why Book a School'}
         heading2={'Visit with Us?'}
       />
-      {/* <TestimonialsSupportSection /> */}
-      <SchoolVisitForm />
-      <MosqueVisitForm />
+
+      {/* Visit Options Cards Section */}
+      <section className='pt-16 sm:pt-20 lg:pt-24 pb-12 md:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8'>
+        <div className='max-w-[1316px] mx-auto'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6'>
+            {/* Mosque Visit Card */}
+            <motion.div
+              className='relative bg-[#CB892A] rounded-[30px] p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[662px]'
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+              initial='hidden'
+              whileInView='visible'
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <div>
+                <h3
+                  className='font-extrabold text-[60px] sm:text-[70px] lg:text-[80px] leading-[93%] text-white mb-6'
+                  style={{
+                    fontFamily:
+                      'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
+                  }}
+                >
+                  Mosque Visit
+                </h3>
+                <p
+                  className='font-semibold text-[24px] sm:text-[28px] lg:text-[30px] leading-[120%] text-white mb-8'
+                  style={{
+                    fontFamily:
+                      'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
+                  }}
+                >
+                  Bring your students to one of our partner mosques for an
+                  inspiring and memorable experience that brings learning to
+                  life. We work with a wide network of mosques across the
+                  country to make visits easy, accessible, and welcoming for
+                  all.
+                </p>
+              </div>
+              <button
+                onClick={() => router.push('/schools/mosque-visit')}
+                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[22px] sm:text-[26px] transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#181818]/90 flex items-center justify-center'
+              >
+                <span aria-hidden className='hover-animation' />
+                Fill out form
+              </button>
+            </motion.div>
+
+            {/* In School Visit Card */}
+            <motion.div
+              className='relative bg-[#408360] rounded-[30px] p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[662px]'
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+              initial='hidden'
+              whileInView='visible'
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <div>
+                <h3
+                  className='font-extrabold text-[60px] sm:text-[70px] lg:text-[80px] leading-[93%] text-white mb-6'
+                  style={{
+                    fontFamily:
+                      'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
+                  }}
+                >
+                  In School Visit
+                </h3>
+                <p
+                  className='font-semibold text-[24px] sm:text-[28px] lg:text-[30px] leading-[120%] text-white mb-8'
+                  style={{
+                    fontFamily:
+                      'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
+                  }}
+                >
+                  We visit your school to deliver an engaging and interactive
+                  presentation about Islam, tailored to your students&apos; age
+                  and curriculum needs.
+                </p>
+              </div>
+              <button
+                onClick={() => router.push('/schools/school-visit')}
+                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[22px] sm:text-[26px] transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#181818]/90 flex items-center justify-center'
+              >
+                <span aria-hidden className='hover-animation' />
+                Fill out form
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <AnimatedJourneySection />
     </>
   );
 }
