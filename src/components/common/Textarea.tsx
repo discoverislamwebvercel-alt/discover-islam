@@ -97,20 +97,20 @@ const Textarea: React.FC<TextareaProps> = ({
         rows={rows}
         maxLength={maxLength}
         className={`
-          bg-[#0000000D] 
-          rounded-[22px] 
-          px-6 
-          py-4 
-          text-[20px] 
-          placeholder:text-[#0000001A] 
-          border-none 
-          outline-none 
-          focus:ring-2 
-          focus:ring-[#408360] 
-          focus:ring-opacity-50 
-          transition-all 
+          bg-[#0000000D]
+          rounded-[22px]
+          px-6
+          py-4
+          text-[20px]
+          placeholder:text-[#0000001A]
+          border-none
+          outline-none
+          focus:ring-2
+          focus:ring-[#408360]
+          focus:ring-opacity-50
+          transition-all
           duration-300
-          disabled:opacity-50 
+          disabled:opacity-50
           disabled:cursor-not-allowed
           ${getResizeClass()}
         `}

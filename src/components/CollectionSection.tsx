@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from 'framer-motion';
 import Image from 'next/image';
-import Button from './common/Button';
+// import Button from './common/Button';
 
 interface CollectionItem {
   id: number;
@@ -25,9 +25,9 @@ interface CollectionSectionProps {
 export default function CollectionSection({
   title = 'Shop from our collection',
   items,
-  showViewMoreButton = true,
-  buttonText = 'View More',
-  onButtonClick,
+  // showViewMoreButton = true,
+  // buttonText = 'View More',
+  // onButtonClick,
   className = '',
   id,
 }: CollectionSectionProps) {
@@ -150,7 +150,7 @@ export default function CollectionSection({
         </motion.div>
 
         {/* View More Button */}
-        {showViewMoreButton && (
+        {/* {showViewMoreButton && (
           <motion.div
             className='text-center'
             initial={{ opacity: 0, y: 20 }}
@@ -166,7 +166,7 @@ export default function CollectionSection({
               {buttonText}
             </Button>
           </motion.div>
-        )}
+        )} */}
       </div>
     </section>
   );

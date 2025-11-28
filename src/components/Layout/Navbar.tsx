@@ -7,8 +7,6 @@ import Link from 'next/link';
 import Button from '../common/Button';
 import NavItem from './NavItem';
 
-import { scrollToElement } from '@/lib/utils';
-
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -42,7 +40,7 @@ export default function Navbar() {
     },
     {
       label: 'Contact Us',
-      onClick: () => scrollToElement('footer'),
+      href: '/contact-us',
     },
   ];
 
@@ -78,7 +76,6 @@ export default function Navbar() {
               href={item.href}
               hasDropdown={item.hasDropdown}
               dropdownItems={item.dropdownItems}
-              onClick={item.onClick}
             />
           ))}
         </div>
@@ -187,7 +184,6 @@ export default function Navbar() {
                         <button
                           className='text-gray-800 hover:text-[#cb892a] transition-all duration-300 font-medium text-lg text-left cursor-pointer hover:scale-[1.02] active:scale-[0.98]'
                           onClick={() => {
-                            if (item.onClick) item.onClick();
                             handleMobileMenuClose();
                           }}
                         >
