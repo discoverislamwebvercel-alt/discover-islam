@@ -1,8 +1,9 @@
 'use client';
 
 import AboutHero from '@/components/common/AboutHero';
-import AboutUsCards from '@/components/AboutUsCards';
+// import AboutUsCards from '@/components/AboutUsCards';
 import AboutIntroText from '@/components/common/AboutIntroText';
+import AboutUsCarousel from '@/components/common/AboutUsCarousel';
 import MissionVision from '@/components/common/MissionVision';
 import ValuesBars from '@/components/common/ValuesBars';
 import AboutStats from '@/components/common/AboutStats';
@@ -13,7 +14,8 @@ export default function AboutUsPage() {
     <div className='bg-white'>
       <AboutHero />
       <AboutIntroText />
-      <AboutUsCards />
+      <AboutUsCarousel />
+      {/* <AboutUsCards /> */}
       <MissionVision />
       <ValuesBars />
       <AboutStats />

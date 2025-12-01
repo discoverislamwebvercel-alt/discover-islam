@@ -21,6 +21,7 @@ import {
 } from '@/lib/email';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const cards = [
   {
@@ -177,6 +178,7 @@ export default function Literature() {
       <CollectionSection
         id='exploreGuides'
         title='Explore Our Guides'
+        subtitle='Hear It. Read It. Live It.'
         buttonText='View More'
         onButtonClick={() => {
           // Handle browse all books click
@@ -184,119 +186,348 @@ export default function Literature() {
         items={[
           {
             id: 1,
-            title: 'Understanding Islam',
-            price: '£15.00',
+            title: 'Infinite Benefits of Fasting',
+            description:
+              'Explore the physical, spiritual, and emotional benefits of fasting — a practice that nurtures self-control, gratitude, and closeness to the Creator.',
+            price: '£10',
+            perItem: '/10-pack',
             image: '/Collection1.png',
           },
           {
             id: 2,
-            title: 'Islamic History',
-            price: '£18.00',
+            title: 'Understanding Islam',
+            description:
+              'A comprehensive guide to the fundamental principles and teachings of Islam, designed to foster understanding and dispel misconceptions.',
+            price: '£10',
+            perItem: '/10-pack',
             image: '/Collection2.png',
           },
           {
             id: 3,
-            title: 'Quran Studies',
-            price: '£20.00',
+            title: 'Islamic History',
+            description:
+              'Discover the rich history of Islamic civilization, from its origins to its contributions to science, culture, and human progress.',
+            price: '£10',
+            perItem: '/10-pack',
             image: '/Collection1.png',
+          },
+          {
+            id: 4,
+            title: 'Quran Studies',
+            description:
+              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+            price: '£10',
+            perItem: '/10-pack',
+            image: '/Collection2.png',
+          },
+          {
+            id: 5,
+            title: 'Quran Studies',
+            description:
+              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+            price: '£10',
+            perItem: '/10-pack',
+            image: '/Collection2.png',
+          },
+          {
+            id: 6,
+            title: 'Quran Studies',
+            description:
+              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+            price: '£10',
+            perItem: '/10-pack',
+            image: '/Collection2.png',
+          },
+          {
+            id: 7,
+            title: 'Quran Studies',
+            description:
+              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+            price: '£10',
+            perItem: '/10-pack',
+            image: '/Collection2.png',
+          },
+          {
+            id: 8,
+            title: 'Quran Studies',
+            description:
+              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+            price: '£10',
+            perItem: '/10-pack',
+            image: '/Collection2.png',
           },
         ]}
       />
 
-      <HookForm
-        title='Need bulk copies for your centre?'
-        subtitle='Fill in the form below'
-        schema={literatureFormSchema}
-        defaultValues={literatureFormDefaultValues}
-        onSubmit={handleSubmit}
-        className='mb-16'
-        maxWidth='920px'
-        mode='onChange'
+      <motion.section
+        className='w-full flex justify-center mb-16'
+        initial='hidden'
+        whileInView='visible'
+        viewport={{ once: true, amount: 0.3 }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.1,
+              delayChildren: 0.2,
+            },
+          },
+        }}
       >
-        <div className='space-y-6'>
-          <HookFormInput
-            label='Full Name'
-            name='fullName'
-            type='text'
-            placeholder='Enter your full name'
-            required
-          />
-
-          <HookFormInput
-            label='Organisation / Centre Name'
-            name='organization'
-            type='text'
-            placeholder='Enter your organisation or centre name'
-            required
-          />
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <HookFormInput
-              label='Email'
-              name='email'
-              type='email'
-              placeholder='Enter your email address'
-              required
-            />
-            <HookFormInput
-              label='Phone Number'
-              name='phone'
-              type='tel'
-              placeholder='Enter your phone number'
-              required
-            />
-          </div>
-
-          <HookFormInput
-            label='Delivery Address'
-            name='address'
-            placeholder='Enter delivery address'
-            required
-          />
-
-          {/* <HookFormRadioGroup
-            label="Select the materials you'd like to receive:"
-            name='materials'
-            options={materialOptions}
-            columns={3}
-            required
-          /> */}
-
-          <HookFormInput
-            label='Quantity Needed'
-            name='quantity'
-            type='number'
-            placeholder='Enter quantity needed'
-            required
-            min={1}
-            max={1000}
-          />
-
-          <HookFormInput
-            label='Purpose'
-            name='purpose'
-            placeholder='e.g., for an event, personal use, school, dawah'
-            required
-          />
-
-          <HookFormTextarea
-            label='Any additional notes or requests'
-            name='notes'
-            rows={4}
-            maxLength={2000}
-          />
-
-          <FormButton
-            type='submit'
-            variant='primary'
-            size='lg'
-            loading={isLoading}
-            className='w-full max-w-[400px]'
+        <div
+          className='w-full px-4 sm:px-6 lg:px-8'
+          style={{ maxWidth: '920px' }}
+        >
+          {/* Animated Title */}
+          <motion.div
+            className='text-center my-8'
+            variants={{
+              hidden: { opacity: 0, y: -20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              },
+            }}
           >
-            {isLoading ? 'Submitting...' : 'Request Literature'}
-          </FormButton>
+            <h1 className='text-4xl md:text-5xl lg:text-[80px] font-extrabold text-[#408360]'>
+              Need bulk copies for your centre?
+            </h1>
+            <motion.h1
+              className='text-4xl md:text-5xl lg:text-[80px] font-extrabold mb-16 text-[#111111]'
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              Fill in the form below
+            </motion.h1>
+          </motion.div>
+
+          <HookForm
+            schema={literatureFormSchema}
+            defaultValues={literatureFormDefaultValues}
+            onSubmit={handleSubmit}
+            maxWidth='920px'
+            mode='onChange'
+          >
+            <motion.div
+              className='space-y-6'
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
+            >
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+              >
+                <HookFormInput
+                  label='Full Name'
+                  name='fullName'
+                  type='text'
+                  placeholder='Enter your full name'
+                  required
+                />
+              </motion.div>
+
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+              >
+                <HookFormInput
+                  label='Organisation / Centre Name'
+                  name='organization'
+                  type='text'
+                  placeholder='Enter your organisation or centre name'
+                  required
+                />
+              </motion.div>
+
+              <motion.div
+                className='grid grid-cols-1 md:grid-cols-2 gap-4'
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+              >
+                <HookFormInput
+                  label='Email'
+                  name='email'
+                  type='email'
+                  placeholder='Enter your email address'
+                  required
+                />
+                <HookFormInput
+                  label='Phone Number'
+                  name='phone'
+                  type='tel'
+                  placeholder='Enter your phone number'
+                  required
+                />
+              </motion.div>
+
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+              >
+                <HookFormInput
+                  label='Delivery Address'
+                  name='address'
+                  placeholder='Enter delivery address'
+                  required
+                />
+              </motion.div>
+
+              {/* <HookFormRadioGroup
+                label="Select the materials you'd like to receive:"
+                name='materials'
+                options={materialOptions}
+                columns={3}
+                required
+              /> */}
+
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+              >
+                <HookFormInput
+                  label='Quantity Needed'
+                  name='quantity'
+                  type='number'
+                  placeholder='Enter quantity needed'
+                  required
+                  min={1}
+                  max={1000}
+                />
+              </motion.div>
+
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+              >
+                <HookFormInput
+                  label='Purpose'
+                  name='purpose'
+                  placeholder='e.g., for an event, personal use, school, dawah'
+                  required
+                />
+              </motion.div>
+
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+              >
+                <HookFormTextarea
+                  label='Any additional notes or requests'
+                  name='notes'
+                  rows={4}
+                  maxLength={2000}
+                />
+              </motion.div>
+
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+                className='flex justify-center'
+              >
+                <FormButton
+                  type='submit'
+                  variant='primary'
+                  size='lg'
+                  loading={isLoading}
+                  className='w-full max-w-[400px]'
+                >
+                  {isLoading ? 'Submitting...' : 'Request Literature'}
+                </FormButton>
+              </motion.div>
+            </motion.div>
+          </HookForm>
         </div>
-      </HookForm>
+      </motion.section>
     </>
   );
 }
