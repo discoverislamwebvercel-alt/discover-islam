@@ -80,7 +80,7 @@ const Textarea: React.FC<TextareaProps> = ({
       {label && (
         <label
           htmlFor={textareaId}
-          className='text-[26px] font-medium text-[#111111] mb-2'
+          className='text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-medium text-[#111111] mb-2'
         >
           {label}
           {required && <span className='ml-1'>*</span>}
@@ -98,10 +98,10 @@ const Textarea: React.FC<TextareaProps> = ({
         maxLength={maxLength}
         className={`
           bg-[#0000000D]
-          rounded-[22px]
-          px-6
-          py-4
-          text-[20px]
+          rounded-[15px] sm:rounded-[18px] md:rounded-[20px] lg:rounded-[22px]
+          px-4 sm:px-5 md:px-6
+          py-3 sm:py-3.5 md:py-4
+          text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px]
           placeholder:text-[#0000001A]
           border-none
           outline-none
@@ -112,6 +112,7 @@ const Textarea: React.FC<TextareaProps> = ({
           duration-300
           disabled:opacity-50
           disabled:cursor-not-allowed
+          w-full
           ${getResizeClass()}
         `}
         style={{ backgroundColor: '#0000000D' }}

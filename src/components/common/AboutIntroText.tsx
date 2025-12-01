@@ -7,11 +7,7 @@ export default function AboutIntroText() {
     <section className='w-full bg-white px-4 sm:px-6 lg:px-8 py-10 sm:py-12'>
       <div className='mx-auto max-w-4xl text-center text-gray-800'>
         <motion.p
-          className='mb-8 font-medium text-[30px] leading-[100%] text-center'
-          style={{
-            fontFamily:
-              'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
-          }}
+          className='mb-6 sm:mb-8 font-medium text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed sm:leading-[1.6] text-center text-[#111111E5]'
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -24,11 +20,7 @@ export default function AboutIntroText() {
           communities across the UK worldwide.
         </motion.p>
         <motion.p
-          className='font-medium text-[30px] leading-[100%] text-center'
-          style={{
-            fontFamily:
-              'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
-          }}
+          className='font-medium text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed sm:leading-[1.6] text-center text-[#111111E5]'
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}

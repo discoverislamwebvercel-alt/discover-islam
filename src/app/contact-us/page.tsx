@@ -42,7 +42,7 @@ const DateInputWithIcon = ({
       {label && (
         <label
           htmlFor={inputId}
-          className='text-[26px] font-medium text-[#111111] mb-2'
+          className='text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-medium text-[#111111] mb-2'
         >
           {label}
           {required && <span className='ml-1 text-red-500'>*</span>}
@@ -60,11 +60,12 @@ const DateInputWithIcon = ({
               placeholder={placeholder}
               className={`
                 bg-[#0000000D]
-                rounded-[62px]
-                px-6
-                py-4
-                pr-12
-                text-[20px]
+                rounded-[35px] sm:rounded-[45px] md:rounded-[55px] lg:rounded-[62px]
+                px-4 sm:px-5 md:px-6
+                py-3 sm:py-3.5 md:py-4
+                pr-10 sm:pr-12
+                h-[45px] sm:h-[50px] md:h-[55px] lg:h-[60px]
+                text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px]
                 placeholder:text-[#0000001A]
                 border-none
                 outline-none
@@ -81,7 +82,7 @@ const DateInputWithIcon = ({
             />
           )}
         />
-        <Calendar className='absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0000001A] pointer-events-none' />
+        <Calendar className='absolute right-3 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5 text-[#0000001A] pointer-events-none' />
       </div>
       {error && (
         <p className='mt-1 text-sm text-red-600'>{error.message as string}</p>
@@ -102,7 +103,7 @@ const ThankYouBanner = () => {
         damping: 20,
         duration: 0.6,
       }}
-      className='relative w-[898px] h-[474px] mx-auto bg-white rounded-[20px] flex flex-col items-center justify-center overflow-hidden'
+      className='relative w-full max-w-[898px] h-auto min-h-[300px] sm:min-h-[400px] md:min-h-[474px] mx-auto bg-white rounded-[16px] sm:rounded-[18px] md:rounded-[20px] flex flex-col items-center justify-center overflow-hidden p-6 sm:p-8 md:p-12'
     >
       {/* Checkmark Circle and Icon */}
       <motion.div
@@ -118,7 +119,7 @@ const ThankYouBanner = () => {
       >
         {/* Outer Circle */}
         <motion.div
-          className='absolute w-[122.9px] h-[122.9px]'
+          className='absolute w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[122.9px] md:h-[122.9px]'
           initial={{ rotate: -180 }}
           animate={{ rotate: 0 }}
           transition={{
@@ -130,7 +131,7 @@ const ThankYouBanner = () => {
         />
         {/* Checkmark Icon */}
         <motion.div
-          className='relative'
+          className='relative w-[85px] h-[82px] sm:w-[105px] sm:h-[102px] md:w-[127.5px] md:h-[122.9px]'
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{
@@ -145,14 +146,14 @@ const ThankYouBanner = () => {
             alt='Checkmark'
             width={127.5}
             height={122.9}
-            className='object-contain'
+            className='object-contain w-full h-full'
           />
         </motion.div>
       </motion.div>
 
       {/* Thank You Text */}
       <motion.h2
-        className='text-center font-extrabold text-[#408360] mb-6'
+        className='text-center text-[40px] sm:text-[50px] md:text-[60px] lg:text-[80px] leading-[1.2] font-extrabold text-[#408360] mb-4 sm:mb-6'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -160,34 +161,19 @@ const ThankYouBanner = () => {
           delay: 0.7,
           ease: 'easeOut',
         }}
-        style={{
-          fontSize: '80px',
-          lineHeight: '95px',
-          fontWeight: 800,
-          width: '422px',
-          height: '95px',
-        }}
       >
         Thank You!
       </motion.h2>
 
       {/* Confirmation Message */}
       <motion.p
-        className='text-center'
+        className='text-center text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] leading-[1.2] font-medium text-[rgba(17,17,17,0.8)] max-w-full px-4'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 0.8, y: 0 }}
         transition={{
           duration: 0.5,
           delay: 0.9,
           ease: 'easeOut',
-        }}
-        style={{
-          fontSize: '30px',
-          lineHeight: '36px',
-          fontWeight: 500,
-          color: 'rgba(17, 17, 17, 0.8)',
-          width: '487px',
-          height: '72px',
         }}
       >
         Your Message has been submitted. Our team will reach out to you soon.
@@ -209,10 +195,12 @@ const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
         disabled={disabled}
         className={`
           w-full max-w-[400px]
-          px-8 py-4
-          text-[20px]
+          px-6 sm:px-7 md:px-8
+          py-3 sm:py-3.5 md:py-4
+          h-[48px] sm:h-[52px] md:h-[56px] lg:h-[60px]
+          text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px]
           font-medium
-          rounded-[62px]
+          rounded-[40px] sm:rounded-[50px] md:rounded-[55px] lg:rounded-[62px]
           bg-[#408360]
           hover:bg-[#357050]
           text-white
@@ -224,7 +212,7 @@ const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
           disabled:opacity-50
           disabled:cursor-not-allowed
           cursor-pointer
-          flex items-center justify-center gap-3
+          flex items-center justify-center gap-2 sm:gap-3
         `}
       >
         {(isLoading || isSubmitting) && (
@@ -352,7 +340,7 @@ export default function ContactUs() {
                 maxWidth='920px'
                 mode='onChange'
               >
-                <div className='space-y-6'>
+                <div className='space-y-4 sm:space-y-5 md:space-y-6'>
                   {/* Full Name */}
                   <HookFormInput
                     label='Full Name'

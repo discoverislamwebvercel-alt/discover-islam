@@ -29,10 +29,12 @@ const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
         disabled={disabled}
         className={`
           w-full max-w-[400px]
-          px-8 py-4
-          text-[20px]
+          px-6 sm:px-7 md:px-8
+          py-3 sm:py-3.5 md:py-4
+          h-[48px] sm:h-[52px] md:h-[56px] lg:h-[60px]
+          text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px]
           font-medium
-          rounded-[62px]
+          rounded-[40px] sm:rounded-[50px] md:rounded-[55px] lg:rounded-[62px]
           bg-[#408360]
           hover:bg-[#357050]
           text-white
@@ -44,7 +46,7 @@ const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
           disabled:opacity-50
           disabled:cursor-not-allowed
           cursor-pointer
-          flex items-center justify-center gap-3
+          flex items-center justify-center gap-2 sm:gap-3
         `}
       >
         {(isLoading || isSubmitting) && (
@@ -176,7 +178,7 @@ export default function VolunteerPage() {
             maxWidth='920px'
             mode='onChange'
           >
-            <div className='space-y-6'>
+            <div className='space-y-4 sm:space-y-5 md:space-y-6'>
               {/* Personal Information */}
               <HookFormInput
                 label='Full Name'

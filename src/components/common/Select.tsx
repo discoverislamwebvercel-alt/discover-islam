@@ -72,7 +72,7 @@ const Select: React.FC<SelectProps> = ({
       {label && (
         <label
           htmlFor={selectId}
-          className='text-[26px] font-medium text-[#111111] mb-2'
+          className='text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-medium text-[#111111] mb-2'
         >
           {label}
           {required && <span className=' ml-1'>*</span>}
@@ -88,24 +88,25 @@ const Select: React.FC<SelectProps> = ({
           disabled={disabled}
           multiple={multiple}
           className='
-            bg-[#0000000D] 
-            rounded-[62px] 
-            px-6 
-            py-4 
-            text-[20px] 
-            border-none 
-            outline-none 
-            focus:ring-2 
-            focus:ring-[#408360] 
-            focus:ring-opacity-50 
-            transition-all 
+            bg-[#0000000D]
+            rounded-[35px] sm:rounded-[45px] md:rounded-[55px] lg:rounded-[62px]
+            px-4 sm:px-5 md:px-6
+            py-3 sm:py-3.5 md:py-4
+            h-[45px] sm:h-[50px] md:h-[55px] lg:h-[60px]
+            text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px]
+            border-none
+            outline-none
+            focus:ring-2
+            focus:ring-[#408360]
+            focus:ring-opacity-50
+            transition-all
             duration-300
-            disabled:opacity-50 
+            disabled:opacity-50
             disabled:cursor-not-allowed
             appearance-none
             w-full
             cursor-pointer
-            pr-12
+            pr-10 sm:pr-12
           '
         >
           {placeholder && (
@@ -126,9 +127,9 @@ const Select: React.FC<SelectProps> = ({
         </select>
 
         {/* Custom dropdown arrow */}
-        <div className='absolute inset-y-0 right-0 flex items-center pr-6 pointer-events-none'>
+        <div className='absolute inset-y-0 right-0 flex items-center pr-3 sm:pr-4 md:pr-6 pointer-events-none'>
           <svg
-            className='w-5 h-5 text-[#0000001A]'
+            className='w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5 text-[#0000001A]'
             fill='none'
             stroke='currentColor'
             viewBox='0 0 24 24'

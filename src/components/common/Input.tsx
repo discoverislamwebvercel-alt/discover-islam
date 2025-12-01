@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({
       {label && (
         <label
           htmlFor={inputId}
-          className='text-[26px] font-medium text-[#111111] mb-2'
+          className='text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-medium text-[#111111] mb-2'
         >
           {label}
           {required && <span className='ml-1'>*</span>}
@@ -50,10 +50,11 @@ const Input: React.FC<InputProps> = ({
         disabled={disabled}
         className='
           bg-[#0000000D]
-          rounded-[62px]
-          px-6
-          py-4
-          text-[20px]
+          rounded-[35px] sm:rounded-[45px] md:rounded-[55px] lg:rounded-[62px]
+          px-4 sm:px-5 md:px-6
+          py-3 sm:py-3.5 md:py-4
+          h-[45px] sm:h-[50px] md:h-[55px] lg:h-[60px]
+          text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px]
           placeholder:text-[#0000001A]
           border-none
           outline-none
@@ -64,6 +65,7 @@ const Input: React.FC<InputProps> = ({
           duration-300
           disabled:opacity-50
           disabled:cursor-not-allowed
+          w-full
         '
         style={{ backgroundColor: '#0000000D' }}
       />

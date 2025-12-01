@@ -76,7 +76,7 @@ export default function School() {
         description='Our school visits provide pupils with an engaging and interactive introduction to
 Islam. Through tailored presentations, activities, and discussions, we help students explore
 Islamic beliefs, values, and culture in a welcoming and educational environment.'
-        buttonText='Book School Visit'
+        // buttonText='Book School Visit'
       />
       <AnimatedImageSection
         text1='KNOWLEDGE CHANGES EVERYTHING'
@@ -94,7 +94,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6'>
             {/* Mosque Visit Card */}
             <motion.div
-              className='relative bg-[#CB892A] rounded-[30px] p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[662px]'
+              className='relative bg-[#CB892A] rounded-[24px] sm:rounded-[28px] lg:rounded-[30px] p-6 sm:p-8 lg:p-12 flex flex-col justify-between min-h-[420px] sm:min-h-[520px] lg:min-h-[662px]'
               variants={{
                 hidden: { opacity: 0, y: 50 },
                 visible: {
@@ -109,7 +109,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
             >
               <div>
                 <h3
-                  className='font-extrabold text-[60px] sm:text-[70px] lg:text-[80px] leading-[93%] text-white mb-6'
+                  className='font-extrabold text-[34px] sm:text-[48px] md:text-[60px] lg:text-[80px] leading-[1.05] text-white mb-4 sm:mb-6'
                   style={{
                     fontFamily:
                       'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
@@ -118,7 +118,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
                   Mosque Visit
                 </h3>
                 <p
-                  className='font-semibold text-[24px] sm:text-[28px] lg:text-[30px] leading-[120%] text-white mb-8'
+                  className='font-semibold text-[16px] sm:text-[18px] md:text-[20px] lg:text-[30px] leading-relaxed text-white mb-6 sm:mb-8'
                   style={{
                     fontFamily:
                       'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
@@ -133,7 +133,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
               </div>
               <button
                 onClick={() => router.push('/schools/mosque-visit')}
-                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[22px] sm:text-[26px] transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#181818]/90 flex items-center justify-center'
+                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[52px] sm:h-[60px] lg:h-[67px] rounded-[40px] sm:rounded-[48px] lg:rounded-[52px] font-extrabold text-[18px] sm:text-[22px] lg:text-[26px] transition-transform transition-colors duration-300 cursor-pointer px-6 sm:px-[32px] lg:px-[37px] hover:scale-[1.03] hover:bg-[#181818]/90 flex items-center justify-center'
               >
                 <span aria-hidden className='hover-animation' />
                 Fill out form
@@ -142,7 +142,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
 
             {/* In School Visit Card */}
             <motion.div
-              className='relative bg-[#408360] rounded-[30px] p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[662px]'
+              className='relative bg-[#408360] rounded-[24px] sm:rounded-[28px] lg:rounded-[30px] p-6 sm:p-8 lg:p-12 flex flex-col justify-between min-h-[420px] sm:min-h-[520px] lg:min-h-[662px]'
               variants={{
                 hidden: { opacity: 0, y: 50 },
                 visible: {
@@ -157,7 +157,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
             >
               <div>
                 <h3
-                  className='font-extrabold text-[60px] sm:text-[70px] lg:text-[80px] leading-[93%] text-white mb-6'
+                  className='font-extrabold text-[34px] sm:text-[48px] md:text-[60px] lg:text-[80px] leading-[1.05] text-white mb-4 sm:mb-6'
                   style={{
                     fontFamily:
                       'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
@@ -166,7 +166,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
                   In School Visit
                 </h3>
                 <p
-                  className='font-semibold text-[24px] sm:text-[28px] lg:text-[30px] leading-[120%] text-white mb-8'
+                  className='font-semibold text-[16px] sm:text-[18px] md:text-[20px] lg:text-[30px] leading-relaxed text-white mb-6 sm:mb-8'
                   style={{
                     fontFamily:
                       'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
@@ -179,7 +179,7 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
               </div>
               <button
                 onClick={() => router.push('/schools/school-visit')}
-                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[22px] sm:text-[26px] transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#181818]/90 flex items-center justify-center'
+                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[52px] sm:h-[60px] lg:h-[67px] rounded-[40px] sm:rounded-[48px] lg:rounded-[52px] font-extrabold text-[18px] sm:text-[22px] lg:text-[26px] transition-transform transition-colors duration-300 cursor-pointer px-6 sm:px-[32px] lg:px-[37px] hover:scale-[1.03] hover:bg-[#181818]/90 flex items-center justify-center'
               >
                 <span aria-hidden className='hover-animation' />
                 Fill out form

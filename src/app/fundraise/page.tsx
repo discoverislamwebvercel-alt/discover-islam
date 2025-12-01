@@ -134,7 +134,7 @@ const FundraisePage: React.FC = () => {
           validationSchema={fundraiseFormSchema}
           onSubmit={handleSubmit}
         >
-          <div className='space-y-6'>
+          <div className='space-y-4 sm:space-y-5 md:space-y-6'>
             {/* Personal Information */}
             <Input
               label='Full Name'
@@ -209,7 +209,7 @@ const FundraisePage: React.FC = () => {
             {/* Submit Button */}
             <div className='flex pt-4'>
               <Button
-                className='w-[200px] text-[26px] font-extrabold flex items-center justify-center gap-3'
+                className='w-full sm:w-[200px] h-[48px] sm:h-[52px] md:h-[56px] lg:h-[60px] text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-extrabold flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8'
                 type='submit'
                 disabled={isLoading}
               >

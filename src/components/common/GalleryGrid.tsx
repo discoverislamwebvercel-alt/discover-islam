@@ -63,11 +63,11 @@ export default function GalleryGrid() {
         {/* Row 1 - Infinite carousel, preserves sizes and centering */}
         <div className='mx-auto w-full max-w-[1837px] px-4 sm:px-6 lg:px-8 relative'>
           <div className='overflow-hidden' ref={emblaRef1}>
-            <div className='flex gap-4 md:justify-start justify-center'>
+            <div className='flex gap-4'>
               {row1.concat(row1).map((src, idx) => (
                 <div
                   key={`r1-${idx}`}
-                  className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0 flex-shrink-0'
+                  className='w-[280px] sm:w-[350px] md:w-[599px] h-[200px] sm:h-[280px] md:h-[380px] rounded-[20px] overflow-hidden flex-shrink-0'
                 >
                   <Image
                     src={src}
@@ -89,14 +89,14 @@ export default function GalleryGrid() {
               {row2.concat(row2).map((src, idx) => (
                 <div
                   key={`r2-${idx}`}
-                  className='w-full md:w-[599px] h-[200px] md:h-[380px] rounded-[20px] overflow-hidden mx-auto md:mx-0 flex-shrink-0'
+                  className='w-[280px] sm:w-[350px] md:w-[599px] h-[200px] sm:h-[280px] md:h-[380px] rounded-[20px] overflow-hidden flex-shrink-0'
                 >
                   <Image
                     src={src}
                     alt={`Gallery image ${idx + 4}`}
                     width={599}
                     height={380}
-                    className='w-full h-full object-cover mr'
+                    className='w-full h-full object-cover'
                   />
                 </div>
               ))}
