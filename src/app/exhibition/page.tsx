@@ -11,6 +11,7 @@ import ResponsiveFallingCards from '../../components/ResponsiveFallingCards';
 // import ExhibitionInfiniteCarousel from '@/components/common/ExhibitionInfiniteCarousel';
 import GalleryGrid from '@/components/common/GalleryGrid';
 import ExhibitionContactCTA from '@/components/common/ExhibitionContactCTA';
+import TestimonialsSupportSection from '@/components/common/TestimonialsSupportSection';
 
 export default function Exhibition() {
   const cards = [
@@ -131,21 +132,13 @@ Islamic culture and values.'
         <GalleryGrid />
       </motion.div>
       <ExhibitionContactCTA />
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <TestimonialsSupportSection showSupport={false} />
-      </motion.div> */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        {/* <ExhibitionBookingForm /> */}
+        <TestimonialsSupportSection showSupport={false} />
       </motion.div>
     </>
   );

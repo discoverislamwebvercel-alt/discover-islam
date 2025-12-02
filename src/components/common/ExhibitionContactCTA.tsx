@@ -59,7 +59,7 @@ export default function ExhibitionContactCTA() {
             className='relative overflow-hidden group bg-[#CB892A] text-black w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] transition-all duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#CB892A]/90 hover:text-black/90 active:scale-95'
           >
             <span aria-hidden className='hover-animation' />
-            Contact Us
+            Get in touch
           </button>
         </motion.div>
       </motion.div>

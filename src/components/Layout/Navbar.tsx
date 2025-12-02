@@ -50,7 +50,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className='bg-white rounded-[100px] mx-8 mt-5 px-8 py-4 shadow-lg absolute top-0 left-0 right-0 z-50'
+      className='bg-white rounded-[100px] mx-8 mt-5 px-8  shadow-lg absolute top-0 left-0 right-0 z-50'
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -62,7 +62,7 @@ export default function Navbar() {
             <img
               src='/logo.png'
               alt='Discover Islam Logo'
-              className='h-8 sm:h-10 md:h-12 w-auto'
+              className='h-10 sm:h-10 md:h-26 w-auto'
             />
           </Link>
         </div>

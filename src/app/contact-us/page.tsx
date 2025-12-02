@@ -9,7 +9,7 @@ import HookForm from '@/components/common/HookForm';
 import HookFormInput from '@/components/common/HookFormInput';
 import HookFormSelect from '@/components/common/HookFormSelect';
 import HookFormTextarea from '@/components/common/HookFormTextarea';
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import {
   contactFormSchema,
   contactFormDefaultValues,
@@ -18,79 +18,6 @@ import {
 } from '@/lib/validation/contactForm';
 import { sendContactFormEmail, sendUserConfirmationEmail } from '@/lib/email';
 import toast from 'react-hot-toast';
-import { Calendar } from 'lucide-react';
-
-// Date Input with Calendar Icon Component
-const DateInputWithIcon = ({
-  label,
-  name,
-  placeholder,
-  required,
-}: {
-  label: string;
-  name: string;
-  placeholder: string;
-  required?: boolean;
-}) => {
-  const { control, formState } = useFormContext();
-  const { errors } = formState;
-  const error = errors[name];
-  const inputId = `date-input-${name}`;
-
-  return (
-    <div className='flex flex-col'>
-      {label && (
-        <label
-          htmlFor={inputId}
-          className='text-[16px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-medium text-[#111111] mb-2'
-        >
-          {label}
-          {required && <span className='ml-1 text-red-500'>*</span>}
-        </label>
-      )}
-      <div className='relative'>
-        <Controller
-          name={name}
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              id={inputId}
-              type='date'
-              placeholder={placeholder}
-              className={`
-                bg-[#0000000D]
-                rounded-[35px] sm:rounded-[45px] md:rounded-[55px] lg:rounded-[62px]
-                px-4 sm:px-5 md:px-6
-                py-3 sm:py-3.5 md:py-4
-                pr-10 sm:pr-12
-                h-[45px] sm:h-[50px] md:h-[55px] lg:h-[60px]
-                text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px]
-                placeholder:text-[#0000001A]
-                border-none
-                outline-none
-                focus:ring-2
-                focus:ring-[#408360]
-                focus:ring-opacity-50
-                transition-all
-                duration-300
-                w-full
-                ${error ? 'ring-2 ring-red-500 ring-opacity-50' : ''}
-              `}
-              style={{ backgroundColor: '#0000000D' }}
-              value={field.value || ''}
-            />
-          )}
-        />
-        <Calendar className='absolute right-3 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5 text-[#0000001A] pointer-events-none' />
-      </div>
-      {error && (
-        <p className='mt-1 text-sm text-red-600'>{error.message as string}</p>
-      )}
-    </div>
-  );
-};
-
 // Thank You Banner Component
 const ThankYouBanner = () => {
   return (
@@ -370,10 +297,10 @@ export default function ContactUs() {
 
                   {/* Organization */}
                   <HookFormInput
-                    label='Organization/Business (if any)'
+                    label='Organisation'
                     name='organization'
                     type='text'
-                    placeholder='Enter Organisation / Centre Name'
+                    placeholder='Enter Organisation'
                   />
 
                   {/* Topic */}
@@ -385,28 +312,11 @@ export default function ContactUs() {
                     required
                   />
 
-                  {/* Location and Preferred Date */}
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    <HookFormInput
-                      label='Location / City'
-                      name='location'
-                      type='text'
-                      placeholder='Enter Location'
-                      required
-                    />
-                    <DateInputWithIcon
-                      label='Preferred Date(s)'
-                      name='preferredDate'
-                      placeholder='Enter Preferred Date(s)'
-                      required
-                    />
-                  </div>
-
                   {/* Message */}
                   <HookFormTextarea
                     label='Message'
                     name='message'
-                    placeholder='Enter your message'
+                    placeholder='Enter your query or message'
                     rows={6}
                     required
                     maxLength={2000}

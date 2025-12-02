@@ -4,7 +4,7 @@ import { motion, useAnimationControls } from 'framer-motion';
 import { ArrowDown, ChevronDown } from 'lucide-react';
 import Button from './common/Button';
 import React, { useRef, useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -14,119 +14,143 @@ import {
 import toast from 'react-hot-toast';
 import Spinner from './common/Spinner';
 
-const schema = z.object({
-  fullName: z
-    .string()
-    .min(1, 'Full name is required')
-    .refine(
-      val => val.trim().length >= 2,
-      'Full name must be at least 2 characters long'
-    )
-    .refine(val => val.length <= 100, 'Full name cannot exceed 100 characters')
-    .refine(
-      val => /^[a-zA-Z\s\-\']+$/.test(val),
-      'Full name can only contain letters, spaces, hyphens, and apostrophes'
-    ),
-  schoolName: z
-    .string()
-    .min(1, 'School name is required')
-    .refine(
-      val => val.trim().length >= 2,
-      'School name must be at least 2 characters long'
-    )
-    .refine(
-      val => val.length <= 150,
-      'School name cannot exceed 150 characters'
-    ),
-  role: z
-    .string()
-    .min(1, 'Your role is required')
-    .refine(
-      val => val.trim().length >= 2,
-      'Role must be at least 2 characters long'
-    )
-    .refine(val => val.length <= 100, 'Role cannot exceed 100 characters'),
-  email: z
-    .string()
-    .min(1, 'Email address is required')
-    .refine(
-      val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
-      'Please enter a valid email address (e.g., teacher@school.edu)'
-    )
-    .refine(
-      val => val.length <= 254,
-      'Email address cannot exceed 254 characters'
-    ),
-  phone: z
-    .string()
-    .min(1, 'Phone number is required')
-    .refine(
-      val => val.replace(/\D/g, '').length >= 7,
-      'Phone number must be at least 7 digits long'
-    )
-    .refine(val => val.length <= 20, 'Phone number cannot exceed 20 characters')
-    .refine(
-      val =>
-        /^[\+]?[1-9][\d]{0,3}[\s\-\.]?[\(]?[\d]{1,3}[\)]?[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{0,9}$/.test(
-          val
-        ),
-      'Please enter a valid phone number (e.g., +44 20 7946 0958 or 020 7946 0958)'
-    ),
-  address: z
-    .string()
-    .min(1, 'School address is required')
-    .refine(
-      val => val.trim().length >= 10,
-      'School address must be at least 10 characters long for accurate location'
-    )
-    .refine(
-      val => val.length <= 500,
-      'School address cannot exceed 500 characters'
-    ),
-  preferredDates: z
-    .string()
-    .min(1, 'Preferred date(s) are required')
-    .refine(
-      val => val.trim().length >= 5,
-      'Please provide more detailed preferred date(s)'
-    )
-    .refine(
-      val => val.length <= 200,
-      'Preferred dates cannot exceed 200 characters'
-    ),
-  yearGroups: z
-    .string()
-    .min(1, 'Year groups/Key stages are required')
-    .refine(
-      val => val.trim().length >= 3,
-      'Please specify the year groups or key stages (e.g., Year 7-9, KS3)'
-    )
-    .refine(
-      val => val.length <= 100,
-      'Year groups cannot exceed 100 characters'
-    ),
-  numStudents: z
-    .string()
-    .min(1, 'Number of students is required')
-    .refine(
-      val => /^\d+$/.test(val),
-      'Number of students must be a valid number (no letters or decimals)'
-    )
-    .refine(val => Number(val) > 0, 'Number of students must be greater than 0')
-    .refine(
-      val => Number(val) <= 1000,
-      'Number of students cannot exceed 1000'
-    ),
-  topics: z
-    .string()
-    .min(1, 'Please select a topic of interest')
-    .refine(val => val !== '', 'Please select a topic of interest'),
-  accessibility: z.string().optional(),
-  hearAbout: z
-    .string()
-    .min(1, 'Please select how you heard about us')
-    .refine(val => val !== '', 'Please select how you heard about us'),
-});
+const schema = z
+  .object({
+    fullName: z
+      .string()
+      .min(1, 'Full name is required')
+      .refine(
+        val => val.trim().length >= 2,
+        'Full name must be at least 2 characters long'
+      )
+      .refine(
+        val => val.length <= 100,
+        'Full name cannot exceed 100 characters'
+      )
+      .refine(
+        val => /^[a-zA-Z\s\-\']+$/.test(val),
+        'Full name can only contain letters, spaces, hyphens, and apostrophes'
+      ),
+    schoolName: z
+      .string()
+      .min(1, 'School name is required')
+      .refine(
+        val => val.trim().length >= 2,
+        'School name must be at least 2 characters long'
+      )
+      .refine(
+        val => val.length <= 150,
+        'School name cannot exceed 150 characters'
+      ),
+    role: z
+      .string()
+      .min(1, 'Your role is required')
+      .refine(
+        val => val.trim().length >= 2,
+        'Role must be at least 2 characters long'
+      )
+      .refine(val => val.length <= 100, 'Role cannot exceed 100 characters'),
+    email: z
+      .string()
+      .min(1, 'Email address is required')
+      .refine(
+        val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
+        'Please enter a valid email address (e.g., teacher@school.edu)'
+      )
+      .refine(
+        val => val.length <= 254,
+        'Email address cannot exceed 254 characters'
+      ),
+    phone: z
+      .string()
+      .min(1, 'Phone number is required')
+      .refine(
+        val => val.replace(/\D/g, '').length >= 7,
+        'Phone number must be at least 7 digits long'
+      )
+      .refine(
+        val => val.length <= 20,
+        'Phone number cannot exceed 20 characters'
+      )
+      .refine(
+        val =>
+          /^[\+]?[1-9][\d]{0,3}[\s\-\.]?[\(]?[\d]{1,3}[\)]?[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{0,9}$/.test(
+            val
+          ),
+        'Please enter a valid phone number (e.g., +44 20 7946 0958 or 020 7946 0958)'
+      ),
+    address: z
+      .string()
+      .min(1, 'School address is required')
+      .refine(
+        val => val.trim().length >= 10,
+        'School address must be at least 10 characters long for accurate location'
+      )
+      .refine(
+        val => val.length <= 500,
+        'School address cannot exceed 500 characters'
+      ),
+    preferredDates: z
+      .string()
+      .min(1, 'Preferred date(s) are required')
+      .refine(
+        val => val.trim().length >= 5,
+        'Please provide more detailed preferred date(s)'
+      )
+      .refine(
+        val => val.length <= 200,
+        'Preferred dates cannot exceed 200 characters'
+      ),
+    yearGroups: z
+      .string()
+      .min(1, 'Year groups/Key stages are required')
+      .refine(
+        val => val.trim().length >= 3,
+        'Please specify the year groups or key stages (e.g., Year 7-9, KS3)'
+      )
+      .refine(
+        val => val.length <= 100,
+        'Year groups cannot exceed 100 characters'
+      ),
+    numStudents: z
+      .string()
+      .min(1, 'Number of students is required')
+      .refine(
+        val => /^\d+$/.test(val),
+        'Number of students must be a valid number (no letters or decimals)'
+      )
+      .refine(
+        val => Number(val) > 0,
+        'Number of students must be greater than 0'
+      )
+      .refine(
+        val => Number(val) <= 1000,
+        'Number of students cannot exceed 1000'
+      ),
+    topics: z
+      .string()
+      .min(1, 'Please select a topic of interest')
+      .refine(val => val !== '', 'Please select a topic of interest'),
+    otherTopic: z.string().optional(),
+    accessibility: z.string().optional(),
+    hearAbout: z
+      .string()
+      .min(1, 'Please select how you heard about us')
+      .refine(val => val !== '', 'Please select how you heard about us'),
+  })
+  .refine(
+    data => {
+      // If "other" is selected, otherTopic must be provided
+      if (data.topics === 'other') {
+        return data.otherTopic && data.otherTopic.trim().length > 0;
+      }
+      return true;
+    },
+    {
+      message: 'Please specify your topic',
+      path: ['otherTopic'],
+    }
+  );
 
 type FormValues = z.infer<typeof schema>;
 
@@ -157,6 +181,7 @@ const SchoolVisitForm = ({
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     mode: 'onBlur', // Only validate on blur, not on change
@@ -171,10 +196,24 @@ const SchoolVisitForm = ({
       yearGroups: '',
       numStudents: '',
       topics: '',
+      otherTopic: '',
       accessibility: '',
       hearAbout: '',
     },
   });
+
+  // Watch the topics field to show/hide the "Other" textarea
+  const selectedTopic = useWatch({
+    control,
+    name: 'topics',
+  });
+
+  // Clear otherTopic when switching away from "other"
+  useEffect(() => {
+    if (selectedTopic !== 'other') {
+      setValue('otherTopic', '');
+    }
+  }, [selectedTopic, setValue]);
 
   const onSubmit = async (values: FormValues) => {
     setIsLoading(true);
@@ -514,6 +553,7 @@ const SchoolVisitForm = ({
                       <option value='islam_basics'>Islam Basics</option>
                       <option value='ramadan'>Ramadan</option>
                       <option value='prophets'>Prophets</option>
+                      <option value='other'>Other</option>
                     </select>
                     <ChevronDown
                       size={18}
@@ -530,6 +570,37 @@ const SchoolVisitForm = ({
               )}
             </div>
           </div>
+
+          {/* Animated "Other" topic textarea - spans full width */}
+          {selectedTopic === 'other' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginTop: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className='overflow-hidden'
+            >
+              <label className='mb-2 block text-[16px] leading-[20px] sm:text-[18px] sm:leading-[22px] md:text-[20px] md:leading-[24px] lg:text-[22px] lg:leading-[28px] font-medium text-[#111111]'>
+                Please specify your topic*
+              </label>
+              <Controller
+                name='otherTopic'
+                control={control}
+                render={({ field }) => (
+                  <textarea
+                    {...field}
+                    placeholder='Enter your topic of interest'
+                    className='min-h-[80px] sm:min-h-[90px] md:min-h-[100px] lg:min-h-[105px] w-full resize-y rounded-[15px] sm:rounded-[20px] md:rounded-[22px] lg:rounded-[25px] bg-[#0000000D] px-4 sm:px-5 py-2 sm:py-3 text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px] placeholder-[#0000001A] text-[#111111]'
+                  />
+                )}
+              />
+              {errors.otherTopic && (
+                <p className='mt-1 text-[11px] text-red-600'>
+                  {errors.otherTopic.message}
+                </p>
+              )}
+            </motion.div>
+          )}
 
           {/* Number of Students */}
           <div>

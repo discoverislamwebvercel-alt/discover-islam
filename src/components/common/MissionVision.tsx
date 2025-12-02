@@ -34,7 +34,7 @@ export default function MissionVision() {
           </div>
           {/* paragraph */}
           <motion.p
-            className='absolute text-[30px] leading-[36px] font-medium text-[#111111CC] top-[170px] md:left-6 md:translate-x-0 md:w-[520px] lg:left-1/2 lg:-translate-x-[calc(589px/2+236.5px)] lg:w-[589px]'
+            className='absolute text-[30px] leading-[36px] font-medium sm:font-[550] text-[#111111CC] top-[170px] md:left-6 md:translate-x-0 md:w-[520px] lg:left-1/2 lg:-translate-x-[calc(589px/2+236.5px)] lg:w-[589px]'
             style={{ maxWidth: 589 }}
             variants={{ rest: { scale: 1 }, hover: { scale: 1.03 } }}
             transition={{ type: 'spring', stiffness: 250, damping: 20 }}
@@ -87,7 +87,7 @@ export default function MissionVision() {
           </div>
           {/* paragraph */}
           <motion.p
-            className='absolute text-[30px] leading-[36px] font-medium text-[#111111CC] top-[170px] md:left-6 md:translate-x-0 md:w-[520px] lg:left-1/2 lg:-translate-x-[calc(553px/2+254.5px)] lg:w-[553px]'
+            className='absolute text-[30px] leading-[36px] font-[550] text-[#111111CC] top-[170px] md:left-6 md:translate-x-0 md:w-[520px] lg:left-1/2 lg:-translate-x-[calc(553px/2+254.5px)] lg:w-[553px]'
             style={{ maxWidth: 553 }}
             variants={{ rest: { scale: 1 }, hover: { scale: 1.03 } }}
             transition={{ type: 'spring', stiffness: 250, damping: 20 }}

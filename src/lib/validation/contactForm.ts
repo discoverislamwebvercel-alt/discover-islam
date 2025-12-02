@@ -60,21 +60,6 @@ export const contactFormSchema = z.object({
     .min(1, 'Please select a topic')
     .refine(val => val.trim().length > 0, 'Topic cannot be empty'),
 
-  location: z
-    .string()
-    .min(1, 'Location/City is required')
-    .min(2, 'Location must be at least 2 characters long')
-    .max(100, 'Location cannot exceed 100 characters')
-    .refine(
-      val => val.trim().length > 0,
-      'Location cannot be empty or contain only spaces'
-    ),
-
-  preferredDate: z
-    .string()
-    .min(1, 'Preferred date(s) are required')
-    .refine(val => val.trim().length > 0, 'Preferred dates cannot be empty'),
-
   message: z
     .string()
     .min(1, 'Message is required')
@@ -93,20 +78,15 @@ export const contactFormDefaultValues = {
   phone: '',
   organization: '',
   topic: '',
-  location: '',
-  preferredDate: '',
   message: '',
 };
 
 // Topic options for contact form
 export const topicOptions = [
-  { value: 'general', label: 'General Inquiry' },
-  { value: 'exhibition', label: 'Exhibition Booking' },
-  { value: 'school-visit', label: 'School Visit' },
-  { value: 'literature', label: 'Literature Request' },
-  { value: 'volunteer', label: 'Volunteering' },
-  { value: 'partnership', label: 'Partnership' },
-  { value: 'donation', label: 'Donation' },
+  { value: 'exhibition', label: 'Exhibition' },
+  { value: 'school', label: 'School' },
+  { value: 'literature', label: 'Literature' },
+  { value: 'volunteer', label: 'Volunteer' },
   { value: 'other', label: 'Other' },
 ];
 

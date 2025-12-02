@@ -91,6 +91,15 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
       {/* Visit Options Cards Section */}
       <section className='pt-16 sm:pt-20 lg:pt-24 pb-12 md:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-[1316px] mx-auto'>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className='text-center font-extrabold text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] text-[#111111] mb-8 sm:mb-10 lg:mb-12'
+          >
+            Choose how you&apos;d like your pupils to experience Islam
+          </motion.h2>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6'>
             {/* Mosque Visit Card */}
             <motion.div
@@ -133,10 +142,10 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
               </div>
               <button
                 onClick={() => router.push('/schools/mosque-visit')}
-                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[52px] sm:h-[60px] lg:h-[67px] rounded-[40px] sm:rounded-[48px] lg:rounded-[52px] font-extrabold text-[18px] sm:text-[22px] lg:text-[26px] transition-transform transition-colors duration-300 cursor-pointer px-6 sm:px-[32px] lg:px-[37px] hover:scale-[1.03] hover:bg-[#181818]/90 flex items-center justify-center'
+                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-auto min-w-[244px] sm:min-w-[280px] h-[52px] sm:h-[60px] lg:h-[67px] rounded-[40px] sm:rounded-[48px] lg:rounded-[52px] font-extrabold text-[16px] sm:text-[20px] lg:text-[24px] transition-transform transition-colors duration-300 cursor-pointer px-8 sm:px-10 lg:px-12 hover:scale-[1.03] hover:bg-[#181818]/90 flex items-center justify-center'
               >
                 <span aria-hidden className='hover-animation' />
-                Fill out form
+                Book Mosque Visit
               </button>
             </motion.div>
 
@@ -179,10 +188,10 @@ Islamic beliefs, values, and culture in a welcoming and educational environment.
               </div>
               <button
                 onClick={() => router.push('/schools/school-visit')}
-                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-[244px] h-[52px] sm:h-[60px] lg:h-[67px] rounded-[40px] sm:rounded-[48px] lg:rounded-[52px] font-extrabold text-[18px] sm:text-[22px] lg:text-[26px] transition-transform transition-colors duration-300 cursor-pointer px-6 sm:px-[32px] lg:px-[37px] hover:scale-[1.03] hover:bg-[#181818]/90 flex items-center justify-center'
+                className='relative overflow-hidden group bg-[#181818] text-white w-full sm:w-auto min-w-[244px] sm:min-w-[280px] h-[52px] sm:h-[60px] lg:h-[67px] rounded-[40px] sm:rounded-[48px] lg:rounded-[52px] font-extrabold text-[16px] sm:text-[20px] lg:text-[24px] transition-transform transition-colors duration-300 cursor-pointer px-8 sm:px-10 lg:px-12 hover:scale-[1.03] hover:bg-[#181818]/90 flex items-center justify-center'
               >
                 <span aria-hidden className='hover-animation' />
-                Fill out form
+                Book School Visit
               </button>
             </motion.div>
           </div>
