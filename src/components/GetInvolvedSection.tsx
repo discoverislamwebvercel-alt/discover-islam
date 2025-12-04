@@ -64,7 +64,7 @@ export default function GetInvolvedSection() {
                 onClick={() => router.push('/donations')}
               >
                 <span aria-hidden className='hover-animation' />
-                Fill out form
+                Donate
               </button>
 
               {/* Decorative arrow using Group (1).png - pointing to button */}
