@@ -53,9 +53,9 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsSupportSection({
-  headingTop = 'See why',
-  headingMainLeft = 'people',
-  headingMainRight = 'love us',
+  headingTop = 'See what people',
+  headingMainLeft = 'say',
+  headingMainRight = 'about us',
   supportHeading = 'Support this project',
   supportSubtext = 'Help us build a better community',
   donateLabel = 'Donate Now',
@@ -101,18 +101,13 @@ export default function TestimonialsSupportSection({
           <span className='text-[28px] sm:text-[40px] md:text-[64px] lg:text-[80px] font-extrabold text-[#111111] leading-[1.07]'>
             {headingMainLeft}
           </span>
+          <span className='text-[28px] sm:text-[40px] md:text-[64px] lg:text-[80px] font-extrabold text-[#111111] leading-[1.07] relative inline-block'>
+            {headingMainRight}
+          </span>
           <span className='inline-flex items-center justify-center w-[40px] sm:w-[48px] md:w-[56px] lg:w-[64px] h-[40px] sm:h-[48px] md:h-[56px] lg:h-[64px] rounded-full bg-[#CB892A] -rotate-[0.18deg]'>
             <span className='inline-flex items-center justify-center -rotate-[12.56deg]'>
               <HeartIcon className='w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7' />
             </span>
-          </span>
-          <span className='text-[28px] sm:text-[40px] md:text-[64px] lg:text-[80px] font-extrabold text-[#111111] leading-[1.07] relative inline-block'>
-            {headingMainRight}
-            <img
-              src='/figma/underline_green.png'
-              alt='underline'
-              className='absolute left-1/2 -translate-x-1/2 -bottom-2 w-[220px] sm:w-[300px] md:w-[360px] lg:w-[386.81px] h-[8px] sm:h-[9px] md:h-[10px] rotate-[-2deg] pointer-events-none select-none'
-            />
           </span>
         </div>
       </div>

@@ -1,9 +1,5 @@
 import { z } from 'zod';
 
-// Phone number validation regex (supports various formats)
-const phoneRegex =
-  /^[\+]?[1-9][\d]{0,3}[\s\-\.]?[\(]?[\d]{1,3}[\)]?[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{0,9}$/;
-
 // Email validation (more comprehensive than default)
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -65,14 +61,14 @@ export const partnershipFormSchema = z.object({
   phone: z
     .string()
     .min(1, 'Phone number is required')
-    .regex(
-      phoneRegex,
-      'Please enter a valid phone number (e.g., +44 20 7946 0958 or 020 7946 0958)'
-    )
     .refine(
       val => val.trim().length > 0,
       'Phone number cannot be empty or contain only spaces'
-    ),
+    )
+    .refine(val => {
+      const digitsOnly = val.replace(/\D/g, '');
+      return digitsOnly.length >= 7 && digitsOnly.length <= 15;
+    }, 'Phone number must contain between 7 and 15 digits'),
 
   partnershipType: z
     .string()
@@ -82,7 +78,6 @@ export const partnershipFormSchema = z.object({
   workingTogether: z
     .string()
     .min(1, 'This field is required')
-    .min(20, 'Please provide more details (at least 20 characters)')
     .max(1000, 'Description cannot exceed 1000 characters')
     .refine(
       val => val.trim().length > 0,
