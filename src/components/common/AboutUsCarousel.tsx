@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 
 const images = Array.from(
@@ -112,24 +113,42 @@ export default function AboutUsCarousel() {
     <section className='w-full bg-white py-8 sm:py-12 md:py-16'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='relative'>
-          {/* Carousel Container */}
-          <div className='overflow-hidden' ref={emblaRef}>
+          {/* Hidden carousel container for embla to track slides */}
+          <div
+            className='overflow-hidden opacity-0 absolute'
+            ref={emblaRef}
+            style={{ pointerEvents: 'none' }}
+          >
             <div className='flex'>
               {images.map((src, index) => (
                 <div key={index} className='flex-shrink-0 w-full basis-full'>
-                  <div className='relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-[20px] overflow-hidden'>
-                    <Image
-                      src={src}
-                      alt={`About Us Exhibition ${index + 1}`}
-                      fill
-                      className='object-cover'
-                      sizes='(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px'
-                      priority={index === 0}
-                    />
-                  </div>
+                  <div className='relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]' />
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Visible fade container - shows only selected image */}
+          <div className='relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-[20px] overflow-hidden'>
+            <AnimatePresence mode='wait'>
+              <motion.div
+                key={selectedIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                className='absolute inset-0'
+              >
+                <Image
+                  src={images[selectedIndex]}
+                  alt={`About Us Exhibition ${selectedIndex + 1}`}
+                  fill
+                  className='object-cover'
+                  sizes='(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px'
+                  priority={selectedIndex === 0}
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Navigation Buttons */}

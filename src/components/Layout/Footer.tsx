@@ -3,6 +3,7 @@
 import { motion, type Variants } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Clock, MapPin, Mail } from 'lucide-react';
 
 export default function Footer() {
   const router = useRouter();
@@ -38,6 +39,19 @@ export default function Footer() {
       {/* Main content */}
       <div className='px-6 sm:px-8 lg:px-10 py-10 sm:py-14 lg:py-16'>
         <div className='mx-auto max-w-[1395px]'>
+          {/* Charity number - top on mobile */}
+          <motion.div
+            className='lg:hidden mb-6'
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, amount: 0.2 }}
+            variants={textVariants}
+          >
+            <p className='text-[#CB892A] text-[12px] sm:text-[14px]'>
+              Charity Number: 1146212
+            </p>
+          </motion.div>
+
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
             {/* Left column */}
             <motion.div
@@ -56,13 +70,31 @@ export default function Footer() {
                 </h2>
               </div>
 
-              <h3 className='mt-6 text-[28px] sm:text-[32px] lg:text-[40px] font-bold leading-[48px]'>
-                Office hours
-              </h3>
-              <p className='mt-3 max-w-[434px] text-white/90 text-[16px] sm:text-[18px] lg:text-[20px] leading-[1.38]'>
-                Our offices are open at the following times and days: Monday to
-                Friday 10am – 5pm
-              </p>
+              {/* Office hours with icon - mobile layout */}
+              <div className='mt-6 lg:hidden'>
+                <div className='flex items-start gap-3'>
+                  <Clock className='w-5 h-5 text-[#CB892A] mt-1 flex-shrink-0' />
+                  <div className='flex-1'>
+                    <div className='text-white/90 text-[16px] sm:text-[18px] leading-[1.38]'>
+                      Office hours:
+                    </div>
+                    <div className='text-white/90 text-[16px] sm:text-[18px] leading-[1.38] mt-1'>
+                      Monday to Friday 10am – 5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Office hours - desktop layout */}
+              <div className='hidden lg:block'>
+                <h3 className='mt-6 text-[28px] sm:text-[32px] lg:text-[40px] font-bold leading-[48px]'>
+                  Office hours
+                </h3>
+                <p className='mt-3 max-w-[434px] text-white/90 text-[16px] sm:text-[18px] lg:text-[20px] leading-[1.38]'>
+                  Our offices are open at the following times and days: Monday
+                  to Friday 10am – 5pm
+                </p>
+              </div>
 
               <button
                 className='relative overflow-hidden group bg-[#CB892A] text-black w-[200px] sm:w-[244px] h-[56px] sm:h-[67px] rounded-[52px] font-extrabold text-[18px] sm:text-[26px] transition-colors duration-300 cursor-pointer px-[37px] hover:scale-105 hover:bg-[#CB892A]/70 mt-8 hover:text-black/70'
@@ -73,41 +105,52 @@ export default function Footer() {
               </button>
             </motion.div>
 
-            {/* Right column */}
+            {/* Right column - bottom on mobile */}
             <motion.div
+              className='lg:order-none order-last'
               initial='hidden'
               whileInView='visible'
               viewport={{ once: true, amount: 0.3 }}
               variants={textVariants}
             >
-              <h3 className='text-[28px] sm:text-[34px] lg:text-[40px] font-bold leading-[48px] mb-4 sm:mb-6'>
-                Get in touch!
-              </h3>
-              <div className='space-y-6 text-[16px] sm:text-[18px] lg:text-[20px] leading-[1.38]'>
-                <div>
-                  <div className='font-bold text-[#FFFFFF] mb-1'>
-                    LONDON (HQ)
+              {/* Desktop layout */}
+              <div className='hidden lg:block'>
+                <h3 className='text-[28px] sm:text-[34px] lg:text-[40px] font-bold leading-[48px] mb-4 sm:mb-6'>
+                  Get in touch!
+                </h3>
+                <div className='space-y-6 text-[16px] sm:text-[18px] lg:text-[20px] leading-[1.38]'>
+                  <div>
+                    <div className='font-bold text-[#FFFFFF] mb-1'>
+                      LONDON (HQ)
+                    </div>
+                    <div className='text-white'>
+                      7 Bridges Place, Parsons Green, London, SW6 4HW
+                    </div>
+                    <div className='text-white'>info@discoverislam.co.uk</div>
                   </div>
-                  <div className='text-white'>
-                    7 Bridges Place, Parsons Green, London, SW6 4HW
-                  </div>
-                  <div className='text-white'>info@discoverislam.co.uk</div>
                 </div>
-                {/* <div>
-                  <div className='font-bold text-[#FFFFFF] mb-1'>
-                    IRELAND (HQ)
+              </div>
+
+              {/* Mobile layout with icons */}
+              <div className='lg:hidden space-y-6 text-[16px] sm:text-[18px] leading-[1.38]'>
+                {/* Address with icon */}
+                <div className='flex items-start gap-3'>
+                  <MapPin className='w-5 h-5 text-[#CB892A] mt-1 flex-shrink-0' />
+                  <div className='flex-1 text-white'>
+                    <div>7 Bridges Place,</div>
+                    <div>Parsons Green,</div>
+                    <div>London,</div>
+                    <div>SW6 4HW</div>
                   </div>
-                  <div className='text-white'>
-                    163 South Circular Road, Dublin 8, Ireland
+                </div>
+
+                {/* Email with icon */}
+                <div className='flex items-start gap-3'>
+                  <Mail className='w-5 h-5 text-[#CB892A] mt-1 flex-shrink-0' />
+                  <div className='flex-1 text-white'>
+                    info@discoverislam.co.uk
                   </div>
-                </div> */}
-                {/* <div>
-                  <div className='font-bold text-[#FFFFFF] mb-1'>
-                    SCOTLAND (Presentations)
-                  </div>
-                  <div className='text-white'>079 885 92734</div>
-                  <div className='text-white'>info@discoverislam.co.uk</div>
-                </div> */}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -126,8 +169,9 @@ export default function Footer() {
           >
             © 2025 Discover Islam. All Rights Reserved.
           </motion.p>
+          {/* Charity number - hidden on mobile (shown at top), visible on desktop */}
           <motion.p
-            className='text-[#CB892A] text-[12px] sm:text-[14px] lg:text-[16px]'
+            className='hidden lg:block text-[#CB892A] text-[12px] sm:text-[14px] lg:text-[16px]'
             initial='hidden'
             whileInView='visible'
             viewport={{ once: true, amount: 0.2 }}

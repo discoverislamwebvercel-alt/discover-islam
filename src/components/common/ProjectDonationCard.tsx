@@ -266,6 +266,17 @@ export default function ProjectDonationCard({
                 Claim Gift Aid
               </label>
             </div>
+
+            {/* Gift Aid Description */}
+            <p
+              className='text-[16px] leading-[92%] text-black opacity-70'
+              style={{
+                fontFamily:
+                  'SF Pro Rounded, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
+              }}
+            >
+              Increase your donation by 25% - tick if you&apos;re a UK taxpayer.
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
