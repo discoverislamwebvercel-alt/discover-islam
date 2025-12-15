@@ -1,9 +1,5 @@
 import { z } from 'zod';
 
-// Phone number validation regex (supports various formats)
-const phoneRegex =
-  /^[\+]?[1-9][\d]{0,3}[\s\-\.]?[\(]?[\d]{1,3}[\)]?[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{0,9}$/;
-
 // Email validation (more comprehensive than default)
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -47,17 +43,7 @@ export const literatureFormSchema = z.object({
       'Email address cannot be empty or contain only spaces'
     ),
 
-  phone: z
-    .string()
-    .min(1, 'Phone number is required')
-    .regex(
-      phoneRegex,
-      'Please enter a valid phone number (e.g., +44 20 7946 0958 or 020 7946 0958)'
-    )
-    .refine(
-      val => val.trim().length > 0,
-      'Phone number cannot be empty or contain only spaces'
-    ),
+  phone: z.string().optional(),
 
   address: z
     .string()

@@ -33,17 +33,7 @@ export const volunteerFormSchema = z.object({
       'Email address cannot be empty or contain only spaces'
     ),
 
-  phone: z
-    .string()
-    .min(1, 'Phone number is required')
-    .refine(
-      val => val.trim().length > 0,
-      'Phone number cannot be empty or contain only spaces'
-    )
-    .refine(val => {
-      const digitsOnly = val.replace(/\D/g, '');
-      return digitsOnly.length >= 7 && digitsOnly.length <= 15;
-    }, 'Phone number must contain between 7 and 15 digits'),
+  phone: z.string().optional(),
 
   age: z
     .string()

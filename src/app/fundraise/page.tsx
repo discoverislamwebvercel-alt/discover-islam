@@ -24,9 +24,7 @@ const fundraiseFormSchema = Yup.object({
     .email('Please enter a valid email address')
     .required('Email address is required'),
 
-  phone: Yup.string()
-    .min(10, 'Phone number must be at least 10 digits')
-    .required('Phone number is required'),
+  phone: Yup.string(),
 
   organization: Yup.string().max(
     150,

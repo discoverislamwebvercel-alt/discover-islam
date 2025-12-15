@@ -27,9 +27,7 @@ export const literatureFormSchema = Yup.object({
     .matches(emailRegex, 'Please enter a valid email address')
     .required('Email address is required'),
 
-  phone: Yup.string()
-    .matches(phoneRegex, 'Please enter a valid phone number')
-    .required('Phone number is required'),
+  phone: Yup.string(),
 
   address: Yup.string()
     .min(10, 'Delivery address must be at least 10 characters')

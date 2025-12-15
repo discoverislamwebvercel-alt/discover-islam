@@ -58,21 +58,7 @@ const schema = z.object({
       val => val.length <= 254,
       'Email address cannot exceed 254 characters'
     ),
-  phone: z
-    .string()
-    .min(1, 'Phone number is required')
-    .refine(
-      val => val.replace(/\D/g, '').length >= 7,
-      'Phone number must be at least 7 digits long'
-    )
-    .refine(val => val.length <= 20, 'Phone number cannot exceed 20 characters')
-    .refine(
-      val =>
-        /^[\+]?[1-9][\d]{0,3}[\s\-\.]?[\(]?[\d]{1,3}[\)]?[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{0,9}$/.test(
-          val
-        ),
-      'Please enter a valid phone number (e.g., +44 20 7946 0958 or 020 7946 0958)'
-    ),
+  phone: z.string().optional(),
   address: z
     .string()
     .min(1, 'School address is required')
