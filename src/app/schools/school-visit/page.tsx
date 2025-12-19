@@ -239,16 +239,11 @@ export default function SchoolVisitPage() {
           transition={{ duration: 0.5 }}
         >
           <motion.p
-            className='font-medium text-lg md:text-xl lg:text-[30px] leading-[100%] text-center w-full max-w-[1100px] tracking-normal'
+            className='font-[500] text-lg sm:text-xl md:text-[30px] leading-[36px] text-center w-full max-w-[1100px]'
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5 }}
-            style={{
-              fontFamily:
-                'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
-              fontWeight: 500,
-            }}
           >
             We visit your school to deliver an engaging and interactive
             presentation about Islam, tailored to your students&apos; age and
@@ -369,6 +364,8 @@ export default function SchoolVisitPage() {
                   render={({ field }) => (
                     <input
                       {...field}
+                      type='tel'
+                      inputMode='tel'
                       placeholder='Enter Phone Number'
                       className='h-[45px] sm:h-[50px] md:h-[55px] lg:h-[60px] w-full rounded-[35px] sm:rounded-[40px] md:rounded-[50px] lg:rounded-[62px] bg-[#0000000D] px-4 sm:px-5 text-[16px] sm:text-[18px] md:text-[19px] lg:text-[20px] placeholder-[#0000001A] text-[#111111]'
                     />

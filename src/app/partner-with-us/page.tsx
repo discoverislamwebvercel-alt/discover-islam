@@ -151,16 +151,11 @@ export default function PartnerWithUsPage() {
           transition={{ duration: 0.5 }}
         >
           <motion.p
-            className='font-medium text-lg md:text-xl lg:text-[30px] leading-[100%] text-center w-full max-w-[1100px] tracking-normal'
+            className='font-[500] text-lg sm:text-xl md:text-[30px] leading-[36px] text-center w-full max-w-[1100px]'
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5 }}
-            style={{
-              fontFamily:
-                'SF Pro Display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial',
-              fontWeight: 500,
-            }}
           >
             Strong partnerships build strong communities. Discover Islam
             welcomes collaboration with individuals, organizations, and
@@ -234,6 +229,7 @@ export default function PartnerWithUsPage() {
                   label='Phone Number'
                   name='phone'
                   type='tel'
+                  inputMode='tel'
                   placeholder='Enter Phone Number'
                   required
                 />

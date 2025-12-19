@@ -16,21 +16,21 @@ export default function DonationsPage() {
   // Literature card: 10, 15, 25, 50
   // School Visits & Exhibitions: 10, 15, 25, 50, 150, 750
   const literatureRegularUrls = {
-    '10': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59HD2J8KA6WGCKSVETW9C7RSH&initial=/collect-customer-details',
-    '15': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59HPV13A0WNYGQCZPY7HBGPYZ&initial=/collect-customer-details',
-    '25': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59HYKAEZWXWGK0P7YB4YSCCGZ&initial=/collect-customer-details',
-    '50': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59J8M0RGRRJMT4FW15TS31P0E&initial=/collect-customer-details',
+    '10': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ3VGERGDXCQX1GTB9D6V3Q9Y&initial=/collect-customer-details',
+    '15': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ4Z6SNWE8E48JX8DEP18G82N&initial=/collect-customer-details',
+    '25': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ500SQ7036Q87Z34GZ6WG28X&initial=/collect-customer-details',
+    '50': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ50S3D8TE4X9GKTTCQ4B6QV3&initial=/collect-customer-details',
   };
 
   const schoolExhibitionRegularUrls = {
-    '10': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59HD2J8KA6WGCKSVETW9C7RSH&initial=/collect-customer-details',
-    '15': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59HPV13A0WNYGQCZPY7HBGPYZ&initial=/collect-customer-details',
-    '25': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59HYKAEZWXWGK0P7YB4YSCCGZ&initial=/collect-customer-details',
-    '50': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59J8M0RGRRJMT4FW15TS31P0E&initial=/collect-customer-details',
+    '10': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ3VGERGDXCQX1GTB9D6V3Q9Y&initial=/collect-customer-details',
+    '15': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ4Z6SNWE8E48JX8DEP18G82N&initial=/collect-customer-details',
+    '25': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ500SQ7036Q87Z34GZ6WG28X&initial=/collect-customer-details',
+    '50': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ50S3D8TE4X9GKTTCQ4B6QV3&initial=/collect-customer-details',
     '150':
-      'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59MYADJYZ7759E0RBM4JYSHP2&initial=/collect-customer-details',
+      'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ52A6Z35SQ8H126RPJGTY8DN&initial=/collect-customer-details',
     '750':
-      'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KB59NASKP90FCQ1NTV9J7BDBW5R&initial=/collect-customer-details',
+      'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ5375H4BZCYPQ5C60NQZZJP2&initial=/collect-customer-details',
   };
 
   const projects = [

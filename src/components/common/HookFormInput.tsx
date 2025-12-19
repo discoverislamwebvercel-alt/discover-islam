@@ -17,6 +17,14 @@ interface HookFormInputProps {
   min?: string | number;
   max?: string | number;
   step?: string | number;
+  inputMode?:
+    | 'text'
+    | 'tel'
+    | 'email'
+    | 'numeric'
+    | 'decimal'
+    | 'search'
+    | 'url';
 }
 
 const HookFormInput: React.FC<HookFormInputProps> = ({
@@ -32,6 +40,7 @@ const HookFormInput: React.FC<HookFormInputProps> = ({
   min,
   max,
   step,
+  inputMode,
 }) => {
   const { control, formState } = useFormContext();
   const { errors } = formState;
@@ -60,6 +69,7 @@ const HookFormInput: React.FC<HookFormInputProps> = ({
             {...field}
             id={inputId}
             type={type}
+            inputMode={inputMode}
             placeholder={placeholder}
             disabled={disabled}
             maxLength={maxLength}

@@ -44,8 +44,10 @@ export default function CollectionSection({
     originalItems.length > 0
       ? [...originalItems, ...originalItems, ...originalItems]
       : [];
-  const cardWidth = 397;
-  const cardGap = 14;
+  const cardWidth =
+    typeof window !== 'undefined' && window.innerWidth < 768 ? 280 : 397;
+  const cardGap =
+    typeof window !== 'undefined' && window.innerWidth < 768 ? 12 : 14;
   const itemsPerSet = originalItems.length;
 
   // Initialize to start of second set for seamless looping
@@ -131,11 +133,11 @@ export default function CollectionSection({
           viewport={{ once: true, amount: 0.5 }}
           variants={titleVariants}
         >
-          <h2 className='text-[80px] font-extrabold leading-[107%] tracking-normal text-center mb-4'>
+          <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-[80px] font-extrabold leading-tight text-center mb-2 sm:mb-3 md:mb-4'>
             {title}
           </h2>
           {subtitle && (
-            <h3 className='text-[60px] font-bold leading-[107%] tracking-normal text-center'>
+            <h3 className='text-2xl sm:text-3xl md:text-4xl lg:text-[60px] font-bold leading-tight text-center'>
               {subtitle}
             </h3>
           )}
@@ -143,7 +145,7 @@ export default function CollectionSection({
 
         {/* Carousel Container */}
         <div
-          className='overflow-hidden relative w-full min-h-[630px]'
+          className='overflow-hidden relative w-full min-h-[500px] sm:min-h-[550px] md:min-h-[630px]'
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
@@ -162,10 +164,10 @@ export default function CollectionSection({
               {collections.map((collection, index) => (
                 <div
                   key={`${collection.id}-${index}`}
-                  className='flex flex-col items-start gap-[19px] flex-none w-[397px]'
+                  className='flex flex-col items-start gap-3 sm:gap-4 md:gap-[19px] flex-none w-[280px] sm:w-[320px] md:w-[397px]'
                 >
                   {/* Image Container */}
-                  <div className='relative w-[397px] h-[375px] rounded-[22.01px] overflow-hidden'>
+                  <div className='relative w-[280px] sm:w-[320px] md:w-[397px] h-[265px] sm:h-[300px] md:h-[375px] rounded-[16px] sm:rounded-[18px] md:rounded-[22.01px] overflow-hidden'>
                     <Image
                       src={collection.image}
                       alt={collection.title}
@@ -176,35 +178,35 @@ export default function CollectionSection({
                   </div>
 
                   {/* Content Section */}
-                  <div className='flex flex-col items-start gap-[27px] w-[397px] flex-none self-stretch flex-grow-0'>
+                  <div className='flex flex-col items-start gap-4 sm:gap-5 md:gap-[27px] w-[280px] sm:w-[320px] md:w-[397px] flex-none self-stretch flex-grow-0'>
                     {/* Title and Description */}
                     <div className='flex flex-col items-start gap-1 w-full'>
-                      <h3 className='w-full h-[29px] font-bold text-[24px] leading-[29px] tracking-[-0.03em] text-[rgba(17,17,17,0.9)]'>
+                      <h3 className='w-full font-bold text-lg sm:text-xl md:text-[24px] leading-tight tracking-[-0.03em] text-[rgba(17,17,17,0.9)]'>
                         {collection.title}
                       </h3>
-                      <p className='w-[389px] h-[72px] font-normal text-[20px] leading-[24px] tracking-[-0.03em] text-[rgba(17,17,17,0.9)]'>
+                      <p className='w-full font-normal text-sm sm:text-base md:text-[20px] leading-snug tracking-[-0.03em] text-[rgba(17,17,17,0.9)] line-clamp-3'>
                         {collection.description}
                       </p>
                     </div>
 
                     {/* Price and Buttons */}
-                    <div className='flex flex-col items-start gap-[15px] w-[302px] h-[104px]'>
+                    <div className='flex flex-col items-start gap-3 sm:gap-4 md:gap-[15px] w-full'>
                       {/* Price */}
-                      <p className=' h-[29px] font-bold text-[24px] leading-[29px] text-[#CB892A]'>
+                      <p className='font-bold text-lg sm:text-xl md:text-[24px] leading-tight text-[#CB892A]'>
                         {collection.price}{' '}
-                        <span className='text-[18px] leading-[100%] text-gray-400 font-semibold'>
+                        <span className='text-sm sm:text-base md:text-[18px] leading-[100%] text-gray-400 font-semibold'>
                           {collection.perItem}
                         </span>
                       </p>
 
                       {/* Buttons Row */}
-                      <div className='flex flex-row items-start gap-2 w-[302px] h-[60px]'>
+                      <div className='flex flex-row items-start gap-2 w-full max-w-[302px]'>
                         {/* Order Button */}
                         <button
                           onClick={collection.onOrderClick}
-                          className='flex flex-row justify-center items-center px-[37px] py-[18px] gap-[10px] w-[164px] h-[60px] bg-[#4C735D] rounded-[52px] flex-none order-0 flex-grow-0 hover:bg-[#3d5c4a] transition-colors'
+                          className='flex flex-row justify-center items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-4 md:py-[18px] gap-2 w-auto sm:w-[140px] md:w-[164px] h-[48px] sm:h-[54px] md:h-[60px] bg-[#4C735D] rounded-[40px] sm:rounded-[46px] md:rounded-[52px] flex-none order-0 flex-grow-0 hover:bg-[#3d5c4a] transition-colors'
                         >
-                          <span className='w-[55px] h-[24px] font-extrabold text-[20px] leading-[24px] text-white'>
+                          <span className='font-extrabold text-base sm:text-lg md:text-[20px] leading-tight text-white whitespace-nowrap'>
                             Order
                           </span>
                         </button>
@@ -212,7 +214,7 @@ export default function CollectionSection({
                         {/* Play Button */}
                         <button
                           onClick={() => handlePlayClick(collection)}
-                          className='flex flex-col justify-center items-center px-[18px] py-[12px] gap-[10px] w-[61px] h-[60px] bg-[rgba(17,17,17,0.1)] rounded-[200px] flex-none order-1 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
+                          className='flex flex-col justify-center items-center px-3 sm:px-4 md:px-[18px] py-2 sm:py-3 md:py-[12px] gap-2 w-[48px] sm:w-[54px] md:w-[61px] h-[48px] sm:h-[54px] md:h-[60px] bg-[rgba(17,17,17,0.1)] rounded-full flex-none order-1 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
                         >
                           <PlayIcon />
                         </button>
@@ -220,7 +222,7 @@ export default function CollectionSection({
                         {/* Eye/View Button */}
                         <button
                           onClick={() => handleViewClick(collection)}
-                          className='flex flex-col justify-center items-start px-[18px] py-[12px] gap-[10px] w-[61px] h-[60px] bg-[rgba(17,17,17,0.1)] rounded-[200px] flex-none order-2 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
+                          className='flex flex-col justify-center items-center px-3 sm:px-4 md:px-[18px] py-2 sm:py-3 md:py-[12px] gap-2 w-[48px] sm:w-[54px] md:w-[61px] h-[48px] sm:h-[54px] md:h-[60px] bg-[rgba(17,17,17,0.1)] rounded-full flex-none order-2 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
                         >
                           <EyeIcon />
                         </button>
