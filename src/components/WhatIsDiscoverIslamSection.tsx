@@ -56,13 +56,13 @@ export default function WhatIsDiscoverIslamSection() {
           viewport={{ once: true, amount: 0.4 }}
           variants={textVariants}
         >
-          <p className='text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
+          <p className='text-[18px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
             A dedicated initiative sharing the beauty, values, and teachings of
             Islam in a clear and authentic way. We build understanding, dispel
             misconceptions, and encourage meaningful dialogue between
             communities.
           </p>
-          <p className='mt-6 text-[24px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
+          <p className='mt-6 text-[18px] md:text-[28px] lg:text-[30px] leading-[30px] md:leading-[34px] lg:leading-[36px] text-[rgba(17,17,17,0.8)] font-[500]'>
             Over the years, we’ve become a trusted platform offering
             exhibitions, educational resources, and community programmes,
             reaching thousands locally and globally.
