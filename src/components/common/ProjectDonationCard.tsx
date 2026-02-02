@@ -48,7 +48,10 @@ export default function ProjectDonationCard({
       ? ['10', '15', '25', '50']
       : ['10', '15', '25', '50', '150', '750'];
 
-  const handleDonateNow = () => {
+  const handleDonateNow = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!isExpanded) {
       onExpand();
       return;
@@ -57,7 +60,10 @@ export default function ProjectDonationCard({
     // For one-off payments, redirect immediately
     if (paymentType === 'one-off') {
       setIsProcessing(true);
-      window.open(oneOffUrl, '_blank', 'noopener,noreferrer');
+      const absoluteUrl = oneOffUrl.startsWith('http')
+        ? oneOffUrl
+        : `https://${oneOffUrl}`;
+      window.open(absoluteUrl, '_blank', 'noopener,noreferrer');
       setTimeout(() => setIsProcessing(false), 1000);
       return;
     }
@@ -68,10 +74,12 @@ export default function ProjectDonationCard({
     }
 
     setIsProcessing(true);
-    const url = regularUrls[selectedAmount];
+    const url = regularUrls[selectedAmount as keyof typeof regularUrls];
 
     if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
+      // Ensure the URL is absolute
+      const absoluteUrl = url.startsWith('http') ? url : `https://${url}`;
+      window.open(absoluteUrl, '_blank', 'noopener,noreferrer');
     }
 
     setTimeout(() => setIsProcessing(false), 1000);
@@ -283,7 +291,7 @@ export default function ProjectDonationCard({
 
       {/* Donate Now Button */}
       <button
-        onClick={handleDonateNow}
+        onClick={e => handleDonateNow(e)}
         disabled={
           isProcessing ||
           (isExpanded && paymentType === 'regular' && !selectedAmount)

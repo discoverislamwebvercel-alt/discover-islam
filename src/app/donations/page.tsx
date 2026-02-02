@@ -7,55 +7,54 @@ import FundraisePage from '@/components/common/FundraisePage';
 import AnimatedJourneySection from '@/components/common/AnimatedJourneySection';
 import ProjectDonationCard from '@/components/common/ProjectDonationCard';
 
+// One-off payment URL (same for all cards)
+const ONE_OFF_URL = 'https://donate.stripe.com/28E7sN4AP9XXcG2crMe3e00';
+
+// Regular payment URLs
+// Literature card: 10, 15, 25, 50
+// School Visits & Exhibitions: 10, 15, 25, 50, 150, 750
+const LITERATURE_REGULAR_URLS = {
+  '10': 'https://pay.gocardless.com/BRT000459GQ48GC',
+  '15': 'https://pay.gocardless.com/BRT000459H8BEZ0',
+  '25': 'https://pay.gocardless.com/BRT000459HAA8P0',
+  '50': 'https://pay.gocardless.com/BRT000459HB28PQ',
+};
+
+const SCHOOL_EXHIBITION_REGULAR_URLS = {
+  '10': 'https://pay.gocardless.com/BRT000459GQ48GC',
+  '15': 'https://pay.gocardless.com/BRT000459H8BEZ0',
+  '25': 'https://pay.gocardless.com/BRT000459HAA8P0',
+  '50': 'https://pay.gocardless.com/BRT000459HB28PQ',
+  '150': 'https://pay.gocardless.com/BRT000459J7QSX6',
+  '750': 'https://pay.gocardless.com/BRT000459JCRH01',
+};
+
+const PROJECTS = [
+  {
+    title: 'School Visits',
+    description:
+      'Bring authentic, engaging lessons about Islam directly to classrooms. Your support funds travel, materials, and trained presenters who inspire curiosity and respect among young people.',
+    imageUrl: '/schools_hero_bg.jpg',
+    regularUrls: SCHOOL_EXHIBITION_REGULAR_URLS,
+  },
+  {
+    title: 'Exhibitions',
+    description:
+      'Support impactful exhibitions that open doors to dialogue and understanding through powerful visuals and meaningful interaction.',
+    imageUrl: '/Exhibitions_hero_bg.jpg',
+    regularUrls: SCHOOL_EXHIBITION_REGULAR_URLS,
+  },
+  {
+    title: 'Literature',
+    description:
+      'Help us share beautifully designed Islamic materials with schools and communities across the country, spreading knowledge and truth with clarity and care.',
+    imageUrl: '/Literature_hero_bg.jpg',
+    regularUrls: LITERATURE_REGULAR_URLS,
+  },
+];
+
 export default function DonationsPage() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
-  // One-off payment URL (same for all cards)
-  const oneOffUrl = 'https://donate.stripe.com/28E7sN4AP9XXcG2crMe3e00';
-
-  // Regular payment URLs
-  // Literature card: 10, 15, 25, 50
-  // School Visits & Exhibitions: 10, 15, 25, 50, 150, 750
-  const literatureRegularUrls = {
-    '10': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ3VGERGDXCQX1GTB9D6V3Q9Y&initial=/collect-customer-details',
-    '15': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ4Z6SNWE8E48JX8DEP18G82N&initial=/collect-customer-details',
-    '25': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ500SQ7036Q87Z34GZ6WG28X&initial=/collect-customer-details',
-    '50': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ50S3D8TE4X9GKTTCQ4B6QV3&initial=/collect-customer-details',
-  };
-
-  const schoolExhibitionRegularUrls = {
-    '10': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ3VGERGDXCQX1GTB9D6V3Q9Y&initial=/collect-customer-details',
-    '15': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ4Z6SNWE8E48JX8DEP18G82N&initial=/collect-customer-details',
-    '25': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ500SQ7036Q87Z34GZ6WG28X&initial=/collect-customer-details',
-    '50': 'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ50S3D8TE4X9GKTTCQ4B6QV3&initial=/collect-customer-details',
-    '150':
-      'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ52A6Z35SQ8H126RPJGTY8DN&initial=/collect-customer-details',
-    '750':
-      'https://pay.gocardless.com/billing/static/collect-customer-details?id=BRF01KCVQ5375H4BZCYPQ5C60NQZZJP2&initial=/collect-customer-details',
-  };
-
-  const projects = [
-    {
-      title: 'School Visits',
-      description:
-        'Bring authentic, engaging lessons about Islam directly to classrooms. Your support funds travel, materials, and trained presenters who inspire curiosity and respect among young people.',
-      imageUrl: '/schools_hero_bg.jpg',
-      regularUrls: schoolExhibitionRegularUrls,
-    },
-    {
-      title: 'Exhibitions',
-      description:
-        'Support impactful exhibitions that open doors to dialogue and understanding through powerful visuals and meaningful interaction.',
-      imageUrl: '/Exhibitions_hero_bg.jpg',
-      regularUrls: schoolExhibitionRegularUrls,
-    },
-    {
-      title: 'Literature',
-      description:
-        'Help us share beautifully designed Islamic materials with schools and communities across the country, spreading knowledge and truth with clarity and care.',
-      imageUrl: '/Literature_hero_bg.jpg',
-      regularUrls: literatureRegularUrls,
-    },
-  ];
 
   return (
     <>
@@ -130,7 +129,7 @@ export default function DonationsPage() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          {projects.map((project, index) => (
+          {PROJECTS.map((project, index) => (
             <motion.div
               key={project.title}
               className='w-full max-w-[432px]'
@@ -147,7 +146,7 @@ export default function DonationsPage() {
                 title={project.title}
                 description={project.description}
                 imageUrl={project.imageUrl}
-                oneOffUrl={oneOffUrl}
+                oneOffUrl={ONE_OFF_URL}
                 regularUrls={project.regularUrls}
                 isExpanded={expandedCard === project.title}
                 onExpand={() => setExpandedCard(project.title)}
