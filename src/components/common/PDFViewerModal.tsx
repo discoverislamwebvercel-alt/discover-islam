@@ -109,7 +109,7 @@ const PDFViewerModal = ({ isOpen, onClose, item }: PDFViewerModalProps) => {
                   <iframe
                     key={`pdf-${item.pdfUrl}-page-${currentPage}`}
                     ref={pdfRef}
-                    src={`${item.pdfUrl}#page=${currentPage}`}
+                    src={`${encodeURI(item.pdfUrl)}#page=${currentPage}`}
                     className='w-full h-full border-0'
                     title={`PDF Viewer - ${item.title}`}
                   />

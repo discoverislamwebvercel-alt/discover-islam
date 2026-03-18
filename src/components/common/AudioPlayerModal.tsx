@@ -291,7 +291,7 @@ const AudioPlayerModal = ({ isOpen, onClose, item }: AudioPlayerModalProps) => {
             {/* Hidden Audio Element */}
             <audio
               ref={audioRef}
-              src={item.audioUrl}
+              src={item.audioUrl ? encodeURI(item.audioUrl) : undefined}
               preload='metadata'
               onLoadedMetadata={e => {
                 const audio = e.currentTarget;

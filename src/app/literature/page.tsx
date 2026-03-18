@@ -186,75 +186,114 @@ export default function Literature() {
         items={[
           {
             id: 1,
-            title: 'Infinite Benefits of Fasting',
+            title: 'Fasting – Infinite Benefits of Fasting',
             description:
               'Explore the physical, spiritual, and emotional benefits of fasting — a practice that nurtures self-control, gratitude, and closeness to the Creator.',
             price: '£10',
             perItem: '/10-pack',
             image: '/Collection1.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Fasting \u2013 Infinite Benefits of Fasting.pdf',
+            audioUrl:
+              '/literature/audio/Brochures Audio Files /Fasting \u2013 Infinite Benefits of Fasting \u2013 Islamic Audio Brochures \u2013 Listen Learn Reflect\u200b.mp3',
           },
           {
             id: 2,
-            title: 'Understanding Islam',
+            title: 'Jesus – The Son of Mary',
             description:
-              'A comprehensive guide to the fundamental principles and teachings of Islam, designed to foster understanding and dispel misconceptions.',
+              'Discover the Islamic perspective on Jesus — a revered prophet, miracle worker, and messenger — through a lens of respect and clarity.',
             price: '£10',
             perItem: '/10-pack',
             image: '/Collection2.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Jesus \u2013 The Son of Mary.pdf',
+            audioUrl:
+              '/literature/audio/Brochures Audio Files /Jesus \u2013 The Son of Mary \u2013 Islamic Audio Brochures \u2013 Listen Learn Reflect\u200b.mp3',
           },
           {
             id: 3,
-            title: 'Islamic History',
+            title: 'Hijab – A Symbol of Freedom',
             description:
-              'Discover the rich history of Islamic civilization, from its origins to its contributions to science, culture, and human progress.',
+              'Challenge common misconceptions about the hijab and explore its spiritual significance as an expression of faith, dignity, and personal freedom.',
             price: '£10',
             perItem: '/10-pack',
             image: '/Collection1.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Hijab \u2013 A Symbol of Freedom.pdf',
+            audioUrl:
+              '/literature/audio/Brochures Audio Files /Hijab \u2013 A Symbol of Freedom \u2013 Islamic Audio Brochures \u2013 Listen Learn Reflect\u200b.mp3',
           },
           {
             id: 4,
-            title: 'Quran Studies',
+            title: 'Designer – What Does It Mean To Exist',
             description:
-              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+              'Reflect on the profound questions of existence, purpose, and design — and what they reveal about the Creator behind the universe.',
             price: '£10',
             perItem: '/10-pack',
             image: '/Collection2.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Designer  What Does It Mean To Exist.pdf',
+            audioUrl:
+              '/literature/audio/Brochures Audio Files /Designer \u2013 What Does It Mean To Exist. \u2013 Islamic Audio Brochures \u2013 Listen Learn Reflect\u200b.mp3',
           },
           {
             id: 5,
-            title: 'Quran Studies',
+            title: 'Equal Yet Different',
             description:
-              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+              'Explore how Islam honours the equality of men and women while celebrating their unique roles and complementary natures.',
             price: '£10',
             perItem: '/10-pack',
-            image: '/Collection2.png',
+            image: '/Collection1.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Equal Yet Different.pdf',
+            audioUrl:
+              '/literature/audio/Brochures Audio Files /Equal Yet Different \u2013 Islamic Audio Brochures \u2013 Listen Learn Reflect\u200b.mp3',
           },
           {
             id: 6,
-            title: 'Quran Studies',
+            title: 'Muhammad – Mercy to Mankind',
             description:
-              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+              'Learn about the life, character, and lasting legacy of Prophet Muhammad \uFDFA — a mercy sent to all of humanity.',
             price: '£10',
             perItem: '/10-pack',
             image: '/Collection2.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Muhammad \u2013 Mercy to Mankind.pdf',
+            audioUrl:
+              '/literature/audio/Brochures Audio Files /Muhammad \u2013 Mercy to Mankind \u2013 Islamic Audio Brochures \u2013 Listen Learn Reflect\u200b.mp3',
           },
           {
             id: 7,
-            title: 'Quran Studies',
+            title: 'Islam for a Better Life',
             description:
-              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+              'Discover how the principles of Islam guide believers toward a fulfilling, balanced, and purposeful life in every aspect.',
             price: '£10',
             perItem: '/10-pack',
-            image: '/Collection2.png',
+            image: '/Collection1.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Islam for a Better Life.pdf',
           },
           {
             id: 8,
-            title: 'Quran Studies',
+            title: 'A Message to You',
             description:
-              'An accessible introduction to the Quran, its teachings, and its relevance to modern life, perfect for both Muslims and non-Muslims.',
+              'A personal invitation to reflect on life\u2019s biggest questions and consider what Islam has to offer every human being.',
             price: '£10',
             perItem: '/10-pack',
             image: '/Collection2.png',
+            pdfUrl:
+              '/literature/brochure/PDF Brochures for Website - DI /Message to you.pdf',
+          },
+          {
+            id: 9,
+            title: 'Misconceptions About Islam',
+            description:
+              'Address the most common misconceptions about Islam with honest, well-researched, and balanced insights — the good, the bad, the truth.',
+            price: '£10',
+            perItem: '/10-pack',
+            image: '/Collection1.png',
+            audioUrl:
+              '/literature/audio/Brochures Audio Files /Misconceptions \u2013 Islam- The Good, The Bad, The Truth \u2013 Islamic Audio Brochures \u2013 Listen Learn Reflect\u200b.mp3',
           },
         ]}
       />
