@@ -37,6 +37,9 @@ export default function CollectionSection({
   const [isPDFModalOpen, setIsPDFModalOpen] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const isTransitioningRef = useRef(false);
+  const manualPauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const originalItems = items || [];
 
   // Create infinite loop by duplicating items multiple times
@@ -54,6 +57,53 @@ export default function CollectionSection({
   const [currentIndex, setCurrentIndex] = useState(() => {
     return itemsPerSet > 0 ? itemsPerSet : 0;
   });
+
+  const pauseAutoScrollTemporarily = () => {
+    setIsPaused(true);
+    if (manualPauseTimeoutRef.current) {
+      clearTimeout(manualPauseTimeoutRef.current);
+    }
+    manualPauseTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 10000);
+  };
+
+  const handlePrev = () => {
+    pauseAutoScrollTemporarily();
+    setCurrentIndex(prev => {
+      const prevIndex = prev - 1;
+      if (prevIndex < itemsPerSet) {
+        isTransitioningRef.current = true;
+        const target = itemsPerSet * 2 - 1;
+        requestAnimationFrame(() => {
+          setCurrentIndex(target);
+          setTimeout(() => {
+            isTransitioningRef.current = false;
+          }, 50);
+        });
+        return target;
+      }
+      return prevIndex;
+    });
+  };
+
+  const handleNext = () => {
+    pauseAutoScrollTemporarily();
+    setCurrentIndex(prev => {
+      const nextIndex = prev + 1;
+      if (nextIndex >= itemsPerSet * 2) {
+        isTransitioningRef.current = true;
+        requestAnimationFrame(() => {
+          setCurrentIndex(itemsPerSet);
+          setTimeout(() => {
+            isTransitioningRef.current = false;
+          }, 50);
+        });
+        return itemsPerSet;
+      }
+      return nextIndex;
+    });
+  };
 
   const handlePlayClick = (item: CollectionItem) => {
     setSelectedItem(item);
@@ -119,6 +169,14 @@ export default function CollectionSection({
     return () => clearInterval(interval);
   }, [collections.length, itemsPerSet, isPaused]);
 
+  useEffect(() => {
+    return () => {
+      if (manualPauseTimeoutRef.current) {
+        clearTimeout(manualPauseTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section
       id={id}
@@ -144,95 +202,145 @@ export default function CollectionSection({
         </motion.div>
 
         {/* Carousel Container */}
-        <div
-          className='overflow-hidden relative w-full min-h-[500px] sm:min-h-[550px] md:min-h-[630px]'
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div className='relative w-full h-full flex items-center'>
-            <div
-              ref={carouselRef}
-              className={`flex flex-row items-center gap-[14px] ${
-                isTransitioningRef.current
-                  ? ''
-                  : 'transition-transform duration-700 ease-in-out'
-              }`}
-              style={{
-                transform: `translateX(calc(50vw - ${currentIndex * (cardWidth + cardGap) + cardWidth / 2}px))`,
-              }}
-            >
-              {collections.map((collection, index) => (
-                <div
-                  key={`${collection.id}-${index}`}
-                  className='flex flex-col items-start gap-3 sm:gap-4 md:gap-[19px] flex-none w-[280px] sm:w-[320px] md:w-[397px]'
-                >
-                  {/* Image Container */}
-                  <div className='relative w-[280px] sm:w-[320px] md:w-[397px] h-[265px] sm:h-[300px] md:h-[375px] rounded-[16px] sm:rounded-[18px] md:rounded-[22.01px] overflow-hidden'>
-                    <Image
-                      src={collection.image}
-                      alt={collection.title}
-                      fill
-                      className='object-cover'
-                      sizes='397px'
-                    />
-                  </div>
-
-                  {/* Content Section */}
-                  <div className='flex flex-col items-start gap-4 sm:gap-5 md:gap-[27px] w-[280px] sm:w-[320px] md:w-[397px] flex-none self-stretch flex-grow-0'>
-                    {/* Title and Description */}
-                    <div className='flex flex-col items-start gap-1 w-full'>
-                      <h3 className='w-full font-bold text-lg sm:text-xl md:text-[24px] leading-tight tracking-[-0.03em] text-[rgba(17,17,17,0.9)]'>
-                        {collection.title}
-                      </h3>
-                      <p className='w-full font-normal text-sm sm:text-base md:text-[20px] leading-snug tracking-[-0.03em] text-[rgba(17,17,17,0.9)] line-clamp-3'>
-                        {collection.description}
-                      </p>
+        <div className='relative'>
+          <div
+            className='overflow-hidden w-full min-h-[500px] sm:min-h-[550px] md:min-h-[630px]'
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <div className='relative w-full h-full flex items-center'>
+              <div
+                ref={carouselRef}
+                className={`flex flex-row items-center gap-[14px] ${
+                  isTransitioningRef.current
+                    ? ''
+                    : 'transition-transform duration-700 ease-in-out'
+                }`}
+                style={{
+                  transform: `translateX(calc(50vw - ${currentIndex * (cardWidth + cardGap) + cardWidth / 2}px))`,
+                }}
+              >
+                {collections.map((collection, index) => (
+                  <div
+                    key={`${collection.id}-${index}`}
+                    className='flex flex-col items-start gap-3 sm:gap-4 md:gap-[19px] flex-none w-[280px] sm:w-[320px] md:w-[397px]'
+                  >
+                    {/* Image Container */}
+                    <div className='relative w-[280px] sm:w-[320px] md:w-[397px] h-[265px] sm:h-[300px] md:h-[375px] rounded-[16px] sm:rounded-[18px] md:rounded-[22.01px] overflow-hidden'>
+                      <Image
+                        src={collection.image}
+                        alt={collection.title}
+                        fill
+                        className='object-cover'
+                        sizes='397px'
+                      />
                     </div>
 
-                    {/* Price and Buttons */}
-                    <div className='flex flex-col items-start gap-3 sm:gap-4 md:gap-[15px] w-full'>
-                      {/* Price */}
-                      <p className='font-bold text-lg sm:text-xl md:text-[24px] leading-tight text-[#CB892A]'>
-                        {collection.price}{' '}
-                        <span className='text-sm sm:text-base md:text-[18px] leading-[100%] text-gray-400 font-semibold'>
-                          {collection.perItem}
-                        </span>
-                      </p>
+                    {/* Content Section */}
+                    <div className='flex flex-col items-start gap-4 sm:gap-5 md:gap-[27px] w-[280px] sm:w-[320px] md:w-[397px] flex-none self-stretch flex-grow-0'>
+                      {/* Title and Description */}
+                      <div className='flex flex-col items-start gap-1 w-full'>
+                        <h3 className='w-full font-bold text-lg sm:text-xl md:text-[24px] leading-tight tracking-[-0.03em] text-[rgba(17,17,17,0.9)]'>
+                          {collection.title}
+                        </h3>
+                        <p className='w-full font-normal text-sm sm:text-base md:text-[20px] leading-snug tracking-[-0.03em] text-[rgba(17,17,17,0.9)] line-clamp-3'>
+                          {collection.description}
+                        </p>
+                      </div>
 
-                      {/* Buttons Row */}
-                      <div className='flex flex-row items-start gap-2 w-full max-w-[302px]'>
-                        {/* Order Button */}
-                        <button
-                          onClick={collection.onOrderClick}
-                          className='flex flex-row justify-center items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-4 md:py-[18px] gap-2 w-auto sm:w-[140px] md:w-[164px] h-[48px] sm:h-[54px] md:h-[60px] bg-[#4C735D] rounded-[40px] sm:rounded-[46px] md:rounded-[52px] flex-none order-0 flex-grow-0 hover:bg-[#3d5c4a] transition-colors'
-                        >
-                          <span className='font-extrabold text-base sm:text-lg md:text-[20px] leading-tight text-white whitespace-nowrap'>
-                            Order
+                      {/* Price and Buttons */}
+                      <div className='flex flex-col items-start gap-3 sm:gap-4 md:gap-[15px] w-full'>
+                        {/* Price */}
+                        <p className='font-bold text-lg sm:text-xl md:text-[24px] leading-tight text-[#CB892A]'>
+                          {collection.price}{' '}
+                          <span className='text-sm sm:text-base md:text-[18px] leading-[100%] text-gray-400 font-semibold'>
+                            {collection.perItem}
                           </span>
-                        </button>
+                        </p>
 
-                        {/* Play Button */}
-                        <button
-                          onClick={() => handlePlayClick(collection)}
-                          className='flex flex-col justify-center items-center px-3 sm:px-4 md:px-[18px] py-2 sm:py-3 md:py-[12px] gap-2 w-[48px] sm:w-[54px] md:w-[61px] h-[48px] sm:h-[54px] md:h-[60px] bg-[rgba(17,17,17,0.1)] rounded-full flex-none order-1 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
-                        >
-                          <PlayIcon />
-                        </button>
+                        {/* Buttons Row */}
+                        <div className='flex flex-row items-start gap-2 w-full max-w-[302px]'>
+                          {/* Order Button */}
+                          <button
+                            onClick={collection.onOrderClick}
+                            className='flex flex-row justify-center items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-4 md:py-[18px] gap-2 w-auto sm:w-[140px] md:w-[164px] h-[48px] sm:h-[54px] md:h-[60px] bg-[#4C735D] rounded-[40px] sm:rounded-[46px] md:rounded-[52px] flex-none order-0 flex-grow-0 hover:bg-[#3d5c4a] transition-colors'
+                          >
+                            <span className='font-extrabold text-base sm:text-lg md:text-[20px] leading-tight text-white whitespace-nowrap'>
+                              Order
+                            </span>
+                          </button>
 
-                        {/* Eye/View Button */}
-                        <button
-                          onClick={() => handleViewClick(collection)}
-                          className='flex flex-col justify-center items-center px-3 sm:px-4 md:px-[18px] py-2 sm:py-3 md:py-[12px] gap-2 w-[48px] sm:w-[54px] md:w-[61px] h-[48px] sm:h-[54px] md:h-[60px] bg-[rgba(17,17,17,0.1)] rounded-full flex-none order-2 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
-                        >
-                          <EyeIcon />
-                        </button>
+                          {/* Play Button */}
+                          <button
+                            onClick={() => handlePlayClick(collection)}
+                            className='flex flex-col justify-center items-center px-3 sm:px-4 md:px-[18px] py-2 sm:py-3 md:py-[12px] gap-2 w-[48px] sm:w-[54px] md:w-[61px] h-[48px] sm:h-[54px] md:h-[60px] bg-[rgba(17,17,17,0.1)] rounded-full flex-none order-1 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
+                          >
+                            <PlayIcon />
+                          </button>
+
+                          {/* Eye/View Button */}
+                          <button
+                            onClick={() => handleViewClick(collection)}
+                            className='flex flex-col justify-center items-center px-3 sm:px-4 md:px-[18px] py-2 sm:py-3 md:py-[12px] gap-2 w-[48px] sm:w-[54px] md:w-[61px] h-[48px] sm:h-[54px] md:h-[60px] bg-[rgba(17,17,17,0.1)] rounded-full flex-none order-2 flex-grow-0 hover:bg-[rgba(17,17,17,0.15)] transition-colors'
+                          >
+                            <EyeIcon />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* Prev Button */}
+          <button
+            onClick={handlePrev}
+            aria-label='Previous'
+            className='absolute left-4 top-[42%] -translate-y-1/2 z-10 flex justify-center items-center w-[52px] h-[52px] rounded-full bg-white/90 border border-[rgba(17,17,17,0.12)] shadow-md hover:bg-[#408360] hover:border-[#408360] group transition-colors'
+          >
+            <svg
+              width='20'
+              height='20'
+              viewBox='0 0 20 20'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M12.5 15L7.5 10L12.5 5'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='text-[#111111] group-hover:text-white transition-colors'
+              />
+            </svg>
+          </button>
+
+          {/* Next Button */}
+          <button
+            onClick={handleNext}
+            aria-label='Next'
+            className='absolute right-4 top-[42%] -translate-y-1/2 z-10 flex justify-center items-center w-[52px] h-[52px] rounded-full bg-white/90 border border-[rgba(17,17,17,0.12)] shadow-md hover:bg-[#408360] hover:border-[#408360] group transition-colors'
+          >
+            <svg
+              width='20'
+              height='20'
+              viewBox='0 0 20 20'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M7.5 5L12.5 10L7.5 15'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='text-[#111111] group-hover:text-white transition-colors'
+              />
+            </svg>
+          </button>
         </div>
       </div>
 
